@@ -15,7 +15,10 @@ module.exports = {
     sourceType: "module",
   },
   plugins: ["react", "@typescript-eslint", "jest"],
-  rules: {},
+  rules: {
+    "no-unused-vars": "off",
+	  "@typescript-eslint/no-unused-vars": ["error"],
+  },
   settings: {
     "import/resolver": {
       node: {
