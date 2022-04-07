@@ -1,46 +1,209 @@
-# Getting Started with Create React App
+# はじめに
+- 環境構築がまだの方
+  - Windowsユーザの場合[こちら](#nodejs%E3%81%AE%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%AB%E3%81%AE%E5%B0%8E%E5%85%A5windows%E3%83%A6%E3%83%BC%E3%82%B6%E3%81%AE%E5%A0%B4%E5%90%88)から環境構築をしてください
+  - Macユーザの場合[こちら](#nodejs%E3%81%AE%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%AB%E3%81%AE%E5%B0%8E%E5%85%A5mac%E3%83%A6%E3%83%BC%E3%82%B6%E3%81%AE%E5%A0%B4%E5%90%88)から環境構築をしてください
+- 作業を始める方はこのまま読み進めてください
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 新しく作業を始める場合
+- 編集作業はブランチを切って始めます
 
-## Available Scripts
+```
+// mainブランチに切り替え
+> git checkout main
 
-In the project directory, you can run:
+// mainブランチになっているか確認
+> git status
+On branch main
+Your branch is up to date with 'origin/main'.
+...
 
-### `npm start`
+// mainブランチを最新の状態に更新
+> git pull origin main
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+// 新規ブランチの作成と切り替え(-bはブランチを新しく作りながら切り替えるというオプション)
+> git checkout -b feature/{ブランチ名}
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+// 現在の状態を確認
+> git status
+On branch feature/{ブランチ名}
+...
+```
 
-### `npm test`
+# 途中から作業を始める場合
+- 作業していたブランチに切り替えてから始めます
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+// ブランチを作業ブランチに切り替え
+> git checkout feature/{ブランチ名}
 
-### `npm run build`
+// ブランチが切り替わったことを確認
+> git status
+On branch feature/{ブランチ名}
+...
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+// 作業開始
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# 動作確認
+- ローカルサーバーを起動させてブラウザから動作確認できます
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+// ローカルサーバーの起動
+> yarn start
+ => ブラウザからlocalhost:3000にアクセス
 
-### `npm run eject`
+// storybookの起動
+> yarn storybook
+ => ブラウザからlocalhost:6006にアクセス
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# 作業が全て完了したらする事
+- 作業が完了したらフォーマットを確認してcommitとpushをします。
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+// フォーマットの確認（エラーが出たら修正してください）
+> yarn fixall
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+// 反映するファイルを追加（必要なファイルだけ追加します）
+> git add ファイル名
+// もし全ファイル追加する場合は以下のコマンドでもＯＫ
+> git add .
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+// commit
+> git commit -m "コメント（何を反映したのかを書く）"
 
-## Learn More
+// push
+> git push origin feature/{ブランチ名}
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- pushまで完了したらgithubにアクセスしてPull Request（PR）を出しましょう。
+- PRでやること
+  - タイトルを書く
+  - 変更内容を書く
+  - 更にスクロールしてコンフリクト（編集被り）していないか確認する
+    - コンフリクトしている場合はコンフリクトを解消
+  - PRを作成したら誰かにレビューをお願いする
+  - レビューとCIチェックが完了したらマージ
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# 環境構築
+## Node.jsのバージョン管理ツールの導入(Windowsユーザの場合)
+### 事前準備
+- node.jsを既にインストールしている場合は一度アンインストールしてください。
+
+### nodistの導入
+- [こちら](https://github.com/nullivex/nodist/releases)からNodistSetup-vx.x.x.exeをダウンロード
+- （xにはバージョンが入ります。今回は v0.9.1 をダウンロードしました。）
+
+### いろいろインストール
+- Node.js のインストール
+
+```
+> nodist + 16.11.0
+> nodist 16.11.0
+```
+
+- npm のバージョン合わせ
+
+```
+> nodist npm match
+```
+
+- yarn のインストール
+
+```
+npm install -g yarn
+```
+
+### 完了したら
+- [こちら](#%E7%A2%BA%E8%AA%8D)から環境を確認
+
+### その他、nodist関連でエラーが出た場合
+- PATH not updated, original length x > 1024 が出た時
+  - 環境変数に C:\Program Files (x86)\Nodist\bin を追加しましょう．
+- cb.apply is not a function が出た時
+  - nodist npm match を実行しましょう。
+
+## Node.jsのバージョン管理ツールの導入(Macユーザの場合)
+既にインストール済みのものがある場合は適宜読み飛ばしてください
+- 詳細が知りたい場合やエラーが出た場合は参考サイトを参照
+  - https://qiita.com/kyosuke5_20/items/eece817eb283fc9d214f
+
+### Homebrewをインストール
+- 以下を実行
+
+```
+> /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+### anyenvをインストール
+
+```
+> brew install anyenv
+> anyenv init
+```
+
+- anyenv initでエラーが出た場合は`~/.zshrc`に以下を追記
+
+```
+# anyenvの環境構築 - Qiita https://qiita.com/282Haniwa/items/71a48a10952413416d18
+export PATH="$HOME/.anyenv/bin:$PATH"
+eval "$(anyenv init -)"
+```
+
+- 追記後はzshrcを再読み込みしてinitする
+
+```
+// 再読み込み
+> source ~/.zshrc
+// anyenvのinit
+> anyenv install --init
+```
+
+### その他インストール
+- 以下を実行
+
+```
+// nodenvをインストール
+> anyenv install nodenv
+
+// node.jsのインストール
+> nodenv install 16.11.0
+
+// npmのバージョン合わせ
+> nodist npm match
+
+// yarnのインストール
+> npm install -g yarn
+```
+
+### 完了したら
+- [こちら](#%E7%A2%BA%E8%AA%8D)から環境を確認
+
+# 確認
+- Windows・Macでの環境構築が終了したらこちらを実行して正しく構築できたかを確認してください。
+
+```
+> node -v
+v16.11.0
+> npm -v
+8.0.0    // バージョンが異なる場合があります
+> yarn -v
+1.22.17  // バージョンが異なる場合があります
+> git --version
+git version 2.33.0.windows.2  // バージョンが異なる場合があります
+```
+
+# ダウンロードとパッケージのインストール
+- 以下を実行（作業したいディレクトリで実行してください）
+
+```
+// リポジトリのダウンロード
+> git clone https://github.com/RyoheyMeeting/ryoheymeeting_front.git
+// パッケージのインストール
+> yarn
+```
+
+# その他、作業効率を高めるには
+- VSCodeおすすめです
+- VSCodeのおすすめパッケージ
+  - vscode-styled-components
