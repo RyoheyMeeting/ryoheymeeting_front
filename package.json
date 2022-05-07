@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.16.7",
     "@reduxjs/toolkit": "^1.8.0",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.4",
@@ -19,8 +20,10 @@
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
+    "react-svg": "^14.1.18",
     "redux": "^4.1.2",
     "redux-thunk": "^2.4.1",
+    "ress": "^5.0.2",
     "styled-components": "^5.3.3",
     "typescript": "^4.6.2",
     "web-vitals": "^2.1.4"
@@ -36,7 +39,10 @@
     "format:fix": "prettier --write src/**/*.{jsx,js,tsx,ts,css,scss,md,json}",
     "fixall": "eslint --fix src/**/*.{jsx,js,tsx,ts} && prettier --write src/**/*.{jsx,js,tsx,ts,css,scss,md,json}",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "icon:help": "node commands/IconImporter/IconImporter.js -h",
+    "icon:import": "node commands/IconImporter/IconImporter.js -s src/components/icons/ -i",
+    "icon:importAll": "node commands/IconImporter/IconImporter.js -s src/components/icons/"
   },
   "eslintConfig": {
     "extends": [
@@ -67,17 +73,16 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.16.7",
-    "@storybook/addon-actions": "^6.4.20",
-    "@storybook/addon-essentials": "^6.4.20",
-    "@storybook/addon-interactions": "^6.4.20",
-    "@storybook/addon-links": "^6.4.20",
-    "@storybook/builder-webpack5": "^6.4.20",
-    "@storybook/manager-webpack5": "^6.4.20",
-    "@storybook/node-logger": "^6.4.20",
+    "@storybook/addon-actions": "^6.4.22",
+    "@storybook/addon-essentials": "^6.4.22",
+    "@storybook/addon-interactions": "^6.4.22",
+    "@storybook/addon-links": "^6.4.22",
+    "@storybook/builder-webpack5": "^6.4.22",
+    "@storybook/manager-webpack5": "^6.4.22",
+    "@storybook/node-logger": "^6.4.22",
     "@storybook/preset-create-react-app": "^4.1.0",
-    "@storybook/react": "^6.4.20",
-    "@storybook/testing-library": "^0.0.9",
+    "@storybook/react": "^6.4.22",
+    "@storybook/testing-library": "^0.0.11",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-jest": "^26.1.1",
     "eslint-plugin-prettier": "^4.0.0",
