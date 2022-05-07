@@ -1,13 +1,13 @@
 import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Psyco } from "./index";
+import { Psycho } from "./index";
 
 export default {
-  title: "Icons/Psyco",
-  component: Psyco,
-} as ComponentMeta<typeof Psyco>;
+  title: "Icons/Psycho",
+  component: Psycho,
+} as ComponentMeta<typeof Psycho>;
 
-const Template: ComponentStory<typeof Psyco> = (args) => <Psyco {...args} />;
+const Template: ComponentStory<typeof Psycho> = (args) => <Psycho {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

@@ -3,8 +3,8 @@ import { IconPrototype, IconsDir } from "./components/IconPrototype/IconPrototyp
 
 type Props = Omit<ComponentProps<typeof IconPrototype>, "filename">;
 
-const Psyco: React.FC<Props> = ({ ...props }) => {
-  return <IconPrototype filename={`${IconsDir()}/psyco.svg`} {...props} />;
+const Psycho: React.FC<Props> = ({ ...props }) => {
+  return <IconPrototype filename={`${IconsDir()}/psycho.svg`} {...props} />;
 };
 
-export default Psyco;
+export default Psycho;
