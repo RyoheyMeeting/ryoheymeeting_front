@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   "stories": [
     "../src/**/*.stories.mdx",
@@ -15,5 +17,12 @@ module.exports = {
   },
   "features": {
     "storyStoreV7": "true",
-  }
+  },
+  "webpackFinal": async (baseConfig) => {
+    baseConfig.resolve.modules = [
+      ...(baseConfig.resolve.modules || []),
+      path.resolve(__dirname, '../src/'),
+    ]
+    return baseConfig
+  },
 }
