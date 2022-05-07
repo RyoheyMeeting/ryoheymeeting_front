@@ -4,20 +4,20 @@ import { MessageStyle, MessageStyleProps } from "./MessageStyle";
 
 type Props = MessageStyleProps & {
   value: string;
-  stamp?: React.ComponentType<Stamp>;
+  stamp?: React.ReactElement<Stamp>;
 };
 
 export const Message: React.FC<Props> = ({ value, stamp, ...styleProps }) => {
   return (
     <MessageStyle {...styleProps}>
-      <div className="container_main">
-        {stamp}
-        <div className="container_message">{value}</div>
-      </div>
       <div className="container_polygon">
-        <svg className="polygon" viewBox="0 0 200 173">
-          <path d="M100 0 L0 173 L200 173 Z" />
+        <svg className="polygon" viewBox="0 0 200 200">
+          <path d="M100 27 L0 200 L200 200 Z" />
         </svg>
+      </div>
+      <div className="container_main">
+        <div className="container_message">{value}</div>
+        {stamp}
       </div>
     </MessageStyle>
   );
