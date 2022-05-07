@@ -13,4 +13,7 @@ export const DefaultTheme = {
     bg: GRAY_10,
     shadow: LARGE_SHADOW,
   },
+  ONAIR: {
+    font: GRAY_10,
+  },
 };
