@@ -1,8 +1,9 @@
 import styled, { css } from "styled-components";
+import { Properties } from "csstype";
 import { FlexGap } from "styles/FlexGap/FlexGap";
 
 export type MessageStyleProps = {
-  hugContents: boolean;
+  maxWidth?: Properties["maxWidth"];
 };
 
 const defaultStyle = css`
@@ -10,23 +11,25 @@ const defaultStyle = css`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  max-width: 350px;
-  width: 350px;
   padding: 0px;
 
   .container_main {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
     padding: 10px;
     ${FlexGap({ gap: "10px", direction: "row" })}
 
     background: ${({ theme }) => theme.message.bg};
     border-radius: 16px;
 
-    flex: none;
     order: 1;
     flex-grow: 1;
+
+    & > * {
+      flex-shrink: 0;
+      flex-grow: 0;
+    }
   }
 
   .container_message {
@@ -36,11 +39,9 @@ const defaultStyle = css`
     align-items: flex-start;
     padding: 0px;
 
-    overflow-wrap: break-word;
-
-    flex: none;
     order: 0;
     align-self: stretch;
+    flex-shrink: 1;
     flex-grow: 1;
   }
 
@@ -65,15 +66,14 @@ const defaultStyle = css`
   }
 `;
 
-const hugContentsStyle = css`
-  display: inline-flex;
-  width: auto;
+const withMaxWidthStyle = css<MessageStyleProps>`
+  max-width: ${({ maxWidth }) => maxWidth};
 `;
 
 export const MessageStyle = styled.div<MessageStyleProps>`
   ${defaultStyle}
 
-  ${({ hugContents }) => hugContents && hugContentsStyle}
+  ${({ maxWidth }) => maxWidth && withMaxWidthStyle}
 `;
 
 MessageStyle.defaultProps = {};

@@ -1,13 +1,14 @@
 import React from "react";
-import { Stamp } from "services/Stamps/Stamps";
+import { Stamp } from "components/Stamp/Stamp";
 import { MessageStyle, MessageStyleProps } from "./MessageStyle";
 
 type Props = MessageStyleProps & {
   value: string;
-  stamp?: React.ReactElement<Stamp>;
+  Stamp?: React.ComponentType<React.ComponentProps<typeof Stamp>>;
+  stampProps?: React.ComponentProps<typeof Stamp>;
 };
 
-export const Message: React.FC<Props> = ({ value, stamp, ...styleProps }) => {
+export const Message: React.FC<Props> = ({ value, Stamp, stampProps, ...styleProps }) => {
   return (
     <MessageStyle {...styleProps}>
       <div className="container_polygon">
@@ -17,7 +18,7 @@ export const Message: React.FC<Props> = ({ value, stamp, ...styleProps }) => {
       </div>
       <div className="container_main">
         <div className="container_message">{value}</div>
-        {stamp}
+        {Stamp && <Stamp {...stampProps} size="M" active={true} />}
       </div>
     </MessageStyle>
   );

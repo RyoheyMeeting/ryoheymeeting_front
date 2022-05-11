@@ -3,6 +3,7 @@ import { ReactSVG } from "react-svg";
 import styled from "styled-components";
 
 export const IconsDir = () => "icons";
+export type IconProps = Omit<ComponentProps<typeof IconPrototype>, "filename">;
 
 type IconStyleProps = {
   display?: "inline-block" | "block";
