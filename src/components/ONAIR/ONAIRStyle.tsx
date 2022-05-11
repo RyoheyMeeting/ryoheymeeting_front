@@ -11,6 +11,7 @@ const defaultStyle = css`
   padding: 4px 36px;
 
   background-color: ${({ theme }) => theme.global.main};
+  border-radius: 4px;
 
   font-weight: ${FONT_WEIGHT.BOLD};
   font-size: ${FONT_SIZE.STRONG};
