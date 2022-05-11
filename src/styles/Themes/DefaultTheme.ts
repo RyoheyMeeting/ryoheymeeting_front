@@ -5,6 +5,7 @@ export const DefaultTheme = {
     base: GRAY_20,
     main: ORANGE_50,
     font: GRAY_90,
+    negative: GRAY_10,
   },
   stamp: {
     deactive: GRAY_50,

@@ -14,8 +14,7 @@ const Template: ComponentStory<typeof ReactionBubble> = (args) => <ReactionBubbl
 
 export const Default = Template.bind({});
 Default.args = {
-  icon: <Tyottomate fill="white" /*size="サイズ変えろpx"*/ />,
-  //TODO：透明度反映しろ
+  Icon: Tyottomate,
   reactionType: "mate",
   size: "100px",
 };
@@ -23,7 +22,7 @@ Default.args = {
 export const TyottomateActive = Template.bind({});
 TyottomateActive.args = {
   ...Default.args,
-  icon: <Tyottomate fill="white" />,
+  Icon: Tyottomate,
   reactionType: "mate",
   size: "200px",
 };
@@ -31,7 +30,7 @@ TyottomateActive.args = {
 export const pschoActive = Template.bind({});
 pschoActive.args = {
   ...Default.args,
-  icon: <Psycho fill="white" />,
+  Icon: Psycho,
   reactionType: "psycho",
   size: "250px",
 };
@@ -39,7 +38,7 @@ pschoActive.args = {
 export const IineActive = Template.bind({});
 IineActive.args = {
   ...Default.args,
-  icon: <Iine fill="white" />,
+  Icon: Iine,
   reactionType: "iine",
   size: "300px",
 };
