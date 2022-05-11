@@ -31,4 +31,7 @@ export const DefaultTheme = {
   ONAIR: {
     font: GRAY_10,
   },
+  messageNotification: {
+    bg: GRAY_50,
+  },
 };
