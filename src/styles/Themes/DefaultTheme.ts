@@ -15,6 +15,7 @@ export const DefaultTheme = {
   },
   toggle: {
     icon: GRAY_10,
+  },
   ONAIR: {
     font: GRAY_10,
   },
