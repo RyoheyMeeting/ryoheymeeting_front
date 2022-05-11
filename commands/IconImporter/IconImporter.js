@@ -7,7 +7,6 @@ prettierrc["parser"] = "babel-ts";
 
 const fileRule = /^[a-zA-Z0-9_]+\.svg$/;
 const groupedFileRule = /^([a-zA-Z0-9_]+)\.(svg)$/;
-const storyFileRule = /^.*\.stories\.[(ts)|(tsx)|(js)|(jsx)]$/;
 
 const argv = yargs
   .locale("en")

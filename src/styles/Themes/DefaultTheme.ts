@@ -24,4 +24,7 @@ export const DefaultTheme = {
       bg: RED_40,
     },
   },
+  ONAIR: {
+    font: GRAY_10,
+  },
 };
