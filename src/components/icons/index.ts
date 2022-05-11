@@ -10,7 +10,7 @@ export { default as Iine } from "./Iine";
 export { default as LogoContent } from "./LogoContent";
 export { default as Mute } from "./Mute";
 export { default as Pen } from "./Pen";
-export { default as Psyco } from "./Psyco";
+export { default as Psycho } from "./Psycho";
 export { default as Question } from "./Question";
 export { default as ShoppingCart } from "./ShoppingCart";
 export { default as SignOut } from "./SignOut";
