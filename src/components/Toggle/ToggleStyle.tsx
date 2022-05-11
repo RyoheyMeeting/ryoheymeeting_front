@@ -1,4 +1,5 @@
-import styled, { css } from "styled-components";
+import { IconProps } from "components/icons/components/IconPrototype/IconPrototype";
+import styled, { css, useTheme } from "styled-components";
 
 export type ToggleStyleProps = {};
 
@@ -13,7 +14,6 @@ const defaultStyle = css`
   /* main */
   background-color: ${({ theme }) => theme.global.main}; //背景色の引用指定
   border-radius: 8px 0px 0px 8px;
-  fill: white;
 `;
 
 export const ToggleStyle = styled.div<ToggleStyleProps>`
@@ -21,3 +21,11 @@ export const ToggleStyle = styled.div<ToggleStyleProps>`
 `;
 
 ToggleStyle.defaultProps = {};
+
+export const IconStyleProps: (props: ToggleStyleProps) => IconProps = () => {
+  const theme = useTheme();
+  return {
+    fill: theme.toggle.icon,
+    size: "24px",
+  };
+};

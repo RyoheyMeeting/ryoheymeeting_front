@@ -13,5 +13,5 @@ const Template: ComponentStory<typeof Toggle> = (args) => <Toggle {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  icon: <Pen fill="white" />,
+  Icon: Pen,
 };

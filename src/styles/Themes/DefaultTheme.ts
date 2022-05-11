@@ -13,4 +13,7 @@ export const DefaultTheme = {
     bg: GRAY_10,
     shadow: LARGE_SHADOW,
   },
+  toggle: {
+    icon: GRAY_10,
+  },
 };
