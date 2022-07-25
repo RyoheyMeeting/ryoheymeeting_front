@@ -33,6 +33,8 @@ export type IResponse = {
   };
   sendReactionBtn: ButtonOpts;
   sendMessageBtn: ButtonOpts;
+  toggleBtn: ButtonOpts;
+  messageWindowClass: string;
 };
 
 export const useAudiencePanelState = (): IResponse => {
@@ -42,6 +44,7 @@ export const useAudiencePanelState = (): IResponse => {
   const [stampId, setStampId] = useState<string>();
   const [strength, setStrength] = useState(0);
   const [message, setMessage] = useState("");
+  const [mwIsOpen, setMwIsOpen] = useState<boolean>(false);
 
   const _changeStampIdHandler = useCallback((value: string) => {
     setStampId(value);
@@ -81,6 +84,10 @@ export const useAudiencePanelState = (): IResponse => {
     }
   }, [userId, stampId, message, addMessageReaction]);
 
+  const _toggleBtnHandler = useCallback(() => {
+    setMwIsOpen(!mwIsOpen);
+  }, [mwIsOpen]);
+
   return {
     plainReactions: realtimeGrandPrix.plainReactions,
     messageReactions: realtimeGrandPrix.messageReactions,
@@ -107,5 +114,9 @@ export const useAudiencePanelState = (): IResponse => {
       disabled: !stampId || message == "",
       handler: _sendMessageReaction,
     },
+    toggleBtn: {
+      handler: _toggleBtnHandler,
+    },
+    messageWindowClass: mwIsOpen ? "open" : "",
   };
 };

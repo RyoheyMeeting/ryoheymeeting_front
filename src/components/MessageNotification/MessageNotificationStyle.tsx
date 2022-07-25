@@ -12,7 +12,7 @@ const defaultStyle = css`
   width: 664px;
   height: 176px;
 
-  .container_main {
+  .messagenotification_container_main {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -26,7 +26,7 @@ const defaultStyle = css`
     }
   }
 
-  .container_usermessage {
+  .messagenotification_container_usermessage {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -39,7 +39,7 @@ const defaultStyle = css`
     flex-shrink: 1;
   }
 
-  .container_user {
+  .messagenotification_container_user {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -52,7 +52,7 @@ const defaultStyle = css`
     flex-grow: 0;
   }
 
-  .container_message {
+  .messagenotification_container_message {
     display: flex;
     flex-direction: column;
     justify-content: center;

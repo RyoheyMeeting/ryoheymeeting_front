@@ -13,6 +13,8 @@ const defaultStyle = css`
     height: 100%;
     object-fit: cover;
     mix-blend-mode: multiply;
+    user-select: none;
+    -webkit-user-drag: none;
   }
 `;
 

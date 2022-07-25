@@ -1,5 +1,6 @@
-import { useSelector } from "react-redux";
-import { GrandPrix } from "services/GrandPrixes/GrandPrixes";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { GrandPrix, reloadGrandPrixesAsync } from "services/GrandPrixes/GrandPrixes";
 import { RootState } from "store";
 import { Dict } from "Types/Utils";
 
@@ -10,6 +11,11 @@ export type IResponse = {
 
 export const useGrandPrixListState = (): IResponse => {
   const { grandPrixes } = useSelector((state: RootState) => state.grandPrixes);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(reloadGrandPrixesAsync());
+  }, []);
 
   return {
     grandPrixes: grandPrixes,

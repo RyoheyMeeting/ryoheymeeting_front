@@ -16,7 +16,7 @@ const defaultStyle = css`
   border-radius: 8px 0px 0px 8px;
 `;
 
-export const ToggleStyle = styled.div<ToggleStyleProps>`
+export const ToggleStyle = styled.button<ToggleStyleProps>`
   ${defaultStyle}
 `;
 

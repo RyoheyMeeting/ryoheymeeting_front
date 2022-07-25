@@ -6,6 +6,7 @@ export const FONT = {
 export const FONT_WEIGHT = {
   REGULAR: 400,
   BOLD: 700,
+  BLACK: 900,
 };
 
 export const FONT_SIZE = {
@@ -13,4 +14,5 @@ export const FONT_SIZE = {
   SMALL: "1.2rem",
   MEDIUM: "2.2rem",
   STRONG: "2.2rem",
+  COMMAND_TEXT: "4.8rem",
 };

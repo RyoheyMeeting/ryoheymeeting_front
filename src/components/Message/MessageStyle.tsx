@@ -12,8 +12,10 @@ const defaultStyle = css`
   justify-content: center;
   align-items: center;
   padding: 0px;
+  color: ${({ theme }) => theme.global.font};
+  filter: drop-shadow(${({ theme }) => theme.message.shadow});
 
-  .container_main {
+  .message_container_main {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -32,7 +34,7 @@ const defaultStyle = css`
     }
   }
 
-  .container_message {
+  .message_container_message {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -45,7 +47,7 @@ const defaultStyle = css`
     flex-grow: 1;
   }
 
-  .container_polygon {
+  .message_container_polygon {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -58,7 +60,7 @@ const defaultStyle = css`
     flex-grow: 0;
   }
 
-  .polygon {
+  .message_polygon {
     width: 15px;
     height: 15px;
     transform: rotate(-90deg);

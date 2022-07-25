@@ -25,13 +25,13 @@ export const MessageNotification: React.FC<Props> = ({
 }) => {
   return (
     <MessageNotificationStyle {...styleProps}>
-      <div className="container_main">
-        <div className="container_usermessage">
-          <div className="container_user">
+      <div className="messagenotification_container_main">
+        <div className="messagenotification_container_usermessage">
+          <div className="messagenotification_container_user">
             <UserIcon {...userIconProps} {...UserIconStyleProps(styleProps)} />
             {userName}
           </div>
-          <div className="container_message">{message}</div>
+          <div className="messagenotification_container_message">{message}</div>
         </div>
         <Stamp {...stampProps} {...StampStyleProps(styleProps)} />
       </div>
