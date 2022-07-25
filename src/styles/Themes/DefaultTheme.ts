@@ -63,4 +63,8 @@ export const DefaultTheme = {
       bg: GRAY_60,
     },
   },
+  nextPresenter: {
+    bg: GRAY_90,
+    font: GRAY_10,
+  },
 };
