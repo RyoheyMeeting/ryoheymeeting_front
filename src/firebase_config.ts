@@ -29,9 +29,9 @@ export const getIdToken = async () => {
 };
 
 // 開発中はエミュレータにアクセス
-if(Config.isDev) {
+if (Config.isDev) {
   const emuConf = Config.emulator;
-  if(emuConf.host){
+  if (emuConf.host) {
     connectAuthEmulator(_auth, `http://${emuConf.host}:${emuConf.ports.authentication}`);
     connectDatabaseEmulator(_db, emuConf.host, emuConf.ports.database);
     connectFirestoreEmulator(_store, emuConf.host, emuConf.ports.firestore);
