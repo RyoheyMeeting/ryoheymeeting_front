@@ -16,3 +16,7 @@ export const max = (a: number, b: number): number => {
   if (a > b) return a;
   else return b;
 };
+
+export const dateToTime = (date: Date): string => {
+  return date.toISOString().slice(14, 19);
+};

@@ -16,4 +16,5 @@ export { default as ShoppingCart } from "./ShoppingCart";
 export { default as SignOut } from "./SignOut";
 export { default as Stamp } from "./Stamp";
 export { default as Tyottomate } from "./Tyottomate";
+export { default as VolumeSlash } from "./VolumeSlash";
 export { default as VolumeUp } from "./VolumeUp";

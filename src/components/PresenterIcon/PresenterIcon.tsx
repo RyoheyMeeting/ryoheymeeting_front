@@ -1,4 +1,5 @@
 import React from "react";
+import { dateToTime } from "Utils/funcs";
 import { usePresenterIconState } from "./hooks/usePresenterIconState";
 import { PresenterIconStyle, PresenterIconStyleProps } from "./PresenterIconStyle";
 
@@ -28,7 +29,7 @@ export const PresenterIcon: React.FC<Props> = ({
         <span className="presenter_label">Presenter</span>
         <span className="presenter_name">{presenterName}</span>
         <div className="presenter_spacer" />
-        <div className="presenter_container_timer">{remainTime.toISOString().slice(14, 19)}</div>
+        <div className="presenter_container_timer">{dateToTime(remainTime)}</div>
       </div>
       <svg viewBox="0 0 100 100" className="circle">
         <circle className="presenter_bg_line" cx="50" cy="50" r="49.8" />

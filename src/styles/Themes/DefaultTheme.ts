@@ -8,6 +8,7 @@ import {
   ORANGE_50,
   RED_40,
   YELLOW_40,
+  GRAY_60,
 } from "styles/colors";
 
 export const DefaultTheme = {
@@ -47,5 +48,19 @@ export const DefaultTheme = {
   presenterIcon: {
     bg: GRAY_90,
     timerBg: GRAY_50,
+  },
+  actionButton: {
+    ready: {
+      font: GRAY_10,
+      bg: GRAY_90,
+    },
+    doing: {
+      font: GRAY_10,
+      bg: ORANGE_50,
+    },
+    disabled: {
+      font: GRAY_50,
+      bg: GRAY_60,
+    },
   },
 };

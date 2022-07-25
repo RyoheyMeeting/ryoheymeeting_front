@@ -7,6 +7,7 @@ export const GRAY_30 = "#E1E1E1";
 export const GRAY_40 = "#D4D4D4";
 export const GRAY_50 = "#B4B4B4";
 export const GRAY_55 = "#9E9E9E";
+export const GRAY_60 = "#858585";
 export const GRAY_80 = "#383838";
 export const GRAY_90 = "#252525";
 export const GRAY_100 = "#111111";
