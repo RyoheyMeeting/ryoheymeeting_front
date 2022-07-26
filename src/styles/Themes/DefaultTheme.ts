@@ -67,4 +67,9 @@ export const DefaultTheme = {
     bg: GRAY_90,
     font: GRAY_10,
   },
+  backLink: {
+    white: {
+      font: GRAY_10,
+    },
+  },
 };
