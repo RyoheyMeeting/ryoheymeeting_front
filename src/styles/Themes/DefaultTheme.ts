@@ -73,4 +73,7 @@ export const DefaultTheme = {
       font: GRAY_10,
     },
   },
+  stampMessage: {
+    bg: GRAY_90,
+  },
 };
