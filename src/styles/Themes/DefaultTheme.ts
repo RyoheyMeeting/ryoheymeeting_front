@@ -9,6 +9,10 @@ import {
   RED_40,
   YELLOW_40,
   GRAY_60,
+  BLUE_GRAY_90,
+  BLUE_GRAY_70,
+  RED_30,
+  GRAY_100,
 } from "styles/colors";
 
 export const DefaultTheme = {
@@ -75,5 +79,19 @@ export const DefaultTheme = {
   },
   stampMessage: {
     bg: GRAY_90,
+  },
+  reactionMeter: {
+    meterBg: BLUE_GRAY_90,
+    bg: BLUE_GRAY_70,
+    border: GRAY_100,
+    psycho: {
+      meter: YELLOW_40,
+    },
+    wait: {
+      meter: LIGHTBLUE_40,
+    },
+    good: {
+      meter: RED_30,
+    },
   },
 };
