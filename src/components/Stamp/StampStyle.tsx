@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 
 export type StampStyleProps = {
   size?: "SS" | "S" | "M" | "L" | "XL";
+  color?: "orange" | "black";
   active?: boolean;
 };
 
@@ -14,6 +15,14 @@ const defaultStyle = css`
     object-fit: cover;
     mix-blend-mode: multiply;
   }
+`;
+
+const orangeStyle = css`
+  background-color: ${({ theme }) => theme.global.main};
+`;
+
+const blackStyle = css`
+  background-color: ${({ theme }) => theme.stamp.black};
 `;
 
 const ssStyle = css`
@@ -71,8 +80,9 @@ const xlStyle = css`
   }
 `;
 
-const activeStyle = css`
-  background-color: ${({ theme }) => theme.global.main};
+const activeStyle = css<StampStyleProps>`
+  ${({ color }) => color == "orange" && orangeStyle}
+  ${({ color }) => color == "black" && blackStyle}
 
   .stamp_image {
     mix-blend-mode: normal;
@@ -93,5 +103,6 @@ export const StampStyle = styled.div<StampStyleProps>`
 
 StampStyle.defaultProps = {
   size: "M",
+  color: "orange",
   active: true,
 };

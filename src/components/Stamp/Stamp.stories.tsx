@@ -16,6 +16,7 @@ Default.args = {
   stampUrl: "/img/stamp_example.png",
   size: "M",
   active: true,
+  color: "orange",
 };
 
 export const SSActive = Template.bind({});
@@ -31,10 +32,11 @@ SDeactive.args = {
   active: false,
 };
 
-export const M = Template.bind({});
-M.args = {
+export const MBlack = Template.bind({});
+MBlack.args = {
   ...Default.args,
   size: "M",
+  color: "black",
 };
 
 export const L = Template.bind({});

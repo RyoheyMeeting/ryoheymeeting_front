@@ -20,6 +20,7 @@ export const DefaultTheme = {
   },
   stamp: {
     deactive: GRAY_50,
+    black: GRAY_90,
   },
   message: {
     bg: GRAY_10,
