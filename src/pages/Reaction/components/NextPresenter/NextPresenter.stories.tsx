@@ -17,6 +17,6 @@ Default.args = {
 
 export const LongSentence = Template.bind({});
 LongSentence.args = {
-  ...Default,
+  ...Default.args,
   introduction: "歴史上の人物を模倣し、全てにおいて完璧人間となったあの人？！",
 };
