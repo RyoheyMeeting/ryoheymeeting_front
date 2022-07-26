@@ -96,7 +96,6 @@ const defaultStyle = css<PresenterIconStyleProps>`
 
     .presenter_remain_line {
       fill: none;
-      stroke-linecap: round;
       stroke: ${({ theme }) => theme.global.main};
       stroke-width: 4px;
       stroke-dasharray: 302;
