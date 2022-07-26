@@ -2,11 +2,11 @@ import styled, { css } from "styled-components";
 
 export type UserIconStyleProps = {
   size?: "SS" | "S" | "M" | "L" | "XL";
+  color?: "orange" | "white";
 };
 
 const defaultStyle = css`
   border-radius: 50%;
-  background-color: ${({ theme }) => theme.global.main};
 
   .user_photo {
     border-radius: 50%;
@@ -14,6 +14,14 @@ const defaultStyle = css`
     height: 100%;
     object-fit: cover;
   }
+`;
+
+const orangeStyle = css`
+  background-color: ${({ theme }) => theme.global.main};
+`;
+
+const whiteStyle = css`
+  background-color: ${({ theme }) => theme.global.negative};
 `;
 
 const ssStyle = css`
@@ -49,6 +57,9 @@ const xlStyle = css`
 export const UserIconStyle = styled.div<UserIconStyleProps>`
   ${defaultStyle}
 
+  ${({ color }) => color == "orange" && orangeStyle}
+  ${({ color }) => color == "white" && whiteStyle}
+
   ${({ size }) => size == "SS" && ssStyle}
   ${({ size }) => size == "S" && sStyle}
   ${({ size }) => size == "M" && mStyle}
@@ -58,4 +69,5 @@ export const UserIconStyle = styled.div<UserIconStyleProps>`
 
 UserIconStyle.defaultProps = {
   size: "M",
+  color: "orange",
 };
