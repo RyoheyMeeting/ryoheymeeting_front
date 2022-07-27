@@ -47,7 +47,7 @@ const defaultStyle = css<ReactionMeterStyleProps>`
 
   .reactionmeter_gause_line {
     fill: none;
-    stroke-width: 40px;
+    stroke-width: 36px;
     stroke-dasharray: 302;
     transition: stroke-dashoffset 0.5s ease;
   }

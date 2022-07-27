@@ -94,4 +94,7 @@ export const DefaultTheme = {
       meter: RED_30,
     },
   },
+  reactionMeters: {
+    bg: GRAY_100,
+  },
 };
