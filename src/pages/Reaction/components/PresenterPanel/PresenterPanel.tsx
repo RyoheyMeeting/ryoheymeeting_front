@@ -13,8 +13,15 @@ import { PresenterPanelStyle } from "./PresenterPanelStyle";
 type Props = {};
 
 export const PresenterPanel: React.FC<Props> = () => {
-  const { currentPresenter, nextPresenter, isNextPresenter, execMuteBtn, execBoostBtn, messageReactions } =
-    usePresenterPanelState();
+  const {
+    currentPresenter,
+    nextPresenter,
+    isNextPresenter,
+    execMuteBtn,
+    execBoostBtn,
+    messageReactions,
+    reactionMetersRef,
+  } = usePresenterPanelState();
 
   return (
     <PresenterPanelStyle>
@@ -51,7 +58,7 @@ export const PresenterPanel: React.FC<Props> = () => {
           photoUrl={currentPresenter?.user?.photoURL}
           size="M"
         />
-        <ReactionMeters />
+        <ReactionMeters ref={reactionMetersRef} />
       </div>
       <div className="presenterpanel_right">
         <div className="presetnerpanel_messages">

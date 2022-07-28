@@ -1,7 +1,7 @@
+import { BlinkPlainReaction } from "components/BlinkPlainReaction/BlinkPlainReaction";
 import { Iine, Psycho, Tyottomate } from "components/icons";
-import React from "react";
-import { BlinkStamp } from "./components/BlinkStamp/BlinkStamp";
-import { useReactionMeterState } from "./hooks/useReactionMeterState";
+import React, { forwardRef, useImperativeHandle } from "react";
+import { ReactionMeterHandler, useReactionMeterState } from "./hooks/useReactionMeterState";
 import {
   IconStyleProps,
   ReactionMeterBgStyle,
@@ -9,10 +9,23 @@ import {
   ReactionMeterStyleProps,
 } from "./ReactionMeterStyle";
 
-type Props = ReactionMeterStyleProps & {};
+export type ReactionMeterProps = ReactionMeterStyleProps & {};
 
-export const ReactionMeter: React.FC<Props> = ({ ...styleProps }) => {
-  const { strokeDashoffset, blinkStamps } = useReactionMeterState();
+// eslint-disable-next-line react/display-name
+export const ReactionMeter = forwardRef<ReactionMeterHandler, ReactionMeterProps>(({ ...styleProps }, ref) => {
+  const { strokeDashoffset, showStamp, blinkPlainReactions } = useReactionMeterState();
+
+  // Refで実行できる関数をセット
+  useImperativeHandle(
+    ref,
+    () => {
+      return {
+        showStamp,
+      };
+    },
+    [showStamp]
+  );
+
   return (
     <ReactionMeterStyle {...styleProps}>
       <div className="reactionmeter_meter">
@@ -52,14 +65,14 @@ export const ReactionMeter: React.FC<Props> = ({ ...styleProps }) => {
           )}
         </div>
         <div className="reactionmeter_stamp">
-          {Object.keys(blinkStamps).map((key) => (
-            <BlinkStamp key={key} {...blinkStamps[key]} />
+          {Object.keys(blinkPlainReactions).map((key) => (
+            <BlinkPlainReaction key={key} {...blinkPlainReactions[key]} />
           ))}
         </div>
         <div className="reactionmeter_bottom">
-          <span>80km/h</span>
+          <span></span>
         </div>
       </div>
     </ReactionMeterStyle>
   );
-};
+});

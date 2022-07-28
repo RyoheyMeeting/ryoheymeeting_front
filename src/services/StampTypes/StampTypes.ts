@@ -12,7 +12,13 @@ import {
 export const StampTypesRef = () => collection(getFirestore(), "stampTypes");
 
 export type StampType = {
+  /**
+   * 実質、タイプID
+   */
   name: string;
+  /**
+   * 実質、表示名
+   */
   description: string;
 };
 

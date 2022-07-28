@@ -14,7 +14,7 @@ type HookType = (props: UseMessageReactionToStampMessageStateProps) => IResponse
 
 export const useMessageReactionToStampMessageState: HookType = ({ plainReactionId }) => {
   const { serializedMessageReaction } = useMessageReactionSerializer(plainReactionId);
-  console.log(serializedMessageReaction?.sender);
+
   return {
     stampMessageProps: {
       stampProps: {

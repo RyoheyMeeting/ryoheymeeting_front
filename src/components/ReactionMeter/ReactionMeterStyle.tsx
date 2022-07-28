@@ -84,6 +84,7 @@ const defaultStyle = css<ReactionMeterStyleProps>`
   }
 
   .reactionmeter_stamp {
+    position: relative;
     width: 146px;
     height: 146px;
   }
