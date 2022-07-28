@@ -13,18 +13,22 @@ const Template: ComponentStory<typeof UserIcon> = (args) => <UserIcon {...args} 
 export const Default = Template.bind({});
 Default.args = {
   iconUrl: "/img/oldlogo.png",
+  color: "orange",
+  userName: "遼平",
 };
 
-export const SS = Template.bind({});
-SS.args = {
+export const SSOrange = Template.bind({});
+SSOrange.args = {
   ...Default.args,
   size: "SS",
+  color: "orange",
 };
 
-export const S = Template.bind({});
-S.args = {
+export const SWhite = Template.bind({});
+SWhite.args = {
   ...Default.args,
   size: "S",
+  color: "white",
 };
 
 export const M = Template.bind({});
@@ -49,5 +53,12 @@ export const rectangleIcon = Template.bind({});
 rectangleIcon.args = {
   ...Default.args,
   iconUrl: "/img/logo_full.svg",
+  size: "XL",
+};
+
+export const noIcon = Template.bind({});
+noIcon.args = {
+  ...Default.args,
+  iconUrl: "",
   size: "XL",
 };

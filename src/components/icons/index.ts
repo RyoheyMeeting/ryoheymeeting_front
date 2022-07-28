@@ -1,3 +1,4 @@
+export { default as AngleLeft } from "./AngleLeft";
 export { default as ArrowUp } from "./ArrowUp";
 export { default as Bars } from "./Bars";
 export { default as Boost } from "./Boost";
@@ -16,4 +17,5 @@ export { default as ShoppingCart } from "./ShoppingCart";
 export { default as SignOut } from "./SignOut";
 export { default as Stamp } from "./Stamp";
 export { default as Tyottomate } from "./Tyottomate";
+export { default as VolumeSlash } from "./VolumeSlash";
 export { default as VolumeUp } from "./VolumeUp";

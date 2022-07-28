@@ -321,6 +321,13 @@ const grandPrixSlice = createSlice({
       state.plainReactions.sortedKey = removeChild(state.plainReactions.sortedKey, id);
       delete state.plainReactions.data[id];
     },
+    donePlainReaction: (state, action: PayloadAction<string>) => {
+      const id = action.payload;
+      state.plainReactions.data[id] = {
+        ...state.plainReactions.data[id],
+        done: true,
+      };
+    },
     resetPlainReactions: (state) => {
       state.plainReactions.sortedKey = [];
       state.plainReactions.data = {};
@@ -440,6 +447,7 @@ export const {
   updatePlainReaction,
   movePlainReaction,
   removePlainReaction,
+  donePlainReaction,
   resetPlainReactions,
   addMessageReaction,
   updateMessageReaction,
