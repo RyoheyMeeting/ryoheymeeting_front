@@ -1,3 +1,4 @@
+import { UserPhotoAlt } from "components/UserPhotoAlt/UserPhotoAlt";
 import styled, { css } from "styled-components";
 import { FONT_WEIGHT } from "styles/constants/constants";
 
@@ -50,6 +51,16 @@ const defaultStyle = css<PresenterIconStyleProps>`
     z-index: -1;
   }
 
+  .presenter_photo,
+  .presenter_photo_loading {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
   .presenter_photo {
     position: absolute;
     left: 0;
@@ -58,6 +69,10 @@ const defaultStyle = css<PresenterIconStyleProps>`
     width: 100%;
     height: 100%;
     filter: grayscale(100%);
+  }
+
+  .presenter_photo_loading {
+    background-color: ${({ theme }) => theme.skeleton};
   }
 
   .presenter_top_cover,
@@ -123,6 +138,10 @@ const sStyle = css`
     font-size: 1.6rem;
     line-height: 150%;
   }
+
+  .presenter_container_photo {
+    font-size: 200px;
+  }
 `;
 
 const mStyle = css`
@@ -144,6 +163,10 @@ const mStyle = css`
     font-size: 3.8rem;
     line-height: 150%;
   }
+
+  .presenter_container_photo {
+    font-size: 440px;
+  }
 `;
 
 export const PresenterIconStyle = styled.div<PresenterIconStyleProps>`
@@ -156,3 +179,7 @@ export const PresenterIconStyle = styled.div<PresenterIconStyleProps>`
 PresenterIconStyle.defaultProps = {
   size: "M",
 };
+
+export const UserPhotoAltStyle = styled(UserPhotoAlt)`
+  border-radius: 50%;
+`;

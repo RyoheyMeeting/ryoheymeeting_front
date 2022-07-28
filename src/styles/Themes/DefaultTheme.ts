@@ -13,6 +13,7 @@ import {
   BLUE_GRAY_70,
   RED_30,
   GRAY_100,
+  GRAY_40,
 } from "styles/colors";
 
 export const DefaultTheme = {
@@ -22,6 +23,7 @@ export const DefaultTheme = {
     font: GRAY_90,
     negative: GRAY_10,
   },
+  skeleton: GRAY_40,
   stamp: {
     deactive: GRAY_50,
     black: GRAY_90,

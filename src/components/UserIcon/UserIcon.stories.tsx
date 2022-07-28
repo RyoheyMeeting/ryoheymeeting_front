@@ -14,6 +14,7 @@ export const Default = Template.bind({});
 Default.args = {
   iconUrl: "/img/oldlogo.png",
   color: "orange",
+  userName: "遼平",
 };
 
 export const SSOrange = Template.bind({});
@@ -52,5 +53,12 @@ export const rectangleIcon = Template.bind({});
 rectangleIcon.args = {
   ...Default.args,
   iconUrl: "/img/logo_full.svg",
+  size: "XL",
+};
+
+export const noIcon = Template.bind({});
+noIcon.args = {
+  ...Default.args,
+  iconUrl: "",
   size: "XL",
 };

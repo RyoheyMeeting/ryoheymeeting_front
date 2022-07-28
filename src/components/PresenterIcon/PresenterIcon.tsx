@@ -1,7 +1,8 @@
 import React from "react";
+import { useImage } from "react-image";
 import { dateToTime } from "Utils/funcs";
 import { usePresenterIconState } from "./hooks/usePresenterIconState";
-import { PresenterIconStyle, PresenterIconStyleProps } from "./PresenterIconStyle";
+import { PresenterIconStyle, PresenterIconStyleProps, UserPhotoAltStyle } from "./PresenterIconStyle";
 
 type Props = PresenterIconStyleProps & {
   photoUrl?: string;
@@ -18,11 +19,20 @@ export const PresenterIcon: React.FC<Props> = ({
   ...styleProps
 }) => {
   const { storkeDashoffset, remainTime } = usePresenterIconState(maxTime, time);
+  const { src, isLoading, error } = useImage({ srcList: [photoUrl || ""], useSuspense: false });
   return (
     <PresenterIconStyle {...styleProps}>
       <div className="presenter_container_main">
         <div className="presenter_container_photo">
-          <img className="presenter_photo" src={photoUrl} alt="presenter" />
+          {!error ? (
+            isLoading ? (
+              <div className="presenter_photo_loading" />
+            ) : (
+              <img className="presenter_photo" src={src} alt="presenter" />
+            )
+          ) : (
+            <UserPhotoAltStyle userName={presenterName} size="100%" />
+          )}
           <div className="presenter_top_cover" />
           <div className="presenter_bottom_cover" />
         </div>

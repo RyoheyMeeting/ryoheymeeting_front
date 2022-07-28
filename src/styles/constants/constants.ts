@@ -1,6 +1,7 @@
 export const FONT = {
   NOTO_SANS: '"Noto Sans JP"',
   ROBOTO: '"Roboto"',
+  MOCHIY_POP_ONE: '"Mochiy Pop One"',
 };
 
 export const FONT_WEIGHT = {
