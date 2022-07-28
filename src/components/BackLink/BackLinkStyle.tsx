@@ -3,6 +3,7 @@ import { AngleLeft } from "components/icons";
 import { ReactSVG } from "react-svg";
 import styled, { css, useTheme } from "styled-components";
 import { FlexGap } from "styles/FlexGap/FlexGap";
+import { Link } from "react-router-dom";
 
 export type BackLinkStyleProps = {
   color: "white";
@@ -19,7 +20,7 @@ const whiteStyle = css`
   color: ${({ theme }) => theme.backLink.white.font};
 `;
 
-export const BackLinkStyle = styled.a<BackLinkStyleProps>`
+export const BackLinkStyle = styled(Link)<BackLinkStyleProps>`
   ${defaultStyle}
 
   ${({ color }) => color == "white" && whiteStyle}

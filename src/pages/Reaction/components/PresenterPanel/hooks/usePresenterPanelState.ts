@@ -1,4 +1,6 @@
+import { PresenterWithUser } from "hooks/Presenters/usePresenters";
 import { useRealtimeGrandPrix } from "hooks/RealtimeGrandPrix/useRealtimeGrandPrix";
+import { useGrandPrixInfo } from "pages/Reaction/hooks/useGrandPrixInfo";
 import { useMemo } from "react";
 import {
   ActionList,
@@ -15,12 +17,24 @@ export type IResponse = {
   messageReactions: ActionList<HotItem<MessageReaction>>;
   boostActions: ActionList<HotItem<BoostAction>>;
   muteActions: ActionList<HotItem<MuteAction>>;
+  currentPresenter?: PresenterWithUser;
+  nextPresenter?: PresenterWithUser;
+  isNextPresenter: boolean;
   execBoostBtn: ButtonOpts;
   execMuteBtn: ButtonOpts;
 };
 
 export const usePresenterPanelState = (): IResponse => {
   const { realtimeGrandPrix, addBoostAction, addMuteAction } = useRealtimeGrandPrix();
+  const {
+    plainReactions,
+    messageReactions,
+    boostActions,
+    muteActions,
+    currentPresenter,
+    nextPresenter,
+    isNextPresenter,
+  } = useGrandPrixInfo();
 
   const _execBoostBtnHandler = () => {
     addBoostAction({
@@ -35,10 +49,13 @@ export const usePresenterPanelState = (): IResponse => {
   };
 
   return {
-    plainReactions: realtimeGrandPrix.plainReactions,
-    messageReactions: realtimeGrandPrix.messageReactions,
-    boostActions: realtimeGrandPrix.boostActions,
-    muteActions: realtimeGrandPrix.muteActions,
+    plainReactions,
+    messageReactions,
+    boostActions,
+    muteActions,
+    currentPresenter,
+    nextPresenter,
+    isNextPresenter,
     execBoostBtn: {
       disabled: useMemo(
         () => realtimeGrandPrix.boostActions.sortedKey.length > 0,
@@ -47,10 +64,7 @@ export const usePresenterPanelState = (): IResponse => {
       handler: _execBoostBtnHandler,
     },
     execMuteBtn: {
-      disabled: useMemo(
-        () => realtimeGrandPrix.muteActions.sortedKey.length > 0,
-        [realtimeGrandPrix.muteActions.sortedKey]
-      ),
+      disabled: false,
       handler: _execMuteBtnHandler,
     },
   };

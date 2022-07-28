@@ -13,5 +13,5 @@ const Template: ComponentStory<typeof BackLink> = (args) => <BackLink {...args} 
 export const Default = Template.bind({});
 Default.args = {
   color: "white",
-  href: "#",
+  to: "#",
 };

@@ -1,101 +1,65 @@
+import { BackLink } from "components/BackLink/BackLink";
+import { Boost, VolumeSlash } from "components/icons";
+import { PresenterIcon } from "components/PresenterIcon/PresenterIcon";
+import { ReactionMeters } from "components/ReactionMeters/ReactionMeters";
 import React from "react";
+import { useParams } from "react-router-dom";
+import { ActionButton } from "../ActionButton/ActionButton";
+import { HiddenNextPresenter } from "../HiddenNextPresenter/HiddenNextPresenter";
+import { MessageReactionToStampMessage } from "../PlainReactionToStampMessage/MessageReactionToMessageReaction";
 import { usePresenterPanelState } from "./hooks/usePresenterPanelState";
+import { PresenterPanelStyle } from "./PresenterPanelStyle";
 
 type Props = {};
 
 export const PresenterPanel: React.FC<Props> = () => {
-  const { plainReactions, messageReactions, boostActions, muteActions, execBoostBtn, execMuteBtn } =
+  const { currentPresenter, nextPresenter, isNextPresenter, execMuteBtn, execBoostBtn, messageReactions } =
     usePresenterPanelState();
 
   return (
-    <div>
-      <h2>プレゼンターパネル</h2>
-      <ul>
-        <li>
-          ブーストアクション：
-          {execBoostBtn.disabled ? "使用済み" : "使用可能"}
-          <button disabled={execBoostBtn.disabled} onClick={execBoostBtn.handler}>
-            ブースト！
-          </button>
-          <ul>
-            {boostActions.sortedKey.map((key) => (
-              <li key={key}>
-                <div>
-                  使用時間：
-                  {boostActions.data[key].sendAt.toString()}
-                </div>
-              </li>
-            ))}
-          </ul>
-        </li>
-        <li>
-          ミュートアクション：
-          {execMuteBtn.disabled ? "使用済み" : "使用可能"}
-          <button disabled={execMuteBtn.disabled} onClick={execMuteBtn.handler}>
-            ミュート！
-          </button>
-          <ul>
-            {muteActions.sortedKey.map((key) => (
-              <li key={key}>
-                <div>
-                  使用時間：
-                  {muteActions.data[key].sendAt.toString()}
-                </div>
-              </li>
-            ))}
-          </ul>
-        </li>
-        <li>
-          スタンプ
-          <ul>
-            {plainReactions.sortedKey.map((key) => (
-              <li key={key}>
-                <div>
-                  送信者：
-                  {plainReactions.data[key].senderId}
-                </div>
-                <div>
-                  スタンプ：
-                  {plainReactions.data[key].stampId}
-                </div>
-                <div>
-                  強さ：
-                  {plainReactions.data[key].strength}
-                </div>
-                <div>
-                  送信時間：
-                  {plainReactions.data[key].sendAt.toString()}
-                </div>
-              </li>
-            )) || <li>情報がありません</li>}
-          </ul>
-        </li>
-        <li>
-          メッセージスタンプ
-          <ul>
-            {messageReactions.sortedKey.map((key) => (
-              <li key={key}>
-                <div>
-                  送信者：
-                  {messageReactions.data[key].senderId}
-                </div>
-                <div>
-                  スタンプ：
-                  {messageReactions.data[key].stampId}
-                </div>
-                <div>
-                  メッセージ：
-                  {messageReactions.data[key].message}
-                </div>
-                <div>
-                  送信時間：
-                  {messageReactions.data[key].sendAt.toString()}
-                </div>
-              </li>
-            ))}
-          </ul>
-        </li>
-      </ul>
-    </div>
+    <PresenterPanelStyle>
+      <div className="presenterpanel_left">
+        <div className="presenterpanel_leftup">
+          <BackLink color="white" to={`/grandprix/${useParams()["id"]}`} />
+          <HiddenNextPresenter
+            hide={false}
+            nextPresenterProps={{
+              introduction: isNextPresenter ? "あなたです！発表の準備をしましょう！" : nextPresenter?.nextDescription,
+            }}
+          />
+        </div>
+        <div className="presenterpanel_actions">
+          <ActionButton
+            Icon={VolumeSlash}
+            acitonName="ミュート"
+            remainTime={undefined}
+            status={execMuteBtn.disabled ? "disabled" : "ready"}
+            onClick={execMuteBtn.handler}
+          />
+          <ActionButton
+            Icon={Boost}
+            acitonName="ブースト"
+            remainTime={undefined}
+            status={execBoostBtn.disabled ? "disabled" : "ready"}
+            onClick={execBoostBtn.handler}
+          />
+        </div>
+      </div>
+      <div className="presenterpanel_center">
+        <PresenterIcon
+          presenterName={currentPresenter?.user?.displayName}
+          photoUrl={currentPresenter?.user?.photoURL}
+          size="M"
+        />
+        <ReactionMeters />
+      </div>
+      <div className="presenterpanel_right">
+        <div className="presetnerpanel_messages">
+          {messageReactions.sortedKey.map((key) => (
+            <MessageReactionToStampMessage key={key} plainReactionId={key} />
+          ))}
+        </div>
+      </div>
+    </PresenterPanelStyle>
   );
 };
