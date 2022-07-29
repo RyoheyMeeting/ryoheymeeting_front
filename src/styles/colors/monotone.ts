@@ -8,6 +8,7 @@ export const GRAY_40 = "#D4D4D4";
 export const GRAY_50 = "#B4B4B4";
 export const GRAY_55 = "#9E9E9E";
 export const GRAY_60 = "#858585";
+export const GRAY_65 = "#777777";
 export const GRAY_80 = "#383838";
 export const GRAY_90 = "#252525";
 export const GRAY_100 = "#111111";
@@ -17,6 +18,7 @@ export const BLUE_GRAY_60 = "#4C4E55";
 export const BLUE_GRAY_65 = "#43474D";
 export const BLUE_GRAY_70 = "#3B3E48";
 export const BLUE_GRAY_80 = "#323646";
+export const BLUE_GRAY_85 = "#32343A";
 export const BLUE_GRAY_90 = "#2A2E38";
 
 export const BLACK = "#000";

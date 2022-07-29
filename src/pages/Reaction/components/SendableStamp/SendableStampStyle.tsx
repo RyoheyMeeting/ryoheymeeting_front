@@ -9,7 +9,7 @@ export const SendableStampButtonSideStyle = styled(ReactSVG)`
 
 export const SubmitStyle = styled(ReactSVG)`
   fill: ${({ theme }) => theme.global.negative};
-  width: 27px;
+  width: 14px;
   height: 70px;
 `;
 

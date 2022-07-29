@@ -17,6 +17,9 @@ import {
   BLUE_90,
   BLUE_70,
   BLUE_GRAY_60,
+  BLUE_GRAY_85,
+  GRAY_65,
+  GRAY_55,
 } from "styles/colors";
 
 export const DefaultTheme = {
@@ -109,5 +112,14 @@ export const DefaultTheme = {
   },
   stampPallete: {
     bg: BLUE_GRAY_60,
+  },
+  messageReactionForm: {
+    bg: GRAY_90,
+    textarea: BLUE_GRAY_85,
+    font: GRAY_65,
+    disabled: {
+      button: GRAY_55,
+      font: GRAY_40,
+    },
   },
 };
