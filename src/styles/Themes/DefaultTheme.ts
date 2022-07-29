@@ -16,6 +16,7 @@ import {
   GRAY_40,
   BLUE_90,
   BLUE_70,
+  BLUE_GRAY_60,
 } from "styles/colors";
 
 export const DefaultTheme = {
@@ -105,5 +106,8 @@ export const DefaultTheme = {
     border: BLUE_70,
     button: BLUE_90,
     overlay: GRAY_60,
+  },
+  stampPallete: {
+    bg: BLUE_GRAY_60,
   },
 };
