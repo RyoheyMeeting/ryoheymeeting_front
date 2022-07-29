@@ -14,6 +14,8 @@ import {
   RED_30,
   GRAY_100,
   GRAY_40,
+  BLUE_90,
+  BLUE_70,
 } from "styles/colors";
 
 export const DefaultTheme = {
@@ -98,5 +100,10 @@ export const DefaultTheme = {
   },
   reactionMeters: {
     bg: GRAY_100,
+  },
+  sendableStamp: {
+    border: BLUE_70,
+    button: BLUE_90,
+    overlay: GRAY_60,
   },
 };
