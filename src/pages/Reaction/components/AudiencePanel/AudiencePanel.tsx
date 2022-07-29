@@ -1,16 +1,29 @@
 import { BackLink } from "components/BackLink/BackLink";
+import { Iine, Psycho, Tyottomate } from "components/icons";
 import { PresenterIcon } from "components/PresenterIcon/PresenterIcon";
 import React from "react";
 import { useParams } from "react-router-dom";
 import { HiddenNextPresenter } from "../HiddenNextPresenter/HiddenNextPresenter";
-import { MessageReactionToStampMessage } from "../PlainReactionToStampMessage/MessageReactionToMessageReaction";
-import { AudiencePanelStyle } from "./AudiencePanelStyle";
+import { MessageReactionForm } from "../MessageReactionForm/MessageReactionForm";
+import { MessageReactionToStampMessage } from "../MessageReactionToStampMessage/MessageReactionToStampMessage";
+import { StampPalleteGroup } from "../StampPallete/StampPalleteGroup/StampPalleteGroup";
+import { StampPalleteGroupTitle } from "../StampPallete/StampPalleteGroupTitle/StampPalleteGroupTitle";
+import { StampToSendableStamp } from "../StampToSendableStamp/StampToSendableStamp";
+import { AudiencePanelStyle, StampPalleteStyle } from "./AudiencePanelStyle";
 import { useAudiencePanelState } from "./hooks/useAudiencePanelState";
 
 type Props = {};
 
 export const AudiencePanel: React.FC<Props> = () => {
-  const { messageReactions, currentPresenter, nextPresenter, isNextPresenter } = useAudiencePanelState();
+  const {
+    messageReactions,
+    currentPresenter,
+    nextPresenter,
+    isNextPresenter,
+    psychoStampKeys,
+    waitStampKeys,
+    goodStampKeys,
+  } = useAudiencePanelState();
 
   return (
     <AudiencePanelStyle>
@@ -24,7 +37,47 @@ export const AudiencePanel: React.FC<Props> = () => {
             }}
           />
         </div>
-        <div className="audiencepanel_stamplist"></div>
+        <StampPalleteStyle>
+          <StampPalleteGroupTitle Icon={Psycho} title="サイコです！" />
+          <StampPalleteGroup>
+            {psychoStampKeys.map((key) => (
+              <StampToSendableStamp
+                key={key}
+                stampId={key}
+                sendableStampCallbacks={{
+                  onReactionButtonClick: undefined,
+                  onMessageButtonClick: undefined,
+                }}
+              />
+            ))}
+          </StampPalleteGroup>
+          <StampPalleteGroupTitle Icon={Tyottomate} title="ちょっと待て！" />
+          <StampPalleteGroup>
+            {waitStampKeys.map((key) => (
+              <StampToSendableStamp
+                key={key}
+                stampId={key}
+                sendableStampCallbacks={{
+                  onReactionButtonClick: undefined,
+                  onMessageButtonClick: undefined,
+                }}
+              />
+            ))}
+          </StampPalleteGroup>
+          <StampPalleteGroupTitle Icon={Iine} title="いいね！" />
+          <StampPalleteGroup>
+            {goodStampKeys.map((key) => (
+              <StampToSendableStamp
+                key={key}
+                stampId={key}
+                sendableStampCallbacks={{
+                  onReactionButtonClick: undefined,
+                  onMessageButtonClick: undefined,
+                }}
+              />
+            ))}
+          </StampPalleteGroup>
+        </StampPalleteStyle>
       </div>
       <div className="audiencepanel_center">
         <PresenterIcon
@@ -39,6 +92,7 @@ export const AudiencePanel: React.FC<Props> = () => {
             <MessageReactionToStampMessage key={key} plainReactionId={key} />
           ))}
         </div>
+        <MessageReactionForm />
       </div>
     </AudiencePanelStyle>
   );

@@ -1,10 +1,14 @@
 import styled from "styled-components";
 import { FlexGap } from "styles/FlexGap/FlexGap";
+import { StampPallete } from "../StampPallete/StampPallete";
 
 export type AudiencePanelStyleProps = {};
 
 export const AudiencePanelStyle = styled.div<AudiencePanelStyleProps>`
-  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  ${FlexGap({ gap: "24px", direction: "row" })}
 
   width: 100%;
   height: 100%;
@@ -15,11 +19,9 @@ export const AudiencePanelStyle = styled.div<AudiencePanelStyleProps>`
     display: flex;
     flex-direction: column;
     ${FlexGap({ gap: "124px", direction: "column" })}
-    padding: 24px 0 0 24px;
+    padding: 24px 0 24px 24px;
 
-    position: absolute;
-    top: 0;
-    left: 0;
+    flex: 1;
 
     height: 100%;
   }
@@ -32,9 +34,6 @@ export const AudiencePanelStyle = styled.div<AudiencePanelStyleProps>`
     pointer-events: all;
   }
 
-  .audiencepanel_stamplist {
-  }
-
   .audiencepanel_center {
     display: flex;
     flex-direction: column;
@@ -42,10 +41,7 @@ export const AudiencePanelStyle = styled.div<AudiencePanelStyleProps>`
     align-items: center;
     padding-top: 24px;
 
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    flex-shrink: 0;
 
     height: 100%;
   }
@@ -53,14 +49,15 @@ export const AudiencePanelStyle = styled.div<AudiencePanelStyleProps>`
   .audiencepanel_right {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    padding: 24px 24px 0 0;
+    align-items: flex-start;
+    padding: 24px 24px 24px 0;
+    ${FlexGap({ gap: "24px", direction: "column" })}
 
-    position: absolute;
-    top: 0;
-    right: 0;
+    flex: 1;
 
     height: 100%;
+
+    pointer-events: all;
   }
 
   .presetnerpanel_messages {
@@ -69,7 +66,7 @@ export const AudiencePanelStyle = styled.div<AudiencePanelStyleProps>`
     align-items: flex-end;
     ${FlexGap({ gap: "8px", direction: "column" })}
 
-    max-height: calc(100% - 300px);
+    flex-grow: 1;
 
     overflow-y: scroll;
     pointer-events: all;
@@ -77,3 +74,8 @@ export const AudiencePanelStyle = styled.div<AudiencePanelStyleProps>`
 `;
 
 AudiencePanelStyle.defaultProps = {};
+
+export const StampPalleteStyle = styled(StampPallete)`
+  flex-grow: 1;
+  align-self: stretch;
+`;

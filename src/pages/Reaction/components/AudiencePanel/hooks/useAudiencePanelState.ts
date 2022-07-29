@@ -1,12 +1,12 @@
 import { useCallback, useState } from "react";
 import { useRealtimeGrandPrix } from "hooks/RealtimeGrandPrix/useRealtimeGrandPrix";
 import { ActionList, HotItem, MessageReaction, PlainReaction } from "services/RealtimeGrandPrix/RealtimeGrandPrix";
-import { ButtonOpts, Dict } from "Types/Utils";
+import { ButtonOpts } from "Types/Utils";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
-import { Stamp } from "services/Stamps/Stamps";
 import { PresenterWithUser } from "hooks/Presenters/usePresenters";
 import { useGrandPrixInfo } from "pages/Reaction/hooks/useGrandPrixInfo";
+import { useStampsGroupByType } from "hooks/Stamps/useStampsGroupByType";
 
 export type IResponse = {
   plainReactions: ActionList<HotItem<PlainReaction>>;
@@ -14,7 +14,9 @@ export type IResponse = {
   currentPresenter?: PresenterWithUser;
   nextPresenter?: PresenterWithUser;
   isNextPresenter: boolean;
-  stamps: Dict<Stamp>;
+  psychoStampKeys: string[];
+  waitStampKeys: string[];
+  goodStampKeys: string[];
   changeStampId: {
     value: string;
     handler: (value: string) => void;
@@ -34,9 +36,9 @@ export type IResponse = {
 export const useAudiencePanelState = (): IResponse => {
   const { addPlainReaction, addMessageReaction } = useRealtimeGrandPrix();
   const { plainReactions, messageReactions, currentPresenter, nextPresenter, isNextPresenter } = useGrandPrixInfo();
+  const { goodStampKeys, psychoStampKeys, waitStampKeys } = useStampsGroupByType();
 
   const { id: userId } = useSelector((state: RootState) => state.user);
-  const { stamps } = useSelector((state: RootState) => state.stamps);
   const [stampId, setStampId] = useState<string>();
   const [strength, setStrength] = useState(0);
   const [message, setMessage] = useState("");
@@ -85,7 +87,9 @@ export const useAudiencePanelState = (): IResponse => {
     currentPresenter,
     nextPresenter,
     isNextPresenter,
-    stamps: stamps,
+    goodStampKeys,
+    psychoStampKeys,
+    waitStampKeys,
     changeStampId: {
       value: stampId || "",
       handler: _changeStampIdHandler,

@@ -4,7 +4,7 @@ import { ReactSVG } from "react-svg";
 import { FlexGap } from "styles/FlexGap/FlexGap";
 
 export type MessageReactionFormStyleProps = {
-  disabled: boolean;
+  disabled?: boolean;
 };
 
 const defaultStyle = css`
@@ -103,7 +103,9 @@ export const MessageReactionFormStyle = styled.div<MessageReactionFormStyleProps
   ${({ disabled }) => disabled && disabledStyle}
 `;
 
-MessageReactionFormStyle.defaultProps = {};
+MessageReactionFormStyle.defaultProps = {
+  disabled: false,
+};
 
 export const AddStampStyleProps: (props: MessageReactionFormStyleProps) => IconProps = () => {
   const theme = useTheme();
