@@ -1,23 +1,19 @@
 import { useCallback, useState } from "react";
 import { useRealtimeGrandPrix } from "hooks/RealtimeGrandPrix/useRealtimeGrandPrix";
-import {
-  ActionList,
-  BoostAction,
-  HotItem,
-  MessageReaction,
-  MuteAction,
-  PlainReaction,
-} from "services/RealtimeGrandPrix/RealtimeGrandPrix";
+import { ActionList, HotItem, MessageReaction, PlainReaction } from "services/RealtimeGrandPrix/RealtimeGrandPrix";
 import { ButtonOpts, Dict } from "Types/Utils";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
 import { Stamp } from "services/Stamps/Stamps";
+import { PresenterWithUser } from "hooks/Presenters/usePresenters";
+import { useGrandPrixInfo } from "pages/Reaction/hooks/useGrandPrixInfo";
 
 export type IResponse = {
   plainReactions: ActionList<HotItem<PlainReaction>>;
   messageReactions: ActionList<HotItem<MessageReaction>>;
-  boostActions: ActionList<HotItem<BoostAction>>;
-  muteActions: ActionList<HotItem<MuteAction>>;
+  currentPresenter?: PresenterWithUser;
+  nextPresenter?: PresenterWithUser;
+  isNextPresenter: boolean;
   stamps: Dict<Stamp>;
   changeStampId: {
     value: string;
@@ -36,7 +32,9 @@ export type IResponse = {
 };
 
 export const useAudiencePanelState = (): IResponse => {
-  const { realtimeGrandPrix, addPlainReaction, addMessageReaction } = useRealtimeGrandPrix();
+  const { addPlainReaction, addMessageReaction } = useRealtimeGrandPrix();
+  const { plainReactions, messageReactions, currentPresenter, nextPresenter, isNextPresenter } = useGrandPrixInfo();
+
   const { id: userId } = useSelector((state: RootState) => state.user);
   const { stamps } = useSelector((state: RootState) => state.stamps);
   const [stampId, setStampId] = useState<string>();
@@ -82,10 +80,11 @@ export const useAudiencePanelState = (): IResponse => {
   }, [userId, stampId, message, addMessageReaction]);
 
   return {
-    plainReactions: realtimeGrandPrix.plainReactions,
-    messageReactions: realtimeGrandPrix.messageReactions,
-    boostActions: realtimeGrandPrix.boostActions,
-    muteActions: realtimeGrandPrix.muteActions,
+    plainReactions,
+    messageReactions,
+    currentPresenter,
+    nextPresenter,
+    isNextPresenter,
     stamps: stamps,
     changeStampId: {
       value: stampId || "",
