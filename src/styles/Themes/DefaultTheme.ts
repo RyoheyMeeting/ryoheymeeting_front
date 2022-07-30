@@ -122,4 +122,10 @@ export const DefaultTheme = {
       font: GRAY_40,
     },
   },
+  live: {
+    frame: {
+      base: GRAY_100,
+      border: BLUE_GRAY_60,
+    },
+  },
 };

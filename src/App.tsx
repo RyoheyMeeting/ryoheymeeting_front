@@ -6,6 +6,7 @@ import { GrandPrixController } from "pages/Admin/GrandPrixController/GrandPrixCo
 import { AdminTop } from "pages/Admin/Top/AdminTop";
 import { GrandPrix } from "pages/GrandPrix/GrandPrix";
 import { GrandPrixList } from "pages/GrandPrixList/GrandPrixList";
+import { Live } from "pages/Live/Live";
 import { Login } from "pages/Login/Login";
 import { Reaction } from "pages/Reaction/Reaction";
 import { Shop } from "pages/Shop/Shop";
@@ -32,6 +33,7 @@ export const App: React.FC<Props> = () => {
         <Route path="/grandprixlist" element={<GrandPrixList />} />
         <Route path="/grandprix/:id" element={<GrandPrix />} />
         <Route path="/reaction/:id" element={<PrivateRoute component={Reaction} />} />
+        <Route path="/live/:id" element={<PrivateRoute component={Live} />} />
         <Route path="/admin" element={<AdminRoute component={AdminTop} />} />
         <Route path="/admin/gpcontroller/:id" element={<AdminRoute component={GrandPrixController} />} />
       </Routes>

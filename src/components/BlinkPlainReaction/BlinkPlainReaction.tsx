@@ -4,11 +4,17 @@ import { BlinkPlainReactionStyle, BlinkPlainReactionStyleProps, StampStyle } fro
 
 type Props = BlinkPlainReactionStyleProps & {
   plainReactionId: string;
+  playSoundEffect?: boolean;
   quiteCallback?: () => void;
 };
 
-export const BlinkPlainReaction: React.FC<Props> = ({ plainReactionId, quiteCallback, ...styleProps }) => {
-  const { stampProps, animate } = useBlinkPlainReactionState(plainReactionId, quiteCallback);
+export const BlinkPlainReaction: React.FC<Props> = ({
+  plainReactionId,
+  playSoundEffect = false,
+  quiteCallback,
+  ...styleProps
+}) => {
+  const { stampProps, animate } = useBlinkPlainReactionState(plainReactionId, playSoundEffect, quiteCallback);
   return (
     <BlinkPlainReactionStyle {...styleProps} animate={animate}>
       <StampStyle {...stampProps} color="black" size="L" />
