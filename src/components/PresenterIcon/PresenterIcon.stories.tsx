@@ -14,6 +14,8 @@ export const Default = Template.bind({});
 Default.args = {
   photoUrl: "img/stamp_example.png",
   presenterName: "どなたか",
-  maxTime: new Date(60000),
-  time: new Date(36000),
+  timerProps: {
+    maxTime: new Date(60000),
+    startTime: new Date(),
+  },
 };

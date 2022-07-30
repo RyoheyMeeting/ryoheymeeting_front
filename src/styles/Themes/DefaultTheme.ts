@@ -14,6 +14,12 @@ import {
   RED_30,
   GRAY_100,
   GRAY_40,
+  BLUE_90,
+  BLUE_70,
+  BLUE_GRAY_60,
+  BLUE_GRAY_85,
+  GRAY_65,
+  GRAY_55,
 } from "styles/colors";
 
 export const DefaultTheme = {
@@ -98,5 +104,22 @@ export const DefaultTheme = {
   },
   reactionMeters: {
     bg: GRAY_100,
+  },
+  sendableStamp: {
+    border: BLUE_70,
+    button: BLUE_90,
+    overlay: GRAY_60,
+  },
+  stampPallete: {
+    bg: BLUE_GRAY_60,
+  },
+  messageReactionForm: {
+    bg: GRAY_90,
+    textarea: BLUE_GRAY_85,
+    font: GRAY_65,
+    disabled: {
+      button: GRAY_55,
+      font: GRAY_40,
+    },
   },
 };

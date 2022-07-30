@@ -6,7 +6,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { ActionButton } from "../ActionButton/ActionButton";
 import { HiddenNextPresenter } from "../HiddenNextPresenter/HiddenNextPresenter";
-import { MessageReactionToStampMessage } from "../PlainReactionToStampMessage/MessageReactionToMessageReaction";
+import { MessageReactionToStampMessage } from "../MessageReactionToStampMessage/MessageReactionToStampMessage";
 import { usePresenterPanelState } from "./hooks/usePresenterPanelState";
 import { PresenterPanelStyle } from "./PresenterPanelStyle";
 
@@ -17,6 +17,7 @@ export const PresenterPanel: React.FC<Props> = () => {
     currentPresenter,
     nextPresenter,
     isNextPresenter,
+    timerProps,
     execMuteBtn,
     execBoostBtn,
     messageReactions,
@@ -57,6 +58,7 @@ export const PresenterPanel: React.FC<Props> = () => {
           presenterName={currentPresenter?.user?.displayName}
           photoUrl={currentPresenter?.user?.photoURL}
           size="M"
+          timerProps={timerProps}
         />
         <ReactionMeters ref={reactionMetersRef} />
       </div>

@@ -1,24 +1,22 @@
+import { useTimer, UseTimerProps } from "hooks/Timer/useTimer";
 import { useMemo } from "react";
-import { clamp, max } from "Utils/funcs";
+import { clamp } from "Utils/funcs";
 
 export type IResponse = {
   storkeDashoffset: number;
   remainTime: Date;
 };
 
-export const usePresenterIconState = (maxTime: Date, time: Date): IResponse => {
+export const usePresenterIconState = (timerProps: UseTimerProps): IResponse => {
+  const { remainTime } = useTimer(timerProps);
   const storkeDashoffset = useMemo(() => {
-    if (maxTime.getTime() != 0) {
-      return clamp(time.getTime() / maxTime.getTime()) * 302;
+    const _maxTime = timerProps.maxTime.getTime();
+    const _remainTime = remainTime.getTime();
+    if (_maxTime != 0) {
+      return clamp((_maxTime - _remainTime) / _maxTime) * 302;
     }
     return 0;
-  }, [maxTime, time]);
-
-  const remainTime = useMemo(() => {
-    const date = new Date();
-    date.setTime(max(maxTime.getTime() - time.getTime(), 0));
-    return date;
-  }, [maxTime, time]);
+  }, [remainTime, timerProps]);
 
   return {
     storkeDashoffset,

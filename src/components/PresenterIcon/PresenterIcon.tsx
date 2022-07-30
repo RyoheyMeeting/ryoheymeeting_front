@@ -1,3 +1,4 @@
+import { UseTimerProps } from "hooks/Timer/useTimer";
 import React from "react";
 import { useImage } from "react-image";
 import { dateToTime } from "Utils/funcs";
@@ -7,18 +8,19 @@ import { PresenterIconStyle, PresenterIconStyleProps, UserPhotoAltStyle } from "
 type Props = PresenterIconStyleProps & {
   photoUrl?: string;
   presenterName?: string;
-  maxTime?: Date;
-  time?: Date;
+  timerProps?: UseTimerProps;
 };
 
 export const PresenterIcon: React.FC<Props> = ({
   photoUrl,
   presenterName,
-  maxTime = new Date(10),
-  time = new Date(10),
+  timerProps = {
+    maxTime: new Date(60000),
+    startTime: new Date(),
+  },
   ...styleProps
 }) => {
-  const { storkeDashoffset, remainTime } = usePresenterIconState(maxTime, time);
+  const { storkeDashoffset, remainTime } = usePresenterIconState(timerProps);
   const { src, isLoading, error } = useImage({ srcList: [photoUrl || ""], useSuspense: false });
   return (
     <PresenterIconStyle {...styleProps}>

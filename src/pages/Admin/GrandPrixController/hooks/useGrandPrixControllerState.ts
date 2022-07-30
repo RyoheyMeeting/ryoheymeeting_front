@@ -1,6 +1,7 @@
 import { PresenterWithUser, usePresenters } from "hooks/Presenters/usePresenters";
 import { useRealtimeGrandPrix } from "hooks/RealtimeGrandPrix/useRealtimeGrandPrix";
 import { useRealtimeGrandPrixSetup } from "hooks/RealtimeGrandPrix/useRealtimeGrandPrixSetup";
+import { useTimer } from "hooks/Timer/useTimer";
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { RTGrandPrix } from "services/RealtimeGrandPrix/RealtimeGrandPrix";
@@ -19,6 +20,9 @@ export type IResponse = {
   createBtn: ButtonOpts;
   toggleEnabledBtn: ButtonOpts;
   resetPresenterBtn: ButtonOpts;
+  startTimer: () => void;
+  stopTimer: () => void;
+  resetTimer: () => void;
 };
 
 export const Status = {
@@ -107,6 +111,42 @@ export const useGrandPrixControllerState = (): IResponse => {
     });
   };
 
+  // タイマー機能
+  const initialTime = new Date(600000);
+  const { remainTime } = useTimer({
+    maxTime: realtimeGrandPrix.grandPrix?.presentationTime || initialTime,
+    startTime: realtimeGrandPrix.grandPrix?.startTime,
+  });
+
+  const startTimer = () => {
+    if (realtimeGrandPrix.grandPrix) {
+      updateGrandPrix({
+        ...realtimeGrandPrix.grandPrix,
+        startTime: new Date(),
+      });
+    }
+  };
+
+  const stopTimer = () => {
+    if (realtimeGrandPrix.grandPrix) {
+      updateGrandPrix({
+        ...realtimeGrandPrix.grandPrix,
+        presentationTime: remainTime,
+        startTime: null,
+      });
+    }
+  };
+
+  const resetTimer = () => {
+    if (realtimeGrandPrix.grandPrix) {
+      updateGrandPrix({
+        ...realtimeGrandPrix.grandPrix,
+        presentationTime: initialTime,
+        startTime: null,
+      });
+    }
+  };
+
   return {
     grandPrixId: id,
     realtimeGrandPrix: realtimeGrandPrix.grandPrix,
@@ -128,5 +168,8 @@ export const useGrandPrixControllerState = (): IResponse => {
     resetPresenterBtn: {
       handler: _resetPresenterBtnHandler,
     },
+    startTimer,
+    stopTimer,
+    resetTimer,
   };
 };

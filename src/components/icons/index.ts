@@ -1,4 +1,6 @@
+export { default as AddStamp } from "./AddStamp";
 export { default as AngleLeft } from "./AngleLeft";
+export { default as AngleUp } from "./AngleUp";
 export { default as ArrowUp } from "./ArrowUp";
 export { default as Bars } from "./Bars";
 export { default as Boost } from "./Boost";
