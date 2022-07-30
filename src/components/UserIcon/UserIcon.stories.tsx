@@ -49,6 +49,12 @@ XL.args = {
   size: "XL",
 };
 
+export const Live = Template.bind({});
+Live.args = {
+  ...Default.args,
+  size: "LIVE",
+};
+
 export const rectangleIcon = Template.bind({});
 rectangleIcon.args = {
   ...Default.args,

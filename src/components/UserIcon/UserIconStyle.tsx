@@ -2,7 +2,7 @@ import { UserPhotoAlt } from "components/UserPhotoAlt/UserPhotoAlt";
 import styled, { css } from "styled-components";
 
 export type UserIconStyleProps = {
-  size?: "SS" | "S" | "M" | "L" | "XL";
+  size?: "SS" | "S" | "M" | "L" | "XL" | "LIVE";
   color?: "orange" | "white";
 };
 
@@ -21,6 +21,7 @@ const defaultStyle = css`
   }
 
   .user_photo {
+    display: block;
     object-fit: cover;
   }
 
@@ -77,6 +78,14 @@ const xlStyle = css`
   font-size: 256px;
 `;
 
+const liveStyle = css`
+  width: 144px;
+  height: 144px;
+  padding: 8px;
+
+  font-size: 144px;
+`;
+
 export const UserIconStyle = styled.div<UserIconStyleProps>`
   ${defaultStyle}
 
@@ -88,6 +97,7 @@ export const UserIconStyle = styled.div<UserIconStyleProps>`
   ${({ size }) => size == "M" && mStyle}
   ${({ size }) => size == "L" && lStyle}
   ${({ size }) => size == "XL" && xlStyle}
+  ${({ size }) => size == "LIVE" && liveStyle}
 `;
 
 UserIconStyle.defaultProps = {
