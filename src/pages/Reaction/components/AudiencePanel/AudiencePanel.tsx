@@ -20,9 +20,12 @@ export const AudiencePanel: React.FC<Props> = () => {
     currentPresenter,
     nextPresenter,
     isNextPresenter,
-    psychoStampKeys,
-    waitStampKeys,
-    goodStampKeys,
+    goodStampKeysWithHandler,
+    psychoStampKeysWithHandler,
+    waitStampKeysWithHandler,
+    serializedMessageStamp,
+    changeMessage,
+    sendMessageBtn,
   } = useAudiencePanelState();
 
   return (
@@ -38,41 +41,41 @@ export const AudiencePanel: React.FC<Props> = () => {
           />
         </div>
         <StampPalleteStyle>
+          <StampPalleteGroupTitle Icon={Iine} title="いいね！" />
+          <StampPalleteGroup>
+            {goodStampKeysWithHandler.map((keysWithHandler) => (
+              <StampToSendableStamp
+                key={keysWithHandler.key}
+                stampId={keysWithHandler.key}
+                sendableStampCallbacks={{
+                  onReactionButtonClick: keysWithHandler.onReactionButtonClick,
+                  onMessageButtonClick: keysWithHandler.onMessageButtonClick,
+                }}
+              />
+            ))}
+          </StampPalleteGroup>
           <StampPalleteGroupTitle Icon={Psycho} title="サイコです！" />
           <StampPalleteGroup>
-            {psychoStampKeys.map((key) => (
+            {psychoStampKeysWithHandler.map((keysWithHandler) => (
               <StampToSendableStamp
-                key={key}
-                stampId={key}
+                key={keysWithHandler.key}
+                stampId={keysWithHandler.key}
                 sendableStampCallbacks={{
-                  onReactionButtonClick: undefined,
-                  onMessageButtonClick: undefined,
+                  onReactionButtonClick: keysWithHandler.onReactionButtonClick,
+                  onMessageButtonClick: keysWithHandler.onMessageButtonClick,
                 }}
               />
             ))}
           </StampPalleteGroup>
           <StampPalleteGroupTitle Icon={Tyottomate} title="ちょっと待て！" />
           <StampPalleteGroup>
-            {waitStampKeys.map((key) => (
+            {waitStampKeysWithHandler.map((keysWithHandler) => (
               <StampToSendableStamp
-                key={key}
-                stampId={key}
+                key={keysWithHandler.key}
+                stampId={keysWithHandler.key}
                 sendableStampCallbacks={{
-                  onReactionButtonClick: undefined,
-                  onMessageButtonClick: undefined,
-                }}
-              />
-            ))}
-          </StampPalleteGroup>
-          <StampPalleteGroupTitle Icon={Iine} title="いいね！" />
-          <StampPalleteGroup>
-            {goodStampKeys.map((key) => (
-              <StampToSendableStamp
-                key={key}
-                stampId={key}
-                sendableStampCallbacks={{
-                  onReactionButtonClick: undefined,
-                  onMessageButtonClick: undefined,
+                  onReactionButtonClick: keysWithHandler.onReactionButtonClick,
+                  onMessageButtonClick: keysWithHandler.onMessageButtonClick,
                 }}
               />
             ))}
@@ -92,129 +95,19 @@ export const AudiencePanel: React.FC<Props> = () => {
             <MessageReactionToStampMessage key={key} plainReactionId={key} />
           ))}
         </div>
-        <MessageReactionForm />
+        <MessageReactionForm
+          stampProps={
+            serializedMessageStamp && {
+              stampName: serializedMessageStamp?.name,
+              stampUrl: serializedMessageStamp?.imageDataUrl,
+            }
+          }
+          messageValue={changeMessage.value}
+          onChangeMessageValue={changeMessage.handler}
+          disabled={sendMessageBtn.disabled}
+          onSubmit={sendMessageBtn.handler}
+        />
       </div>
     </AudiencePanelStyle>
   );
 };
-
-// return (
-//   <div>
-//     <h3>視聴者パネル</h3>
-//     <ul>
-//       <li>
-//         <h3>1. スタンプを選択</h3>
-//         <ul>
-//           {Object.keys(stamps).map((key) => (
-//             <label key={key}>
-//               <input
-//                 type="radio"
-//                 name="stamp"
-//                 value={key}
-//                 checked={changeStampId.value == key}
-//                 onChange={(e) => changeStampId.handler(e.target.value)}
-//               />
-//               <div>{stamps[key].name}</div>
-//             </label>
-//           ))}
-//         </ul>
-//         <h3>2.1. スタンプを送信</h3>
-//         <div>
-//           スタンプの強さ：
-//           <input
-//             type="number"
-//             value={changeStrength.value}
-//             onChange={(e) => changeStrength.handler(Number(e.target.value))}
-//           />
-//           <button disabled={sendReactionBtn.disabled} onClick={sendReactionBtn.handler}>
-//             送信
-//           </button>
-//         </div>
-//         <h3>2.2. メッセージ付きで送信</h3>
-//         <div>
-//           メッセージ：
-//           <input type="text" value={changeMessage.value} onChange={(e) => changeMessage.handler(e.target.value)} />
-//           <button disabled={sendMessageBtn.disabled} onClick={sendMessageBtn.handler}>
-//             送信
-//           </button>
-//         </div>
-//       </li>
-//       <li>
-//         ブーストアクション
-//         <ul>
-//           {boostActions.sortedKey.map((key) => (
-//             <li key={key}>
-//               <div>
-//                 使用時間：
-//                 {boostActions.data[key].sendAt.toString()}
-//               </div>
-//             </li>
-//           ))}
-//         </ul>
-//       </li>
-//       <li>
-//         ミュートアクション
-//         <ul>
-//           {muteActions.sortedKey.map((key) => (
-//             <li key={key}>
-//               <div>
-//                 使用時間：
-//                 {muteActions.data[key].sendAt.toString()}
-//               </div>
-//             </li>
-//           ))}
-//         </ul>
-//       </li>
-//       <li>
-//         スタンプ
-//         <ul>
-//           {plainReactions.sortedKey.map((key) => (
-//             <li key={key}>
-//               <div>
-//                 送信者：
-//                 {plainReactions.data[key].senderId}
-//               </div>
-//               <div>
-//                 スタンプ：
-//                 {plainReactions.data[key].stampId}
-//               </div>
-//               <div>
-//                 強さ：
-//                 {plainReactions.data[key].strength}
-//               </div>
-//               <div>
-//                 送信時間：
-//                 {plainReactions.data[key].sendAt.toString()}
-//               </div>
-//             </li>
-//           )) || <li>情報がありません</li>}
-//         </ul>
-//       </li>
-//       <li>
-//         メッセージスタンプ
-//         <ul>
-//           {messageReactions.sortedKey.map((key) => (
-//             <li key={key}>
-//               <div>
-//                 送信者：
-//                 {messageReactions.data[key].senderId}
-//               </div>
-//               <div>
-//                 スタンプ：
-//                 {messageReactions.data[key].stampId}
-//               </div>
-//               <div>
-//                 メッセージ：
-//                 {messageReactions.data[key].message}
-//               </div>
-//               <div>
-//                 送信時間：
-//                 {messageReactions.data[key].sendAt.toString()}
-//               </div>
-//             </li>
-//           ))}
-//         </ul>
-//       </li>
-//     </ul>
-//   </div>
-// );

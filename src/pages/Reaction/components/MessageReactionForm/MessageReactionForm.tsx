@@ -14,10 +14,17 @@ import {
 type Props = MessageReactionFormStyleProps & {
   messageValue?: string;
   stampProps?: ComponentProps<typeof Stamp>;
+  onChangeMessageValue?: React.ChangeEventHandler<HTMLTextAreaElement>;
   onSubmit?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
-export const MessageReactionForm: React.FC<Props> = ({ messageValue, stampProps, onSubmit, ...styleProps }) => {
+export const MessageReactionForm: React.FC<Props> = ({
+  messageValue,
+  stampProps,
+  onChangeMessageValue,
+  onSubmit,
+  ...styleProps
+}) => {
   return (
     <MessageReactionFormStyle {...styleProps}>
       <StampMessageSideStyle src="/img/stampmessage_side.svg" wrapper="div" />
@@ -26,6 +33,7 @@ export const MessageReactionForm: React.FC<Props> = ({ messageValue, stampProps,
           <textarea
             className="messagereactionform_textarea_value"
             value={messageValue}
+            onChange={onChangeMessageValue}
             placeholder="発表者にメッセージを送信できます"
           />
           <span className="messagereactionform_letternum">{messageValue ? messageValue.length : 0}/30文字</span>
