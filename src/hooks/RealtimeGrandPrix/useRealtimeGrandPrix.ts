@@ -83,7 +83,10 @@ export const createGrandPrixAsync = (grandPrixId: string): ThunkResult<void> => 
     //グランプリが存在しない場合作成
     const data = await getGrandPrixAsync(grandPrixId);
     if (!data) {
-      await setGrandPrixAsync(grandPrixId, { enabled: true });
+      await setGrandPrixAsync(grandPrixId, {
+        enabled: true,
+        presentationTime: new Date(600000), // 初期値は10分
+      });
     }
     //グランプリが存在したら入室処理
     await dispatch(enterGrandPrixAsync(grandPrixId));

@@ -1,111 +1,144 @@
-import { useCallback, useState } from "react";
+import { ChangeEventHandler, useCallback, useMemo, useState } from "react";
 import { useRealtimeGrandPrix } from "hooks/RealtimeGrandPrix/useRealtimeGrandPrix";
-import {
-  ActionList,
-  BoostAction,
-  HotItem,
-  MessageReaction,
-  MuteAction,
-  PlainReaction,
-} from "services/RealtimeGrandPrix/RealtimeGrandPrix";
-import { ButtonOpts, Dict } from "Types/Utils";
+import { ActionList, HotItem, MessageReaction, PlainReaction } from "services/RealtimeGrandPrix/RealtimeGrandPrix";
+import { ButtonOpts } from "Types/Utils";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
-import { Stamp } from "services/Stamps/Stamps";
+import { PresenterWithUser } from "hooks/Presenters/usePresenters";
+import { useGrandPrixInfo } from "pages/Reaction/hooks/useGrandPrixInfo";
+import { useStampsGroupByType } from "hooks/Stamps/useStampsGroupByType";
+import { SerializedStamp, useStampSerializer } from "hooks/RealtimeGrandPrix/serializers/useStampSerializer";
+import { UseTimerProps } from "hooks/Timer/useTimer";
+
+type KeyWithSendableStampHandler = {
+  key: string;
+  onReactionButtonClick: () => void;
+  onMessageButtonClick: () => void;
+};
 
 export type IResponse = {
   plainReactions: ActionList<HotItem<PlainReaction>>;
   messageReactions: ActionList<HotItem<MessageReaction>>;
-  boostActions: ActionList<HotItem<BoostAction>>;
-  muteActions: ActionList<HotItem<MuteAction>>;
-  stamps: Dict<Stamp>;
-  changeStampId: {
-    value: string;
-    handler: (value: string) => void;
-  };
-  changeStrength: {
-    value: number;
-    handler: (value: number) => void;
-  };
+  currentPresenter?: PresenterWithUser;
+  nextPresenter?: PresenterWithUser;
+  isNextPresenter: boolean;
+  psychoStampKeysWithHandler: KeyWithSendableStampHandler[];
+  waitStampKeysWithHandler: KeyWithSendableStampHandler[];
+  goodStampKeysWithHandler: KeyWithSendableStampHandler[];
+  serializedMessageStamp?: SerializedStamp;
+  timerProps?: UseTimerProps;
   changeMessage: {
     value: string;
-    handler: (value: string) => void;
+    handler: ChangeEventHandler<HTMLTextAreaElement>;
   };
-  sendReactionBtn: ButtonOpts;
   sendMessageBtn: ButtonOpts;
 };
 
 export const useAudiencePanelState = (): IResponse => {
+  // 各情報を取得
   const { realtimeGrandPrix, addPlainReaction, addMessageReaction } = useRealtimeGrandPrix();
+  const { plainReactions, messageReactions, currentPresenter, nextPresenter, isNextPresenter } = useGrandPrixInfo();
+  const { goodStampKeys, psychoStampKeys, waitStampKeys } = useStampsGroupByType();
   const { id: userId } = useSelector((state: RootState) => state.user);
-  const { stamps } = useSelector((state: RootState) => state.stamps);
-  const [stampId, setStampId] = useState<string>();
-  const [strength, setStrength] = useState(0);
+
+  // 状態定義
+  const [messageStampId, setMessageStampId] = useState<string | undefined>();
   const [message, setMessage] = useState("");
 
-  const _changeStampIdHandler = useCallback((value: string) => {
-    setStampId(value);
+  // メッセージスタンプをシリアライズ
+  const { serializedStamp: serializedMessageStamp } = useStampSerializer(messageStampId);
+
+  // PlainReaction送信関数
+  const sendPlainReaction = useCallback(
+    (stampId?: string) => {
+      if (userId && stampId) {
+        addPlainReaction({
+          stampId: stampId,
+          sendAt: new Date(Date.now()),
+          senderId: userId,
+          strength: 1,
+        });
+      }
+    },
+    [addPlainReaction, userId]
+  );
+
+  // MessageReaction送信関数
+  const sendMessageReaction = useCallback(
+    (stampId?: string, message?: string) => {
+      if (userId && stampId && message) {
+        // 送信
+        addMessageReaction({
+          stampId: stampId,
+          sendAt: new Date(Date.now()),
+          senderId: userId,
+          message: message,
+        });
+
+        // 送信したらフォームをリセットする
+        setMessage("");
+        setMessageStampId(undefined);
+      }
+    },
+    [addMessageReaction, userId, setMessage]
+  );
+
+  // キー・ハンドラ生成関数
+  const _generateKeysWithHandler = useCallback(
+    (keys: string[]) => {
+      return keys.map((key) => ({
+        key: key,
+        onReactionButtonClick: () => {
+          sendPlainReaction(key);
+        },
+        onMessageButtonClick: () => {
+          setMessageStampId(key);
+        },
+      }));
+    },
+    [sendPlainReaction, setMessageStampId]
+  );
+
+  // スタンプ送信ハンドラを準備
+  const goodStampKeysWithHandler = useMemo(
+    () => _generateKeysWithHandler(goodStampKeys),
+    [goodStampKeys, sendPlainReaction]
+  );
+  const psychoStampKeysWithHandler = useMemo(
+    () => _generateKeysWithHandler(psychoStampKeys),
+    [psychoStampKeys, sendPlainReaction]
+  );
+  const waitStampKeysWithHandler = useMemo(
+    () => _generateKeysWithHandler(waitStampKeys),
+    [waitStampKeys, sendPlainReaction]
+  );
+
+  // メッセージフォーム用
+  const _changeMessageHandler: ChangeEventHandler<HTMLTextAreaElement> = useCallback((e) => {
+    setMessage(e.target.value);
   }, []);
-
-  const _changeStrengthHandler = useCallback((value: number) => {
-    setStrength(value);
-  }, []);
-
-  const _changeMessageHandler = useCallback((value: string) => {
-    setMessage(value);
-  }, []);
-
-  const _sendPlainReaction = useCallback(() => {
-    if (userId && stampId) {
-      addPlainReaction({
-        stampId: stampId,
-        sendAt: new Date(Date.now()),
-        senderId: userId,
-        strength: strength,
-      });
-      setStrength(0);
-      setStampId(undefined);
-    }
-  }, [userId, stampId, strength, addPlainReaction]);
-
-  const _sendMessageReaction = useCallback(() => {
-    if (userId && stampId) {
-      addMessageReaction({
-        stampId: stampId,
-        sendAt: new Date(Date.now()),
-        senderId: userId,
-        message: message,
-      });
-      setMessage("");
-      setStampId(undefined);
-    }
-  }, [userId, stampId, message, addMessageReaction]);
 
   return {
-    plainReactions: realtimeGrandPrix.plainReactions,
-    messageReactions: realtimeGrandPrix.messageReactions,
-    boostActions: realtimeGrandPrix.boostActions,
-    muteActions: realtimeGrandPrix.muteActions,
-    stamps: stamps,
-    changeStampId: {
-      value: stampId || "",
-      handler: _changeStampIdHandler,
-    },
-    changeStrength: {
-      value: strength,
-      handler: _changeStrengthHandler,
+    plainReactions,
+    messageReactions,
+    currentPresenter,
+    nextPresenter,
+    isNextPresenter,
+    goodStampKeysWithHandler,
+    psychoStampKeysWithHandler,
+    waitStampKeysWithHandler,
+    serializedMessageStamp,
+    timerProps: realtimeGrandPrix.grandPrix && {
+      maxTime: realtimeGrandPrix.grandPrix.presentationTime,
+      startTime: realtimeGrandPrix.grandPrix.startTime,
     },
     changeMessage: {
       value: message,
       handler: _changeMessageHandler,
     },
-    sendReactionBtn: {
-      disabled: !stampId || strength <= 0,
-      handler: _sendPlainReaction,
-    },
     sendMessageBtn: {
-      disabled: !stampId || message == "",
-      handler: _sendMessageReaction,
+      disabled: !messageStampId || message == "",
+      handler: () => sendMessageReaction(messageStampId, message),
     },
   };
 };

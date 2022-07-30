@@ -1,5 +1,10 @@
+import { ReactionMetersHandler } from "components/ReactionMeters/hooks/useReactionMetersState";
+import { PresenterWithUser } from "hooks/Presenters/usePresenters";
 import { useRealtimeGrandPrix } from "hooks/RealtimeGrandPrix/useRealtimeGrandPrix";
-import { useMemo } from "react";
+import { UseTimerProps } from "hooks/Timer/useTimer";
+import { useGrandPrixInfo } from "pages/Reaction/hooks/useGrandPrixInfo";
+import { RefObject, useEffect, useMemo, useRef } from "react";
+import { useSelector } from "react-redux";
 import {
   ActionList,
   BoostAction,
@@ -8,6 +13,7 @@ import {
   MuteAction,
   PlainReaction,
 } from "services/RealtimeGrandPrix/RealtimeGrandPrix";
+import { RootState } from "store";
 import { ButtonOpts } from "Types/Utils";
 
 export type IResponse = {
@@ -15,12 +21,44 @@ export type IResponse = {
   messageReactions: ActionList<HotItem<MessageReaction>>;
   boostActions: ActionList<HotItem<BoostAction>>;
   muteActions: ActionList<HotItem<MuteAction>>;
+  currentPresenter?: PresenterWithUser;
+  nextPresenter?: PresenterWithUser;
+  isNextPresenter: boolean;
+  timerProps?: UseTimerProps;
   execBoostBtn: ButtonOpts;
   execMuteBtn: ButtonOpts;
+  reactionMetersRef: RefObject<ReactionMetersHandler>;
 };
 
 export const usePresenterPanelState = (): IResponse => {
   const { realtimeGrandPrix, addBoostAction, addMuteAction } = useRealtimeGrandPrix();
+  const {
+    plainReactions,
+    messageReactions,
+    boostActions,
+    muteActions,
+    currentPresenter,
+    nextPresenter,
+    isNextPresenter,
+  } = useGrandPrixInfo();
+  const { stamps } = useSelector((state: RootState) => state.stamps);
+  const { stampTypes } = useSelector((state: RootState) => state.stampTypes);
+  const reactionMetersRef = useRef<ReactionMetersHandler>(null);
+
+  useEffect(() => {
+    if (!reactionMetersRef.current) return;
+
+    const yetPlainReactionKeys = realtimeGrandPrix.plainReactions.sortedKey.filter(
+      (key) => !realtimeGrandPrix.plainReactions.data[key].done
+    );
+
+    yetPlainReactionKeys.forEach((yetPlainReactionKey) => {
+      const plainReaction = realtimeGrandPrix.plainReactions.data[yetPlainReactionKey];
+      const stamp = stamps[plainReaction?.stampId];
+      const stampType = stampTypes[stamp?.typeId];
+      reactionMetersRef.current?.showStamp(stampType?.name, yetPlainReactionKey);
+    });
+  }, [reactionMetersRef, realtimeGrandPrix.plainReactions]);
 
   const _execBoostBtnHandler = () => {
     addBoostAction({
@@ -35,10 +73,17 @@ export const usePresenterPanelState = (): IResponse => {
   };
 
   return {
-    plainReactions: realtimeGrandPrix.plainReactions,
-    messageReactions: realtimeGrandPrix.messageReactions,
-    boostActions: realtimeGrandPrix.boostActions,
-    muteActions: realtimeGrandPrix.muteActions,
+    plainReactions,
+    messageReactions,
+    boostActions,
+    muteActions,
+    currentPresenter,
+    nextPresenter,
+    isNextPresenter,
+    timerProps: realtimeGrandPrix.grandPrix && {
+      maxTime: realtimeGrandPrix.grandPrix.presentationTime,
+      startTime: realtimeGrandPrix.grandPrix.startTime,
+    },
     execBoostBtn: {
       disabled: useMemo(
         () => realtimeGrandPrix.boostActions.sortedKey.length > 0,
@@ -47,11 +92,9 @@ export const usePresenterPanelState = (): IResponse => {
       handler: _execBoostBtnHandler,
     },
     execMuteBtn: {
-      disabled: useMemo(
-        () => realtimeGrandPrix.muteActions.sortedKey.length > 0,
-        [realtimeGrandPrix.muteActions.sortedKey]
-      ),
+      disabled: false,
       handler: _execMuteBtnHandler,
     },
+    reactionMetersRef,
   };
 };
