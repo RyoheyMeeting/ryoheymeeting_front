@@ -1,5 +1,6 @@
 import { WithHeaderFooter } from "components/Layout/WithHeaderFooter/WithHeaderFooter";
 import React from "react";
+import { Link, useParams } from "react-router-dom";
 import { EditablePresenter } from "./components/EditablePresenter/EditablePresenter";
 import { useGrandPrixControllerState } from "./hooks/useGrandPrixControllerState";
 
@@ -69,6 +70,9 @@ export const GrandPrixController: React.FC<Props> = () => {
             ))}
           </ul>
           <button onClick={resetPresenterBtn.handler}>誰も発表していない状態にする</button>
+        </li>
+        <li>
+          <Link to={`/live/${useParams()["id"]}`}>ライブ画面</Link>
         </li>
       </ul>
     </WithHeaderFooter>
