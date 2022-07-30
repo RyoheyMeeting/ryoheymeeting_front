@@ -25,8 +25,16 @@ export const useTimer: HookType = ({ maxTime, startTime }) => {
         const _maxTime = maxTime.getTime();
         const _diff = new Date().getTime() - startTime.getTime();
 
-        // 残り時間を更新
-        setRemainTime(new Date(_maxTime - _diff));
+        const _remainTime = _maxTime - _diff;
+
+        // 時間をClamp
+        if (_remainTime > _maxTime) {
+          setRemainTime(maxTime);
+        } else if (_remainTime < 0) {
+          setRemainTime(new Date(0));
+        } else {
+          setRemainTime(new Date(_remainTime));
+        }
       }, 1000)
     );
   }, [maxTime, startTime]);
@@ -42,6 +50,7 @@ export const useTimer: HookType = ({ maxTime, startTime }) => {
   // タイマーを開始
   useEffect(() => {
     stopTimer();
+    setRemainTime(maxTime);
     if (startTime) {
       startTimer();
     }

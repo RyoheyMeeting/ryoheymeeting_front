@@ -17,6 +17,9 @@ export const GrandPrixController: React.FC<Props> = () => {
     createBtn,
     toggleEnabledBtn,
     resetPresenterBtn,
+    startTimer,
+    stopTimer,
+    resetTimer,
   } = useGrandPrixControllerState();
 
   if (loading) {
@@ -41,6 +44,12 @@ export const GrandPrixController: React.FC<Props> = () => {
             部屋を
             {enabled ? "無効化" : "有効化"}
           </button>
+        </li>
+        <li>
+          タイマー機能
+          <button onClick={startTimer}>開始</button>
+          <button onClick={stopTimer}>一時停止</button>
+          <button onClick={resetTimer}>リセット</button>
         </li>
         <li>
           プレゼンター一覧

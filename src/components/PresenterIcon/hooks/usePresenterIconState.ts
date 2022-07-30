@@ -18,18 +18,8 @@ export const usePresenterIconState = (timerProps: UseTimerProps): IResponse => {
     return 0;
   }, [remainTime, timerProps]);
 
-  const clampedRemainTime = useMemo(() => {
-    if (remainTime > timerProps.maxTime) {
-      return timerProps.maxTime;
-    } else if (remainTime.getTime() < 0) {
-      return new Date(0);
-    } else {
-      return remainTime;
-    }
-  }, [remainTime]);
-
   return {
     storkeDashoffset,
-    remainTime: clampedRemainTime,
+    remainTime,
   };
 };
