@@ -46,6 +46,8 @@ export const getGrandPrixAsync = async (grandPrixId: string) => {
     enabled: data.enabled,
     currentPresenterId: data.currentPresenterId,
     nextPresenterId: data.nextPresenterId,
+    presentationTime: data.presentationTime,
+    startTime: data.startTime,
   });
 
   //チェック
