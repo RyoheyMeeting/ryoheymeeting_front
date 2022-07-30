@@ -114,7 +114,7 @@ const defaultStyle = css<PresenterIconStyleProps>`
       stroke: ${({ theme }) => theme.global.main};
       stroke-width: 4px;
       stroke-dasharray: 302;
-      transition: stroke-dashoffset 1s ease;
+      transition: stroke-dashoffset 1s linear;
     }
   }
 `;

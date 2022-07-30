@@ -41,7 +41,10 @@ export const RTGrandPrixConverter: DBConverter<RTGrandPrix, RTGrandPrixOnDB> = {
     const keys = Object.keys(data) as [keyof RTGrandPrixOnDB];
     keys.forEach((key) => {
       if (data[key]) {
-        if (key == "presentationTime" || key == "startTime") {
+        if (key == "presentationTime") {
+          const time = data[key] || new Date(600000);
+          result[key] = time.toISOString();
+        } else if (key == "startTime") {
           result[key] = data[key]?.toISOString();
         } else if (key == "enabled") {
           result[key] = data[key];
@@ -57,7 +60,7 @@ export const RTGrandPrixConverter: DBConverter<RTGrandPrix, RTGrandPrixOnDB> = {
   fromDB: (data) => {
     return {
       ...data,
-      presentationTime: new Date(data.presentationTime),
+      presentationTime: data.presentationTime ? new Date(data.presentationTime) : new Date(600000),
       startTime: data.startTime ? new Date(data.startTime) : undefined,
     };
   },

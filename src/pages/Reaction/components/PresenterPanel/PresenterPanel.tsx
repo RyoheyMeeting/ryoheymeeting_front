@@ -17,6 +17,7 @@ export const PresenterPanel: React.FC<Props> = () => {
     currentPresenter,
     nextPresenter,
     isNextPresenter,
+    timerProps,
     execMuteBtn,
     execBoostBtn,
     messageReactions,
@@ -57,6 +58,7 @@ export const PresenterPanel: React.FC<Props> = () => {
           presenterName={currentPresenter?.user?.displayName}
           photoUrl={currentPresenter?.user?.photoURL}
           size="M"
+          timerProps={timerProps}
         />
         <ReactionMeters ref={reactionMetersRef} />
       </div>

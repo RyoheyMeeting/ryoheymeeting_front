@@ -8,6 +8,7 @@ import { PresenterWithUser } from "hooks/Presenters/usePresenters";
 import { useGrandPrixInfo } from "pages/Reaction/hooks/useGrandPrixInfo";
 import { useStampsGroupByType } from "hooks/Stamps/useStampsGroupByType";
 import { SerializedStamp, useStampSerializer } from "hooks/RealtimeGrandPrix/serializers/useStampSerializer";
+import { UseTimerProps } from "hooks/Timer/useTimer";
 
 type KeyWithSendableStampHandler = {
   key: string;
@@ -25,6 +26,7 @@ export type IResponse = {
   waitStampKeysWithHandler: KeyWithSendableStampHandler[];
   goodStampKeysWithHandler: KeyWithSendableStampHandler[];
   serializedMessageStamp?: SerializedStamp;
+  timerProps?: UseTimerProps;
   changeMessage: {
     value: string;
     handler: ChangeEventHandler<HTMLTextAreaElement>;
@@ -34,7 +36,7 @@ export type IResponse = {
 
 export const useAudiencePanelState = (): IResponse => {
   // 各情報を取得
-  const { addPlainReaction, addMessageReaction } = useRealtimeGrandPrix();
+  const { realtimeGrandPrix, addPlainReaction, addMessageReaction } = useRealtimeGrandPrix();
   const { plainReactions, messageReactions, currentPresenter, nextPresenter, isNextPresenter } = useGrandPrixInfo();
   const { goodStampKeys, psychoStampKeys, waitStampKeys } = useStampsGroupByType();
   const { id: userId } = useSelector((state: RootState) => state.user);
@@ -126,6 +128,10 @@ export const useAudiencePanelState = (): IResponse => {
     psychoStampKeysWithHandler,
     waitStampKeysWithHandler,
     serializedMessageStamp,
+    timerProps: realtimeGrandPrix.grandPrix && {
+      maxTime: realtimeGrandPrix.grandPrix.presentationTime,
+      startTime: realtimeGrandPrix.grandPrix.startTime,
+    },
     changeMessage: {
       value: message,
       handler: _changeMessageHandler,

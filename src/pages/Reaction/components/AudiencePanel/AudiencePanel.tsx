@@ -24,6 +24,7 @@ export const AudiencePanel: React.FC<Props> = () => {
     psychoStampKeysWithHandler,
     waitStampKeysWithHandler,
     serializedMessageStamp,
+    timerProps,
     changeMessage,
     sendMessageBtn,
   } = useAudiencePanelState();
@@ -87,6 +88,7 @@ export const AudiencePanel: React.FC<Props> = () => {
           presenterName={currentPresenter?.user?.displayName}
           photoUrl={currentPresenter?.user?.photoURL}
           size="M"
+          timerProps={timerProps}
         />
       </div>
       <div className="audiencepanel_right">
