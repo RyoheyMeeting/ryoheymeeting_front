@@ -2,9 +2,9 @@
 
 - [アイコンシステム](/commands/IconImporter/README.md)
 - 環境構築がまだの方
-  - （推奨）Docker を利用する場合は[こちら](#Dockerを使用した環境構築)から環境構築をしてください
-  - Windows ユーザの場合[こちら](#Windowsでの環境構築)から環境構築をしてください
-  - Mac ユーザの場合[こちら](#Macでの環境構築)から環境構築をしてください
+  - （推奨）Docker を利用する場合は[こちら](#docker-を使用した環境構築)から環境構築をしてください
+  - Windows ユーザの場合[こちら](#windows-での環境構築)から環境構築をしてください
+  - Mac ユーザの場合[こちら](#mac-での環境構築)から環境構築をしてください
 - 作業を始める方はこのまま読み進めてください
 - その他、詳細は Figjam を確認してください
   - [Figjam リンク](https://www.figma.com/file/4GDJxY1NOzY3wuPfgGhpph/PageMap?node-id=554%3A485)
