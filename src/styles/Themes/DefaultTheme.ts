@@ -20,6 +20,7 @@ import {
   BLUE_GRAY_85,
   GRAY_65,
   GRAY_55,
+  ORANGE_30,
 } from "styles/colors";
 
 export const DefaultTheme = {
@@ -126,6 +127,12 @@ export const DefaultTheme = {
     frame: {
       base: GRAY_100,
       border: BLUE_GRAY_60,
+    },
+  },
+  iconText: {
+    hover: GRAY_20,
+    active: {
+      font: ORANGE_30,
     },
   },
 };
