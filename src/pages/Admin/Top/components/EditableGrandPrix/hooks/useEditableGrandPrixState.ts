@@ -51,6 +51,7 @@ export const useEditableGrandPrixState = (
       status: GrandPrixStatus.yet,
       description: "",
       isDraft: true,
+      isDistributed: false,
     },
     (state: RootState) => state.grandPrixes.grandPrixes[GrandPrixId],
     {
@@ -60,6 +61,8 @@ export const useEditableGrandPrixState = (
       status: (value) => value in Object.values(GrandPrixStatus),
       description: (value) => value != "",
       isDraft: () => true,
+      // 但し、UI上には表示しない
+      isDistributed: () => true,
     },
     addGrandPrixWithSaving,
     updateGrandPrixWithSaving,

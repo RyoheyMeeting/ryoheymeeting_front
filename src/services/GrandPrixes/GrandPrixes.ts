@@ -42,6 +42,7 @@ export type GrandPrix = {
   status: GrandPrixStatusType;
   description: string;
   isDraft: boolean;
+  isDistributed: boolean;
 };
 
 export const isGrandPrix = (instance: any): instance is GrandPrix => {
@@ -52,7 +53,8 @@ export const isGrandPrix = (instance: any): instance is GrandPrix => {
     "eventDate" in instance &&
     "status" in instance &&
     "description" in instance &&
-    "isDraft" in instance
+    "isDraft" in instance &&
+    "isDistributed" in instance
   );
 };
 
