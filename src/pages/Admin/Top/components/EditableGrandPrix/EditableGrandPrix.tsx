@@ -58,8 +58,8 @@ export const EditableGrandPrix: React.FC<Props> = ({ grandPrixId, isNew, removeL
         <EditableSelect
           isEdit={isEdit}
           selects={statusList}
-          value={grandPrix.status.value}
-          onChange={(value) => grandPrix.status.changeHandler(value as any)}
+          value={String(grandPrix.status.value)}
+          onChange={(value) => grandPrix.status.changeHandler(Number(value) as any)}
         />
       </li>
       <li>
