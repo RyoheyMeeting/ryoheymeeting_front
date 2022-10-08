@@ -27,6 +27,8 @@ const grandPrixConverter: FirestoreDataConverter<GrandPrix> = {
     const grandPrix = {
       ...data,
       eventDate: data.eventDate.toDate(),
+      // isDistributedの初期化
+      isDistributed: data["isDistributed"] || false,
     };
     if (!isGrandPrix(grandPrix)) throw Error("firebaseのグランプリ情報が不正");
     return grandPrix;
@@ -46,6 +48,7 @@ export const getGrandPrixesAsync = async () => {
           status: data.status,
           description: data.description,
           isDraft: data.isDraft,
+          isDistributed: data.isDistributed || false,
         };
       });
       return grandPrixes;
