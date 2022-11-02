@@ -1,29 +1,11 @@
-import { PresenterWithUser, usePresenters } from "hooks/Presenters/usePresenters";
+import { useCollvoPoints } from "hooks/CollvoPoint/useCollvoPoints";
+import { usePresenters } from "hooks/Presenters/usePresenters";
 import { useRealtimeGrandPrix } from "hooks/RealtimeGrandPrix/useRealtimeGrandPrix";
 import { useRealtimeGrandPrixSetup } from "hooks/RealtimeGrandPrix/useRealtimeGrandPrixSetup";
 import { useTimer } from "hooks/Timer/useTimer";
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import { RTGrandPrix } from "services/RealtimeGrandPrix/RealtimeGrandPrix";
 import { ButtonOpts, Dict } from "Types/Utils";
-
-export type IResponse = {
-  grandPrixId?: string;
-  realtimeGrandPrix?: RTGrandPrix;
-  presenters: Dict<PresenterWithUser>;
-  changePresenterBtns: Dict<ButtonOpts>;
-  sortedPresenterKeys: string[];
-  loading: boolean;
-  isCreated: boolean;
-  enabled: boolean;
-  error?: string;
-  createBtn: ButtonOpts;
-  toggleEnabledBtn: ButtonOpts;
-  resetPresenterBtn: ButtonOpts;
-  startTimer: () => void;
-  stopTimer: () => void;
-  resetTimer: () => void;
-};
 
 export const Status = {
   loading: 0,
@@ -32,7 +14,7 @@ export const Status = {
 } as const;
 export type StatusType = typeof Status[keyof typeof Status];
 
-export const useGrandPrixControllerState = (): IResponse => {
+export const useGrandPrixControllerState = () => {
   useRealtimeGrandPrixSetup();
   const { realtimeGrandPrix, createGrandPrix, enterGrandPrix, updateGrandPrix } = useRealtimeGrandPrix();
   const { presenters, setGrandPrixId } = usePresenters();
@@ -42,11 +24,16 @@ export const useGrandPrixControllerState = (): IResponse => {
   const [createBtnDisabled, setCreateBtnDisabled] = useState(false);
   const [toggleEnabledBtnDisabled, setToggleEnabledBtnDisabled] = useState(false);
   const { id } = useParams();
+  const { presenterCollvoPoints, reload } = useCollvoPoints(id || "");
 
   const sortedPresenterKeys = useMemo(
     () => Object.keys(presenters).sort((a, b) => (presenters[a].index < presenters[b].index ? -1 : 1)),
     [presenters]
   );
+
+  useEffect(() => {
+    reload();
+  }, [presenters]);
 
   useEffect(() => {
     if (id) {
@@ -151,6 +138,8 @@ export const useGrandPrixControllerState = (): IResponse => {
     grandPrixId: id,
     realtimeGrandPrix: realtimeGrandPrix.grandPrix,
     presenters: presenters,
+    presenterCollvoPoints,
+    recalcCPHandler: reload,
     sortedPresenterKeys: sortedPresenterKeys,
     changePresenterBtns: presenterBtns,
     loading: status == Status.loading,
