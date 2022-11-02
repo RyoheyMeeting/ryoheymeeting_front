@@ -1,6 +1,6 @@
 import { WithHeaderFooter } from "components/Layout/WithHeaderFooter/WithHeaderFooter";
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { EditablePresenter } from "./components/EditablePresenter/EditablePresenter";
 import { useGrandPrixControllerState } from "./hooks/useGrandPrixControllerState";
 
@@ -10,6 +10,8 @@ export const GrandPrixController: React.FC<Props> = () => {
   const {
     grandPrixId,
     presenters,
+    presenterCollvoPoints,
+    recalcCPHandler,
     sortedPresenterKeys,
     changePresenterBtns,
     loading,
@@ -54,6 +56,7 @@ export const GrandPrixController: React.FC<Props> = () => {
         </li>
         <li>
           プレゼンター一覧
+          <button onClick={recalcCPHandler}>CPを再計算する</button>
           <ul>
             {sortedPresenterKeys.map((key) => (
               <li key={key}>
@@ -64,15 +67,38 @@ export const GrandPrixController: React.FC<Props> = () => {
                   </button>
                   {changePresenterBtns[key]?.disabled ? "発表中" : undefined}
                 </div>
-                <div>プレゼンター情報</div>
+                <div>プレゼンター情報の編集</div>
                 <EditablePresenter grandPrixId={grandPrixId || ""} presenterId={key} />
+                <div>現在の獲得ポイント</div>
+                <ul>
+                  <li>
+                    リアクションポイント：
+                    {presenterCollvoPoints.data[key]?.reactionPoint}
+                  </li>
+                  <li>
+                    ブーストポイント：
+                    {presenterCollvoPoints.data[key]?.boostPoint}
+                  </li>
+                  <li>
+                    順位：
+                    {presenterCollvoPoints.data[key]?.rank}位
+                  </li>
+                  <li>
+                    順位ポイント：
+                    {presenterCollvoPoints.data[key]?.rankPoint}
+                  </li>
+                  <li>
+                    合計獲得ポイント：
+                    {presenterCollvoPoints.data[key]?.totalPoint}
+                  </li>
+                </ul>
               </li>
             ))}
           </ul>
           <button onClick={resetPresenterBtn.handler}>誰も発表していない状態にする</button>
         </li>
         <li>
-          <Link to={`/live/${useParams()["id"]}`}>ライブ画面</Link>
+          <Link to={`/live/${grandPrixId}`}>ライブ画面</Link>
         </li>
       </ul>
     </WithHeaderFooter>
