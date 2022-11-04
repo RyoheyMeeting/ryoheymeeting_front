@@ -12,6 +12,8 @@ export const GrandPrixController: React.FC<Props> = () => {
     presenters,
     presenterCollvoPoints,
     recalcCPHandler,
+    canDistribute,
+    distributeCollvoPoint,
     sortedPresenterKeys,
     changePresenterBtns,
     loading,
@@ -99,6 +101,13 @@ export const GrandPrixController: React.FC<Props> = () => {
         </li>
         <li>
           <Link to={`/live/${grandPrixId}`}>ライブ画面</Link>
+        </li>
+        <li>
+          {canDistribute ? "CP配布可能" : "CP配布不可能"}
+          <br />
+          <button disabled={!canDistribute} onClick={distributeCollvoPoint}>
+            CPを配布する！
+          </button>
         </li>
       </ul>
     </WithHeaderFooter>
