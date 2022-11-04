@@ -4,7 +4,12 @@ import "firebase/compat/auth";
 import Config from "config";
 import { connectAuthEmulator, getAuth as fb_getAuth } from "firebase/auth";
 import { connectDatabaseEmulator, getDatabase as fb_getDatabase } from "firebase/database";
-import { connectFirestoreEmulator, getFirestore as fb_getFirestore } from "firebase/firestore";
+import {
+  connectFirestoreEmulator,
+  getFirestore as fb_getFirestore,
+  runTransaction,
+  Transaction,
+} from "firebase/firestore";
 import { connectStorageEmulator, getStorage as fb_getStorage } from "firebase/storage";
 
 // ---- firebaseの初期化と基本機能のエクスポート ---- //
@@ -26,6 +31,10 @@ export const getStorage = () => fb_getStorage();
 // ---- その他firebase関連の便利関数群 ---- //
 export const getIdToken = async () => {
   return getAuth().currentUser?.getIdToken();
+};
+
+export const runFirestoreTransaction = async (updateFunction: (transaction: Transaction) => Promise<unknown>) => {
+  runTransaction(getFirestore(), updateFunction);
 };
 
 // 開発中はエミュレータにアクセス

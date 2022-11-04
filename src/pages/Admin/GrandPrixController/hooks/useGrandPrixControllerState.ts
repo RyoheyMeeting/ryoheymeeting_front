@@ -24,7 +24,7 @@ export const useGrandPrixControllerState = () => {
   const [createBtnDisabled, setCreateBtnDisabled] = useState(false);
   const [toggleEnabledBtnDisabled, setToggleEnabledBtnDisabled] = useState(false);
   const { id } = useParams();
-  const { presenterCollvoPoints, reload } = useCollvoPoints(id || "");
+  const { presenterCollvoPoints, reload, canDistribute, distributeCollvoPoint } = useCollvoPoints(id || "");
 
   const sortedPresenterKeys = useMemo(
     () => Object.keys(presenters).sort((a, b) => (presenters[a].index < presenters[b].index ? -1 : 1)),
@@ -140,6 +140,8 @@ export const useGrandPrixControllerState = () => {
     presenters: presenters,
     presenterCollvoPoints,
     recalcCPHandler: reload,
+    canDistribute,
+    distributeCollvoPoint,
     sortedPresenterKeys: sortedPresenterKeys,
     changePresenterBtns: presenterBtns,
     loading: status == Status.loading,
