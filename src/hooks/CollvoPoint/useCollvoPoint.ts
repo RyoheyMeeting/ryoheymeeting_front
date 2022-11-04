@@ -44,9 +44,11 @@ export const calculatePresenterCollvoPoint = ({
     return plainReaction + messageReaction;
   });
 
-  const boostPoint = boostPoints.reduce((sum, value) => {
-    return sum + value;
-  }, 0);
+  const boostPoint = Math.round(
+    boostPoints.reduce((sum, value) => {
+      return sum + value;
+    }, 0)
+  );
 
   return {
     reactionPoint,
