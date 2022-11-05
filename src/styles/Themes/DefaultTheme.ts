@@ -21,6 +21,12 @@ import {
   GRAY_65,
   GRAY_55,
   ORANGE_30,
+  GRAY_30,
+  ORANGE_70,
+  BLUE_GRAY_50,
+  GRAY_25,
+  MAGENTA_70,
+  MAGENTA_50,
 } from "styles/colors";
 
 export const DefaultTheme = {
@@ -133,6 +139,43 @@ export const DefaultTheme = {
     hover: GRAY_20,
     active: {
       font: ORANGE_30,
+    },
+  },
+  button: {
+    white: {
+      bg: GRAY_30,
+      surface: GRAY_10,
+      font: ORANGE_50,
+    },
+    orange: {
+      bg: ORANGE_70,
+      surface: ORANGE_50,
+      font: GRAY_10,
+    },
+    blueBlack: {
+      bg: BLUE_90,
+      surface: BLUE_70,
+      font: GRAY_10,
+    },
+    darkBlueBlack: {
+      bg: GRAY_100,
+      surface: BLUE_90,
+      font: GRAY_10,
+    },
+    gray: {
+      bg: GRAY_50,
+      surface: GRAY_40,
+      font: GRAY_25,
+    },
+    darkGray: {
+      bg: BLUE_GRAY_60,
+      surface: BLUE_GRAY_50,
+      font: GRAY_55,
+    },
+    red: {
+      bg: MAGENTA_70,
+      surface: MAGENTA_50,
+      font: GRAY_10,
     },
   },
 };

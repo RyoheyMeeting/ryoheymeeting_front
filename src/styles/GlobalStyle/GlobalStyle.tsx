@@ -16,6 +16,7 @@ export const GlobalStyle = createGlobalStyle<Props>`
     font-weight: ${FONT_WEIGHT.REGULAR};
     line-height: 150%;
     color: ${({ theme }) => theme.global.font};
+    font-feature-settings: "palt" on;
 
     // Base Color
     background-color: ${({ theme }) => theme.global.base};
