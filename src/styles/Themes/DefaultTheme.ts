@@ -27,6 +27,7 @@ import {
   GRAY_25,
   MAGENTA_70,
   MAGENTA_50,
+  BLUE_GRAY_80,
 } from "styles/colors";
 
 export const DefaultTheme = {
@@ -180,5 +181,9 @@ export const DefaultTheme = {
   },
   header: {
     bar: GRAY_30,
+  },
+  footer: {
+    bg: BLUE_GRAY_80,
+    darkFont: GRAY_55,
   },
 };
