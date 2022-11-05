@@ -178,4 +178,7 @@ export const DefaultTheme = {
       font: GRAY_10,
     },
   },
+  header: {
+    bar: GRAY_30,
+  },
 };
