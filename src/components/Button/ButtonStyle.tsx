@@ -126,17 +126,32 @@ const mStyle = css`
 
 const sStyle = css`
   line-height: 27px;
+  .button_wrap {
+    padding: 4px 16px 4px 16px;
+  }
 `;
 
-const leftStyle = css`
+const leftMStyle = css`
   .button_wrap {
     padding: 8px 24px 8px 18px;
   }
 `;
 
-const rightStyle = css`
+const leftSStyle = css`
+  .button_wrap {
+    padding: 4px 16px 4px 12px;
+  }
+`;
+
+const rightMStyle = css`
   .button_wrap {
     padding: 8px 18px 8px 24px;
+  }
+`;
+
+const rightSStyle = css`
+  .button_wrap {
+    padding: 4px 12px 4px 16px;
   }
 `;
 
@@ -158,8 +173,10 @@ export const ButtonStyle = styled.button<ButtonStyleProps & PrivateProps>`
   ${({ size }) => size === "M" && mStyle}
   ${({ size }) => size === "S" && sStyle}
 
-  ${({ iconPlace }) => iconPlace === "left" && leftStyle}
-  ${({ iconPlace }) => iconPlace === "right" && rightStyle}
+  ${({ iconPlace, size }) => iconPlace === "left" && size === "M" && leftMStyle}
+  ${({ iconPlace, size }) => iconPlace === "left" && size === "S" && leftSStyle}
+  ${({ iconPlace, size }) => iconPlace === "right" && size === "M" && rightMStyle}
+  ${({ iconPlace, size }) => iconPlace === "right" && size === "S" && rightSStyle}
 `;
 
 ButtonStyle.defaultProps = {
