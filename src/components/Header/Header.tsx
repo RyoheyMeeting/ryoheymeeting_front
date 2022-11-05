@@ -1,60 +1,50 @@
-import React, { Fragment } from "react";
+import { Buttonate } from "components/Buttonate/Buttonate";
+import { Bars } from "components/icons";
+import { UserIcon } from "components/UserIcon/UserIcon";
+import React, { MouseEventHandler } from "react";
 import { Link } from "react-router-dom";
-import { UserRole } from "services/User/User";
-import { useHeaderState } from "./hooks/useHeaderState";
+import { User } from "services/User/User";
+import { HeaderStyle, HeaderStyleProps, IconFullStyle, IconStyleProps } from "./HeaderStyle";
 
-type Props = {};
+type Props = HeaderStyleProps & {
+  user?: User;
+  onClickMenu?: MouseEventHandler<HTMLButtonElement>;
+  onClickUserMenu?: MouseEventHandler<HTMLButtonElement>;
+};
 
-export const Header: React.FC<Props> = () => {
-  const { isLogin, user, logoutBtnHandler } = useHeaderState();
-
+export const Header: React.FC<Props> = ({ user, onClickMenu, onClickUserMenu, ...styleProps }) => {
   return (
-    <div>
-      <h1>ヘッダー</h1>
-      <ul>
-        <li>
-          <Link to="/">トップ</Link>
-        </li>
-        {isLogin ? (
-          <li>
-            <div>
-              <img src={user?.photoURL} alt="profile image" />
-            </div>
-            <div>{user?.displayName} 様</div>
-            <div>
-              <button onClick={logoutBtnHandler}>ログアウト</button>
-            </div>
-          </li>
+    <HeaderStyle {...styleProps}>
+      <div className="header_main">
+        <Buttonate onClick={onClickMenu}>
+          <Bars {...IconStyleProps(styleProps)} />
+        </Buttonate>
+        <IconFullStyle src="/img/logo_full.svg" wrapper="svg" {...styleProps} />
+        <div className="header_spacer" />
+        {user ? (
+          // ログイン状態
+          <Buttonate onClick={onClickUserMenu}>
+            <UserIcon
+              userName={user.displayName}
+              iconUrl={user.photoURL}
+              color={styleProps.color === "default" ? "orange" : "white"}
+              size="SS"
+            />
+          </Buttonate>
         ) : (
-          <li>
-            <Link to="/login">ログイン</Link>
-          </li>
+          // 非ログイン状態
+          <div className="header_login">
+            <Link to="/login" className="header_link">
+              Login
+            </Link>
+            <span className="header_link_bar">/</span>
+            <Link to="/login" className="header_link">
+              Signup
+            </Link>
+          </div>
         )}
-      </ul>
-      <h3>メニュー</h3>
-      <ul>
-        <li>
-          <Link to="/grandprixlist">グランプリ</Link>
-        </li>
-        {isLogin ? (
-          <Fragment>
-            <li>
-              <Link to="/usertop">ユーザトップ</Link>
-            </li>
-            <li>
-              <Link to="/usersetting">ユーザ設定</Link>
-            </li>
-            <li>
-              <Link to="/shop">ショップ</Link>
-            </li>
-          </Fragment>
-        ) : undefined}
-        {user?.role == UserRole.staff ? (
-          <li>
-            <Link to="/admin">運営トップ</Link>
-          </li>
-        ) : undefined}
-      </ul>
-    </div>
+      </div>
+      <div className="header_bar" />
+    </HeaderStyle>
   );
 };
