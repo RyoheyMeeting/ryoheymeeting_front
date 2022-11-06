@@ -3,7 +3,7 @@ import React from "react";
 
 type Props = {};
 
-export const Login: React.FC<Props> = () => {
+export const PortfolioList: React.FC<Props> = () => {
   return (
     <WithHeaderFooter>
       <h1>ポートフォリオ</h1>

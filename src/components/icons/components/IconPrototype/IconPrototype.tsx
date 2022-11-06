@@ -34,13 +34,16 @@ type Props = {
   fill?: string;
 } & IconStyleProps;
 
-export const IconPrototype: React.FC<Props> = ({ filename, fill = "#000", wrapper = "span", ...props }) => {
+export const IconPrototype: React.FC<Props> = ({ filename, fill, wrapper = "span", ...props }) => {
   return (
     <IconStyle
       src={filename}
       wrapper={wrapper}
       beforeInjection={(svg: any) => {
-        svg.setAttribute("style", `display: block; width: ${props.size}; height: ${props.size}; fill: ${fill};`);
+        svg.setAttribute(
+          "style",
+          `display: block; width: ${props.size}; height: ${props.size}; ${fill && `fill: ${fill};`}`
+        );
       }}
       {...props}
     />
