@@ -186,4 +186,11 @@ export const DefaultTheme = {
     bg: BLUE_GRAY_80,
     darkFont: GRAY_55,
   },
+  sideMenu: {
+    bg: GRAY_30,
+    bar: GRAY_30,
+    active: {
+      font: ORANGE_30,
+    },
+  },
 };

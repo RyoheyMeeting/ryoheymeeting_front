@@ -9,6 +9,7 @@ import { GrandPrixList } from "pages/GrandPrixList/GrandPrixList";
 import { IdaiNaOkotoba } from "pages/IdaiNaOkotoba/IdaiNaOkotoba";
 import { Live } from "pages/Live/Live";
 import { Login } from "pages/Login/Login";
+import { PortfolioList } from "pages/PortfolioList/PortfolioList";
 import { Reaction } from "pages/Reaction/Reaction";
 import { Shop } from "pages/Shop/Shop";
 import { Top } from "pages/Top/Top";
@@ -31,6 +32,7 @@ export const App: React.FC<Props> = () => {
         <Route path="/usertop" element={<PrivateRoute component={UserTop} />} />
         <Route path="/usersetting" element={<PrivateRoute component={UserSetting} />} />
         <Route path="/shop" element={<PrivateRoute component={Shop} />} />
+        <Route path="/portfoliolist" element={<PrivateRoute component={PortfolioList} />} />
         <Route path="/grandprixlist" element={<GrandPrixList />} />
         <Route path="/grandprix/:id" element={<GrandPrix />} />
         <Route path="/reaction/:id" element={<PrivateRoute component={Reaction} />} />

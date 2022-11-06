@@ -1,60 +1,50 @@
-import React, { Fragment, MouseEventHandler } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { ChessKing, Cog, File, Home, ShoppingCart, UserAlt } from "components/icons";
 import { User, UserRole } from "services/User/User";
+import { NavIconText } from "./components/NavIconText/NavIconText";
 import { SideMenuStyle, SideMenuStyleProps } from "./SideMenuStyle";
 
 type Props = SideMenuStyleProps & {
   user?: User;
-  logoutBtnHandler: MouseEventHandler<HTMLButtonElement>;
 };
 
-export const SideMenu: React.FC<Props> = ({ user, logoutBtnHandler, ...styleProps }) => {
+export const SideMenu: React.FC<Props> = ({ user, ...styleProps }) => {
   return (
     <SideMenuStyle {...styleProps}>
       <ul>
         <li>
-          <Link to="/">トップ</Link>
+          <NavIconText to="/" Icon={Home} text="ホーム" />
         </li>
-        {user ? (
-          <li>
-            <div>
-              <img src={user?.photoURL} alt="profile image" />
-            </div>
-            <div>{user?.displayName} 様</div>
-            <div>
-              <button onClick={logoutBtnHandler}>ログアウト</button>
-            </div>
-          </li>
-        ) : (
-          <li>
-            <Link to="/login">ログイン</Link>
-          </li>
-        )}
-      </ul>
-      <h3>メニュー</h3>
-      <ul>
         <li>
-          <Link to="/grandprixlist">グランプリ</Link>
+          <NavIconText to="/grandprixlist" Icon={ChessKing} text="グランプリ" />
         </li>
-        {user ? (
-          <Fragment>
-            <li>
-              <Link to="/usertop">ユーザトップ</Link>
-            </li>
-            <li>
-              <Link to="/usersetting">ユーザ設定</Link>
-            </li>
-            <li>
-              <Link to="/shop">ショップ</Link>
-            </li>
-          </Fragment>
-        ) : undefined}
-        {user?.role == UserRole.staff ? (
-          <li>
-            <Link to="/admin">運営トップ</Link>
-          </li>
-        ) : undefined}
       </ul>
+      {user && (
+        <>
+          <div className="sidemenu_bar" />
+          <ul>
+            <li>
+              <NavIconText to="/usertop" Icon={UserAlt} text="ユーザトップ" />
+            </li>
+            <li>
+              <NavIconText to="/shop" Icon={ShoppingCart} text="ショップ" />
+            </li>
+            <li>
+              <NavIconText to="/portfoliolist" Icon={File} text="ポートフォリオ一覧" />
+            </li>
+          </ul>
+        </>
+      )}
+      {user?.role === UserRole.staff && (
+        <>
+          <div className="sidemenu_bar" />
+          <ul>
+            <li>
+              <NavIconText to="/admin" Icon={Cog} text="運営トップ" />
+            </li>
+          </ul>
+        </>
+      )}
     </SideMenuStyle>
   );
 };

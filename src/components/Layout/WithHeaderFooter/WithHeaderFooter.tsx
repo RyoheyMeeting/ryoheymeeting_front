@@ -1,5 +1,6 @@
 import { Footer } from "components/Footer/Footer";
 import { Header } from "components/Header/Header";
+import { SideMenu } from "components/SideMenu/SideMenu";
 import React from "react";
 import { BaseLayout } from "../BaseLayout/BaseLayout";
 import { useHeaderState } from "./hooks/useHeaderState";
@@ -13,6 +14,7 @@ export const WithHeaderFooter: React.FC<Props> = ({ children }) => {
   return (
     <BaseLayout>
       <Header user={isLogin ? user : undefined} />
+      <SideMenu user={isLogin ? user : undefined} />
       {children}
       <Footer />
     </BaseLayout>
