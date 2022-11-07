@@ -8,6 +8,7 @@ export { default as CalendarAlt } from "./CalendarAlt";
 export { default as ChessKing } from "./ChessKing";
 export { default as Child } from "./Child";
 export { default as Cog } from "./Cog";
+export { default as CollvoCoin } from "./CollvoCoin";
 export { default as Email } from "./Email";
 export { default as File } from "./File";
 export { default as FileSignature } from "./FileSignature";
