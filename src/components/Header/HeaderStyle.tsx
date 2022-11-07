@@ -2,7 +2,7 @@ import { IconProps } from "components/icons/components/IconPrototype/IconPrototy
 import { ReactSVG } from "react-svg";
 import styled, { css, useTheme } from "styled-components";
 import { FONT_SIZE, FONT_WEIGHT } from "styles/constants/constants";
-import { FlexGap } from "styles/FlexGap/FlexGap";
+import { FlexGap } from "styles/Utils/FlexGap";
 
 export type HeaderStyleProps = {
   color?: "default" | "white";

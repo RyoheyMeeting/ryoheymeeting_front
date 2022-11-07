@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { FlexGap } from "styles/FlexGap/FlexGap";
+import { FlexGap } from "styles/Utils/FlexGap";
 
 export type StampPalleteStyleProps = {};
 
