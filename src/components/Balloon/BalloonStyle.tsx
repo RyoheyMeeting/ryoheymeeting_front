@@ -139,4 +139,3 @@ BalloonStyle.defaultProps = {
   triPosition: "top",
   triAlign: "start",
 };
-
