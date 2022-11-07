@@ -28,6 +28,7 @@ import {
   MAGENTA_70,
   MAGENTA_50,
   BLUE_GRAY_80,
+  LIGHTBLUE_30,
 } from "styles/colors";
 
 export const DefaultTheme = {
@@ -137,10 +138,11 @@ export const DefaultTheme = {
     },
   },
   iconText: {
-    hover: GRAY_20,
-    active: {
-      font: ORANGE_30,
-    },
+    orange: ORANGE_30,
+  },
+  navIconText: {
+    active: ORANGE_30,
+    hoverBG: GRAY_20,
   },
   button: {
     white: {
@@ -192,5 +194,10 @@ export const DefaultTheme = {
     active: {
       font: ORANGE_30,
     },
+  },
+  userMenu: {
+    link: LIGHTBLUE_30,
+    bar: GRAY_30,
+    hoverBG: GRAY_20,
   },
 };

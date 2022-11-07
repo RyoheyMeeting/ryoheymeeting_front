@@ -1,10 +1,9 @@
 import styled, { css, useTheme } from "styled-components";
 import { IconProps } from "components/icons/components/IconPrototype/IconPrototype";
-import { FlexGap } from "styles/FlexGap/FlexGap";
-import { Link } from "react-router-dom";
+import { FlexGap } from "styles/Utils/FlexGap";
 
 export type IconTextStyleProps = {
-  status?: "Default" | "Active";
+  color?: "default" | "orange";
 };
 
 const defaultStyle = css`
@@ -23,36 +22,27 @@ const defaultStyle = css`
   }
 `;
 
-const hoverStyle = css`
-  background-color: ${({ theme }) => theme.iconText.hover};
-`;
-
-const activeStyle = css`
-  pointer-events: none;
-
+const orangeStyle = css`
   .icontext_label {
-    color: ${({ theme }) => theme.iconText.active.font};
+    color: ${({ theme }) => theme.iconText.orange};
   }
 `;
 
-export const IconTextStyle = styled(Link)<IconTextStyleProps>`
+export const IconTextStyle = styled.span<IconTextStyleProps>`
   ${defaultStyle}
 
-  :hover {
-    ${({ status }) => status === "Default" && hoverStyle}
-  }
-  ${({ status }) => status === "Active" && activeStyle}
+  ${({ color }) => color === "orange" && orangeStyle}
 `;
 
 IconTextStyle.defaultProps = {
-  status: "Default",
+  color: "default",
 };
 
-export const IconStyleProps: (props: IconTextStyleProps) => IconProps = ({ status }) => {
+export const IconStyleProps: (props: IconTextStyleProps) => IconProps = ({ color }) => {
   const theme = useTheme();
 
   return {
-    fill: status == "Active" ? theme.iconText.active.font : theme.global.font,
+    fill: color === "orange" ? theme.iconText.orange : theme.global.font,
     size: "24px",
   };
 };
