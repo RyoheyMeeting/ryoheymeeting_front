@@ -1,6 +1,6 @@
 import styled, { css, useTheme } from "styled-components";
 import { IconProps } from "components/icons/components/IconPrototype/IconPrototype";
-import { FlexGap } from "styles/FlexGap/FlexGap";
+import { FlexGap } from "styles/Utils/FlexGap";
 import { FONT_SIZE, FONT_WEIGHT } from "styles/constants/constants";
 
 export type ActionButtonStyleProps = {

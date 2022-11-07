@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { IconProps } from "components/icons/components/IconPrototype/IconPrototype";
-import { FlexGap } from "styles/FlexGap/FlexGap";
+import { FlexGap } from "styles/Utils/FlexGap";
 import { NavLink } from "react-router-dom";
 
 export type NavIconTextStyleProps = {};
@@ -26,17 +26,17 @@ const defaultStyle = css`
 `;
 
 const hoverStyle = css`
-  background-color: ${({ theme }) => theme.iconText.hover};
+  background-color: ${({ theme }) => theme.navIconText.hoverBG};
 `;
 
 const activeStyle = css`
   pointer-events: none;
   svg {
-    fill: ${({ theme }) => theme.iconText.active.font};
+    fill: ${({ theme }) => theme.navIconText.active};
   }
 
   .icontext_label {
-    color: ${({ theme }) => theme.iconText.active.font};
+    color: ${({ theme }) => theme.navIconText.active};
   }
 `;
 

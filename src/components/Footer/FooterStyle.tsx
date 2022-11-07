@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { FONT_SIZE, FONT_WEIGHT } from "styles/constants/constants";
-import { FlexGap } from "styles/FlexGap/FlexGap";
+import { FlexGap } from "styles/Utils/FlexGap";
 
 export type FooterStyleProps = {};
 
