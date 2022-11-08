@@ -7,7 +7,7 @@ export const Balloon: React.FC<Props> = ({ children, ...styleProps }) => {
   return (
     <BalloonStyle {...styleProps}>
       <div className="balloon_tri">
-        <BalloonTriStyle src="/img/balloon_tri.svg" wrapper="svg" {...styleProps} />
+        <BalloonTriStyle src="/img/balloon_tri.svg" wrapper="svg" />
       </div>
       <div className="balloon_main">{children}</div>
     </BalloonStyle>

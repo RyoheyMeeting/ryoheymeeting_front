@@ -1,7 +1,7 @@
 import { ReactSVG } from "react-svg";
 import styled, { css } from "styled-components";
 
-export const BalloonTriStyle = styled(ReactSVG)<BalloonStyleProps>`
+export const BalloonTriStyle = styled(ReactSVG)`
   display: block;
   position: absolute;
   width: 32px;

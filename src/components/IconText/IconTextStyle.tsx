@@ -18,6 +18,7 @@ const defaultStyle = css`
   text-decoration: none;
 
   .icontext_label {
+    white-space: nowrap;
     color: ${({ theme }) => theme.global.font};
   }
 `;

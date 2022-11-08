@@ -42,3 +42,20 @@ export const COLLVO_POINT = {
     CP_MAG: 1.5,
   },
 };
+
+export const Z_INDEX = {
+  /** 最小値 */
+  MIN: -999,
+  /** 背景系統 */
+  BG: -500,
+  /** 通常要素 */
+  COMMON: 0,
+  /** ヘッダー・サイドメニュー */
+  HEADER: 1000,
+  /** モーダル系統 */
+  MODAL: 2000,
+  /** Tips系統 */
+  TIPS: 7000,
+  /** 最大値 */
+  MAX: 9999,
+};

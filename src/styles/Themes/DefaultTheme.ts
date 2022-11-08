@@ -29,6 +29,7 @@ import {
   MAGENTA_50,
   BLUE_GRAY_80,
   LIGHTBLUE_30,
+  GRAY_80,
 } from "styles/colors";
 
 export const DefaultTheme = {
@@ -199,5 +200,8 @@ export const DefaultTheme = {
     link: LIGHTBLUE_30,
     bar: GRAY_30,
     hoverBG: GRAY_20,
+  },
+  withHeaderFooter: {
+    overlay: GRAY_80,
   },
 };
