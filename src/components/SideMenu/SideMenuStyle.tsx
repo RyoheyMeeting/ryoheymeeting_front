@@ -11,6 +11,7 @@ const defaultStyle = css`
   background-color: ${({ theme }) => theme.sideMenu.bg};
   width: 297px;
   height: 100%;
+  overflow-y: auto;
 
   > ul {
     display: flex;
@@ -24,6 +25,7 @@ const defaultStyle = css`
   .sidemenu_bar {
     height: 4px;
     margin: 0px 10px;
+    flex-shrink: 0;
     background-color: ${({ theme }) => theme.sideMenu.bar};
     border-radius: 2px;
     mix-blend-mode: multiply;

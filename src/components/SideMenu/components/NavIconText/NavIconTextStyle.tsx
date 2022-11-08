@@ -22,6 +22,7 @@ const defaultStyle = css`
 
   .icontext_label {
     color: ${({ theme }) => theme.global.font};
+    white-space: nowrap;
   }
 `;
 
