@@ -54,7 +54,10 @@ const whiteStyle = css`
 `;
 
 const baseStyle = css`
-  background-color: ${({ theme }) => theme.global.base};
+  .header_main {
+    background-color: ${({ theme }) => theme.global.base};
+    box-shadow: 0px 4px 4px ${({ theme }) => theme.global.base};
+  }
 `;
 
 const noneStyle = css`
