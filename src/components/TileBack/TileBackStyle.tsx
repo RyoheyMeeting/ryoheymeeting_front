@@ -6,9 +6,8 @@ export type TileBackStyleProps = {
 };
 
 const defaultStyle = css`
+  display: block;
   position: relative;
-  width: 100%;
-  height: 100%;
 
   min-height: 200px;
 

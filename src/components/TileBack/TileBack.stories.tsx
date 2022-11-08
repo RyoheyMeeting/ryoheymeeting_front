@@ -11,14 +11,23 @@ export default {
 
 const Template: ComponentStory<typeof TileBack> = (args) => <TileBack {...args} />;
 
+const Child = styled.div`
+  width: 100%;
+`;
+
+const LargeChild = styled.div`
+  width: 100%;
+  height: 1000px;
+`;
+
 export const Default = Template.bind({});
 Default.args = {
   type: "default",
   children: (
-    <div>
+    <Child>
       <h1>内容１</h1>
       <p>ここに内容の文章が入ります</p>
-    </div>
+    </Child>
   ),
   useHeadPadding: true,
 };
@@ -29,18 +38,13 @@ WithTitle.args = {
   title: "TOP",
 };
 
-const Wrapper = styled.div`
-  width: 100%;
-  height: 1000px;
-`;
-
-const LargeSizeTemplate: ComponentStory<typeof TileBack> = (args) => (
-  <Wrapper>
-    <TileBack {...args} />
-  </Wrapper>
-);
-
-export const LargeSize = LargeSizeTemplate.bind({});
+export const LargeSize = Template.bind({});
 LargeSize.args = {
   ...Default.args,
+  children: (
+    <LargeChild>
+      <h1>内容１</h1>
+      <p>ここに内容の文章が入ります</p>
+    </LargeChild>
+  ),
 };
