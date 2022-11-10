@@ -8,7 +8,9 @@ import stampsReducer, { StampsState } from "services/Stamps/Stamps";
 import stampTypesReducer, { StampTypesState } from "services/StampTypes/StampTypes";
 import grandPrixesReducer, { GrandPrixesState } from "services/GrandPrixes/GrandPrixes";
 import StampResourcesReducer, { StampResourcesState } from "services/StampResources/StampResources";
+
 import usersReducer, { UsersState } from "services/Users/Users";
+import moderateSoundsReducer, { ModerateSoundsState } from "services/ModerateSounds/ModerateSounds";
 
 export type RootState = {
   user: UserState;
@@ -19,6 +21,7 @@ export type RootState = {
   stampTypes: StampTypesState;
   grandPrixes: GrandPrixesState;
   stampResources: StampResourcesState;
+  moderateSounds: ModerateSoundsState;
 };
 
 export const store = configureStore({
@@ -31,6 +34,7 @@ export const store = configureStore({
     stampTypes: stampTypesReducer,
     grandPrixes: grandPrixesReducer,
     stampResources: StampResourcesReducer,
+    moderateSounds: moderateSoundsReducer,
   },
   middleware: [thunk],
 });
