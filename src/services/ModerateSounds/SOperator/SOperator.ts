@@ -43,7 +43,9 @@ export const getModerateSoundsAsync = async () => {
       });
       return moderateSounds;
     })
-    .catch(() => {});
+    .catch((e) => {
+      console.error(e, "ModerateSoundリストの取得に失敗しました");
+    });
 };
 
 export const getModerateSoundAsync = async (moderateSoundId: string) => {
@@ -89,7 +91,7 @@ export const uploadModerateSoundURLFromStorageAsync = async (
   data: UploadModerateSoundFile
 ) => {
   if (moderateSoundId === "") return;
-  return uploadBytes(ModerateSoundFilesRef(), data);
+  return uploadBytes(ref(ModerateSoundFilesRef(), moderateSoundId), data);
 };
 
 export const removeModerateSoundFromStorageAsync = async (moderateSoundId: string) => {

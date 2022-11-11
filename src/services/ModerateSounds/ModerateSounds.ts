@@ -24,13 +24,18 @@ export type ModerateSound = {
   downloadURL?: string;
 };
 
+export type UploadModerateSoundFile = Blob | Uint8Array | ArrayBuffer;
 export type ModerateSoundOnDB = Omit<ModerateSound, "downloadURL">;
+export type SavedModerateSound = ModerateSoundOnDB & {
+  file: UploadModerateSoundFile;
+};
+export type SavedModerateSoundPartial = Partial<SavedModerateSound>;
 
 export const isModerateSound = (instance: any): instance is ModerateSound =>
   instance !== undefined &&
   "name" in instance &&
   "type" in instance &&
-  instance["type"] in ["start", "remain5", "finish"] &&
+  ["start", "remain5", "finish"].includes(instance["type"]) &&
   "filename" in instance;
 
 type UpdateModerateSound = Partial<ModerateSound>;
@@ -47,8 +52,6 @@ export type ModerateSoundPartial = Partial<ModerateSoundOnDB>;
 type ModerateSoundsPayload = PayloadAction<Dict<ModerateSound>>;
 type ModerateSoundPayload = PayloadWithId<ModerateSound>;
 type UpdateModerateSoundPayload = PayloadWithId<UpdateModerateSound>;
-
-export type UploadModerateSoundFile = Blob | Uint8Array | ArrayBuffer;
 
 const initialState: ModerateSoundsState = {
   moderateSounds: {},
@@ -104,11 +107,13 @@ export const generateModerateSoundId = () => {
 
 export const addModerateSoundWithSaving = (
   moderateSoundId: string,
-  moderateSoundData: ModerateSoundOnDB,
-  moderateSoundFile: UploadModerateSoundFile,
+  savedModerateSoundData: SavedModerateSound,
   operate?: ModerateSoundOperationOfFirestore
 ): ThunkResult<void> => {
   return async (dispatch) => {
+    // FirestoreとStorageのデータを分ける
+    const { file: moderateSoundFile, ...moderateSoundData } = savedModerateSoundData;
+
     // 新データを作成
     const data: { [key: string]: any } = {};
     const moderateSoundKeys = Object.keys(moderateSoundData) as [keyof ModerateSoundOnDB];
@@ -138,11 +143,13 @@ export const addModerateSoundWithSaving = (
 
 export const updateModerateSoundWithSaving = (
   moderateSoundId: string,
-  moderateSoundData: ModerateSoundPartial,
-  moderateSoundFile?: UploadModerateSoundFile,
+  savedModerateSoundData: SavedModerateSoundPartial,
   operate?: ModerateSoundOperationOfFirestore
 ): ThunkResult<void> => {
   return async (dispatch, getState) => {
+    // FirestoreとStorageのデータを分ける
+    const { file: moderateSoundFile, ...moderateSoundData } = savedModerateSoundData;
+
     // 新データを作成
     const data: { [key: string]: any } = {};
     const moderateSoundKeys = Object.keys(moderateSoundData) as [keyof ModerateSoundOnDB];
@@ -194,8 +201,8 @@ export const removeModerateSoundWithSaving = (moderateSoundId: string): ThunkRes
 export const loadModerateSoundUrl = (moderateSoundId: string): ThunkResult<void> => {
   return async (dispatch, getState) => {
     if (moderateSoundId === "") return;
-
-    if (!(moderateSoundId in getState().moderateSounds.moderateSounds)) {
+    const preModerateSound = getState().moderateSounds.moderateSounds[moderateSoundId];
+    if (!preModerateSound || !preModerateSound.downloadURL) {
       await getModerateSoundURLFromStorageAsync(moderateSoundId)
         .then((url) => {
           if (url) {
@@ -207,6 +214,8 @@ export const loadModerateSoundUrl = (moderateSoundId: string): ThunkResult<void>
                 },
               })
             );
+          } else {
+            console.error("URLが取得できませんでした moderateSoundIs:", moderateSoundId);
           }
         })
         .catch(() => {
