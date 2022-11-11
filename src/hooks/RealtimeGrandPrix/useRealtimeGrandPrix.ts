@@ -20,6 +20,7 @@ import {
 } from "services/RealtimeGrandPrix/RealtimeGrandPrix";
 import { nullable, ThunkResult } from "services/Utils/Types";
 import { RootState } from "store";
+import { PRESENTATION_TIME } from "styles/constants/constants";
 import { stopResourceDBSync } from "./useRealtimeGrandPrixSetup";
 
 export const useRealtimeGrandPrix = () => {
@@ -85,7 +86,7 @@ export const createGrandPrixAsync = (grandPrixId: string): ThunkResult<void> => 
     if (!data) {
       await setGrandPrixAsync(grandPrixId, {
         enabled: true,
-        presentationTime: new Date(600000), // 初期値は10分
+        presentationTime: new Date(PRESENTATION_TIME), // 初期値は10分
       });
     }
     //グランプリが存在したら入室処理

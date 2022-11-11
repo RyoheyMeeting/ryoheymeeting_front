@@ -4,6 +4,7 @@ import "firebase_config";
 import { addChild, moveChild, removeChild } from "services/Utils/realtimeDatabase/InsertSortOfKeys";
 import { DBConverter, ListPayload, ValuePayload } from "services/Utils/realtimeDatabase/RealtimeDBListener";
 import { nullable } from "services/Utils/Types";
+import { PRESENTATION_TIME } from "styles/constants/constants";
 
 export const RootRef = () => ref(getDatabase(), "/GrandPrixApp");
 export const GrandPrixesRef = () => child(RootRef(), "grandPrixes");
@@ -42,7 +43,7 @@ export const RTGrandPrixConverter: DBConverter<RTGrandPrix, RTGrandPrixOnDB> = {
     keys.forEach((key) => {
       if (data[key]) {
         if (key == "presentationTime") {
-          const time = data[key] || new Date(600000);
+          const time = data[key] || new Date(PRESENTATION_TIME);
           result[key] = time.toISOString();
         } else if (key == "startTime") {
           result[key] = data[key]?.toISOString();
@@ -60,7 +61,7 @@ export const RTGrandPrixConverter: DBConverter<RTGrandPrix, RTGrandPrixOnDB> = {
   fromDB: (data) => {
     return {
       ...data,
-      presentationTime: data.presentationTime ? new Date(data.presentationTime) : new Date(600000),
+      presentationTime: data.presentationTime ? new Date(data.presentationTime) : new Date(PRESENTATION_TIME),
       startTime: data.startTime ? new Date(data.startTime) : undefined,
     };
   },
