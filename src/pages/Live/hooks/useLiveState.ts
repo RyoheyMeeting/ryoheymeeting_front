@@ -1,14 +1,18 @@
+import { ComponentProps, useCallback, useEffect, useState, useMemo } from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "store";
 import { BlinkPlainReaction } from "components/BlinkPlainReaction/BlinkPlainReaction";
+import { useModerateSound } from "hooks/ModerateSoundResources/useModerateSound";
 import { PresenterWithUser } from "hooks/Presenters/usePresenters";
 import { useRealtimeGrandPrix } from "hooks/RealtimeGrandPrix/useRealtimeGrandPrix";
 import { useRealtimeGrandPrixSetup } from "hooks/RealtimeGrandPrix/useRealtimeGrandPrixSetup";
 import { useTimer } from "hooks/Timer/useTimer";
+import { usePresentationWatchDog } from "hooks/WatchDog/usePresentationWatchDog";
 import { useGrandPrixInfo } from "pages/Reaction/hooks/useGrandPrixInfo";
-import { ComponentProps, useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 import { donePlainReaction } from "services/RealtimeGrandPrix/RealtimeGrandPrix";
-import { RootState } from "store";
+import { PRESENTATION_TIME } from "styles/constants/constants";
+import { randomChoice } from "Utils/funcs";
 
 export type IResponse = {
   currentPresenter?: PresenterWithUser;
@@ -63,10 +67,75 @@ export const useLiveState = (): IResponse => {
           startTime: realtimeGrandPrix.grandPrix.startTime,
         }
       : {
-          maxTime: new Date(600000),
+          maxTime: new Date(PRESENTATION_TIME),
           startTime: undefined,
         }
   );
+
+  // プレゼン進行ボイスの再生
+  const { moderateSounds, groupedModerateSoundIds, loadUrl } = useModerateSound();
+
+  const sounds = useMemo(() => {
+    return {
+      start: new Audio(),
+      remain5: new Audio(),
+      finish: new Audio(),
+    };
+  }, []);
+
+  useEffect(() => {
+    const startChoiced = randomChoice(groupedModerateSoundIds.start);
+    if (startChoiced && moderateSounds[startChoiced].downloadURL) {
+      sounds.start.src = moderateSounds[startChoiced].downloadURL || "";
+    }
+    const remain5Choiced = randomChoice(groupedModerateSoundIds.remain5);
+    if (remain5Choiced && moderateSounds[remain5Choiced].downloadURL) {
+      sounds.remain5.src = moderateSounds[remain5Choiced].downloadURL || "";
+    }
+    const finishChoiced = randomChoice(groupedModerateSoundIds.finish);
+    if (finishChoiced && moderateSounds[finishChoiced].downloadURL) {
+      sounds.finish.src = moderateSounds[finishChoiced].downloadURL || "";
+    }
+  }, [moderateSounds, realtimeGrandPrix.grandPrix?.startTime]);
+
+  // 事前にすべてロード
+  useEffect(() => {
+    Object.keys(moderateSounds).map(async (id, index) => {
+      console.log(`進行ボイスをロード中: ${index + 1}/${Object.keys(moderateSounds).length}`);
+      await loadUrl(id);
+    });
+  }, [moderateSounds]);
+
+  // タイマーをセット
+  usePresentationWatchDog({
+    startTime: realtimeGrandPrix.grandPrix?.startTime,
+    maxTime: realtimeGrandPrix.grandPrix?.presentationTime || new Date(PRESENTATION_TIME),
+    eventTimePattern: "start",
+    eventFunc: () => {
+      console.log("start!");
+      if (sounds.start) sounds.start.play();
+    },
+  });
+
+  usePresentationWatchDog({
+    startTime: realtimeGrandPrix.grandPrix?.startTime,
+    maxTime: realtimeGrandPrix.grandPrix?.presentationTime || new Date(PRESENTATION_TIME),
+    eventTimePattern: "remain5",
+    eventFunc: () => {
+      console.log("remain5!");
+      if (sounds.remain5) sounds.remain5.play();
+    },
+  });
+
+  usePresentationWatchDog({
+    startTime: realtimeGrandPrix.grandPrix?.startTime,
+    maxTime: realtimeGrandPrix.grandPrix?.presentationTime || new Date(PRESENTATION_TIME),
+    eventTimePattern: "finish",
+    eventFunc: () => {
+      console.log("finish!");
+      if (sounds.finish) sounds.finish.play();
+    },
+  });
 
   // スタンプ管理
   const { plainReactions } = useSelector((state: RootState) => state.realtimeGrandPrix);
@@ -89,7 +158,7 @@ export const useLiveState = (): IResponse => {
       if (!plainReactionId) return;
 
       // 準備
-      const nowWithOffset = new Date(new Date().getTime() - 60000);
+      const nowWithOffset = new Date(new Date().getTime() - 5000);
       const plainReaction = plainReactions.data[plainReactionId];
 
       // 表示済み・現在時刻より前過ぎる場合は表示しない

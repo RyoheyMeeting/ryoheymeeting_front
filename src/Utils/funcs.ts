@@ -20,3 +20,13 @@ export const max = (a: number, b: number): number => {
 export const dateToTime = (date: Date): string => {
   return date.toISOString().slice(14, 19);
 };
+
+/**
+ * リストの中からランダムに値を選択する
+ * @param array 対象リスト
+ * @returns ランダムに選ばれた要素
+ */
+export const randomChoice = <T>(array: T[]) => {
+  if (array.length === 0) return undefined;
+  return array[Math.floor(Math.random() * array.length)];
+};
