@@ -12,6 +12,7 @@ export type IResponse = {
   resourceSortedKeys: string[];
   addResourceBtnHandler: () => void;
   removeListener: (id: string) => void;
+  toOld: (id: string) => void;
 };
 
 export const useResourceListState = <T extends object>(
@@ -45,9 +46,22 @@ export const useResourceListState = <T extends object>(
   };
 
   const _removeListener = (id: string) => {
-    delete editableResources[id];
-    setEditableResources({ ...editableResources });
-    _updateKeys(editableResources);
+    setEditableResources((current) => {
+      delete current[id];
+      _updateKeys(current);
+      return current;
+    });
+  };
+
+  const _toOld = (id: string) => {
+    const updated = {
+      ...editableResources,
+      [id]: {
+        isNew: false,
+      },
+    };
+    setEditableResources(updated);
+    _updateKeys(updated);
   };
 
   const _updateKeys = (resources: Dict<EditableResourceRequire>) => {
@@ -59,5 +73,6 @@ export const useResourceListState = <T extends object>(
     resourceSortedKeys: resourceKeys,
     addResourceBtnHandler: _addResourceBtnHandler,
     removeListener: _removeListener,
+    toOld: _toOld,
   };
 };

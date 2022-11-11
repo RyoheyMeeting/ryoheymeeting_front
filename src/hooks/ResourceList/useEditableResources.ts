@@ -46,12 +46,13 @@ export const useEditableResourceState = <T extends object>(
   initialState: T,
   selector: (state: RootState) => T,
   validations: {
-    [P in keyof T]: (value: T[P]) => boolean;
+    [P in keyof T]: (value: T[P] | undefined) => boolean;
   },
   addResourceWithSaving?: (id: string, data: T) => void,
   updateResourceWithSaving?: (id: string, data: T) => void,
   removeResourceWithSaving?: (id: string) => void,
-  removeListener?: (id: string) => void
+  removeListener?: (id: string) => void,
+  toOld?: (id: string) => void
 ): IResponse<T> => {
   const resource = useSelector(selector);
   const [editableResource, setEditableResource] = useState<T>(resource ? resource : { ...initialState });
@@ -75,10 +76,10 @@ export const useEditableResourceState = <T extends object>(
     fields[key] = {
       value: editableResource[key],
       changeHandler: (value: T[typeof key]) => {
-        setEditableResource({
-          ...editableResource,
+        setEditableResource((current) => ({
+          ...current,
           [key]: value,
-        });
+        }));
         setIsChange(true);
       },
     };
@@ -138,7 +139,7 @@ export const useEditableResourceState = <T extends object>(
       if (addResourceWithSaving) {
         await dispatch(addResourceWithSaving(id, editableResource));
       }
-      if (removeListener) removeListener(id);
+      if (toOld) toOld(id);
     } else {
       if (updateResourceWithSaving) {
         await dispatch(updateResourceWithSaving(id, editableResource));

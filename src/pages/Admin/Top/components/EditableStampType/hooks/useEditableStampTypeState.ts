@@ -33,7 +33,8 @@ export type IResponse = {
 export const useEditableStampTypeState = (
   stampTypeId: string,
   isNew: boolean,
-  removeListener?: (id: string) => void
+  removeListener?: (id: string) => void,
+  toOld?: (id: string) => void
 ): IResponse => {
   const state = useEditableResourceState<StampType>(
     stampTypeId,
@@ -44,13 +45,14 @@ export const useEditableStampTypeState = (
     },
     (state: RootState) => state.stampTypes.stampTypes[stampTypeId],
     {
-      name: (value: string) => value != "",
-      description: (value: string) => value != "",
+      name: (value) => value !== undefined && value != "",
+      description: (value) => value !== undefined && value != "",
     },
     addStampTypeWithSaving,
     updateStampTypeWithSaving,
     removeStampTypeWithSaving,
-    removeListener
+    removeListener,
+    toOld
   );
 
   return {

@@ -8,10 +8,11 @@ export type IResponse = {
   stampSortedKeys: string[];
   addStampBtnHandler: () => void;
   removeListener: (id: string) => void;
+  toOld: (id: string) => void;
 };
 
 export const useStampListState = (): IResponse => {
-  const { resources, resourceSortedKeys, addResourceBtnHandler, removeListener } = useResourceListState<Stamp>(
+  const { resources, resourceSortedKeys, addResourceBtnHandler, removeListener, toOld } = useResourceListState<Stamp>(
     generateId,
     (state: RootState) => state.stamps.stamps
   );
@@ -20,6 +21,7 @@ export const useStampListState = (): IResponse => {
     stamps: resources,
     stampSortedKeys: resourceSortedKeys,
     addStampBtnHandler: addResourceBtnHandler,
-    removeListener: removeListener,
+    removeListener,
+    toOld,
   };
 };
