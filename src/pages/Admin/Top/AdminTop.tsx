@@ -1,6 +1,7 @@
 import { WithHeaderFooter } from "components/Layout/WithHeaderFooter/WithHeaderFooter";
 import React from "react";
 import { GrandPrixList } from "./components/GrandPrixList/GrandPrixList";
+import { ModerateSoundList } from "./components/ModerateSoundList/ModerateSoundList";
 import { StampList } from "./components/StampList/StampList";
 import { StampTypeList } from "./components/StampTypeList/StampTypeList";
 
@@ -16,6 +17,8 @@ export const AdminTop: React.FC<Props> = () => {
       <StampList />
       <h3>グランプリ一覧</h3>
       <GrandPrixList />
+      <h3>プレゼンテーション進行ボイス一覧</h3>
+      <ModerateSoundList />
     </WithHeaderFooter>
   );
 };
