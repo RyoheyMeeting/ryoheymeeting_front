@@ -91,6 +91,7 @@ const userSlice = createSlice({
      */
     signOut: (state) => {
       Object.assign(state, initialState);
+      state.loading = false;
     },
   },
 });
