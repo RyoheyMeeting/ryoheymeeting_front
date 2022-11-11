@@ -3,8 +3,6 @@ import { IconProps } from "components/icons/components/IconPrototype/IconPrototy
 import { FlexGap } from "styles/Utils/FlexGap";
 import { NavLink } from "react-router-dom";
 
-export type NavIconTextStyleProps = {};
-
 const defaultStyle = css`
   display: flex;
   flex-direction: row;
@@ -41,7 +39,7 @@ const activeStyle = css`
   }
 `;
 
-export const NavIconTextStyle = styled(NavLink)<NavIconTextStyleProps>`
+export const NavIconTextStyle = styled(NavLink)`
   ${defaultStyle}
 
   &:not(.active):hover {
@@ -55,7 +53,7 @@ export const NavIconTextStyle = styled(NavLink)<NavIconTextStyleProps>`
 
 NavIconTextStyle.defaultProps = {};
 
-export const IconStyleProps: (props: NavIconTextStyleProps) => IconProps = () => {
+export const IconStyleProps: () => IconProps = () => {
   return {
     size: "24px",
   };

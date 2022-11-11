@@ -40,7 +40,7 @@ export const SideMenu: React.FC<Props> = ({ user, ...styleProps }) => {
           <div className="sidemenu_bar" />
           <ul>
             <li>
-              <NavIconText to="/admin" Icon={Cog} text="運営トップ" />
+              <NavIconText to="/admin/" Icon={Cog} text="運営トップ" />
             </li>
           </ul>
         </>
