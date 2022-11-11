@@ -5,6 +5,7 @@ import { useRealtimeGrandPrixSetup } from "hooks/RealtimeGrandPrix/useRealtimeGr
 import { useTimer } from "hooks/Timer/useTimer";
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
+import { PRESENTATION_TIME } from "styles/constants/constants";
 import { ButtonOpts, Dict } from "Types/Utils";
 
 export const Status = {
@@ -99,7 +100,7 @@ export const useGrandPrixControllerState = () => {
   };
 
   // タイマー機能
-  const initialTime = new Date(600000);
+  const initialTime = new Date(PRESENTATION_TIME);
   const { remainTime } = useTimer({
     maxTime: realtimeGrandPrix.grandPrix?.presentationTime || initialTime,
     startTime: realtimeGrandPrix.grandPrix?.startTime,

@@ -59,3 +59,5 @@ export const Z_INDEX = {
   /** 最大値 */
   MAX: 9999,
 };
+
+export const PRESENTATION_TIME = 6 * 60 * 1000; // 25分

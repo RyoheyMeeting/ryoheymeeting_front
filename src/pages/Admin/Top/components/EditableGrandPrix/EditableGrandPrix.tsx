@@ -13,9 +13,10 @@ type Props = {
   grandPrixId: string;
   isNew: boolean;
   removeListener?: (id: string) => void;
+  toOld?: (id: string) => void;
 };
 
-export const EditableGrandPrix: React.FC<Props> = ({ grandPrixId, isNew, removeListener }) => {
+export const EditableGrandPrix: React.FC<Props> = ({ grandPrixId, isNew, removeListener, toOld }) => {
   const {
     editableGrandPrix: grandPrix,
     statusList,
@@ -26,7 +27,7 @@ export const EditableGrandPrix: React.FC<Props> = ({ grandPrixId, isNew, removeL
     saveBtn,
     closeBtn,
     removeBtn,
-  } = useEditableGrandPrixState(grandPrixId, isNew, removeListener);
+  } = useEditableGrandPrixState(grandPrixId, isNew, removeListener, toOld);
 
   return (
     <ul>

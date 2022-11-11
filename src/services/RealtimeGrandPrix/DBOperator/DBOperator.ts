@@ -1,4 +1,5 @@
 import { child, get, push, set, update } from "firebase/database";
+import { PRESENTATION_TIME } from "styles/constants/constants";
 import { Dict } from "Types/Utils";
 import {
   ActionsRef,
@@ -53,7 +54,7 @@ export const getGrandPrixAsync = async (grandPrixId: string) => {
     enabled: data.enabled,
     currentPresenterId: data.currentPresenterId,
     nextPresenterId: data.nextPresenterId,
-    presentationTime: data.presentationTime || new Date(600000),
+    presentationTime: data.presentationTime || new Date(PRESENTATION_TIME),
     startTime: data.startTime,
   });
 
@@ -205,7 +206,6 @@ export const removeMessageReactionsAsync = async (grandPrixId: string, presenter
 
 export const addBoostActionAsync = async (grandPrixId: string, presenterId: string, boostAction: BoostAction) => {
   if (grandPrixId == "" || presenterId == "") return;
-  console.log(grandPrixId, presenterId, boostAction, BoostActionsRef(grandPrixId, presenterId).toString());
   await push(BoostActionsRef(grandPrixId, presenterId), BoostActionConverter.toDB(boostAction));
 };
 

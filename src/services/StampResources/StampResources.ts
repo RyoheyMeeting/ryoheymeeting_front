@@ -53,7 +53,7 @@ export const loadImageUrl = (stampId: string): ThunkResult<void> => {
           }
         })
         .catch(() => {
-          console.log("ロードに失敗 stampId:", stampId);
+          console.error("ロードに失敗 stampId:", stampId);
         });
     }
   };
@@ -75,7 +75,7 @@ export const loadSoundUrl = (stampId: string): ThunkResult<void> => {
           }
         })
         .catch(() => {
-          console.log("ロードに失敗 stampId:", stampId);
+          console.error("ロードに失敗 stampId:", stampId);
         });
     }
   };

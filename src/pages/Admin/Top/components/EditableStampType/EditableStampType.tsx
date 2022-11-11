@@ -9,9 +9,10 @@ type Props = {
   stampTypeId: string;
   isNew: boolean;
   removeListener?: (id: string) => void;
+  toOld?: (id: string) => void;
 };
 
-export const EditableStampTypeInfo: React.FC<Props> = ({ stampTypeId, isNew, removeListener }) => {
+export const EditableStampTypeInfo: React.FC<Props> = ({ stampTypeId, isNew, removeListener, toOld }) => {
   const {
     editableStampType: stampType,
     isEdit,
@@ -21,7 +22,7 @@ export const EditableStampTypeInfo: React.FC<Props> = ({ stampTypeId, isNew, rem
     saveBtn,
     closeBtn,
     removeBtn,
-  } = useEditableStampTypeState(stampTypeId, isNew, removeListener);
+  } = useEditableStampTypeState(stampTypeId, isNew, removeListener, toOld);
 
   return (
     <ul>

@@ -5,12 +5,17 @@ import { useGrandPrixListState } from "./hooks/useGrandPrixListState";
 type Props = {};
 
 export const GrandPrixList: React.FC<Props> = () => {
-  const { grandPrixes, grandPrixSortedKeys, addGrandPrixBtnHandler, removeListener } = useGrandPrixListState();
+  const { grandPrixes, grandPrixSortedKeys, addGrandPrixBtnHandler, removeListener, toOld } = useGrandPrixListState();
   return (
     <ul>
       {grandPrixSortedKeys.map((key) => (
         <li key={key}>
-          <EditableGrandPrix grandPrixId={key} isNew={grandPrixes[key].isNew} removeListener={removeListener} />
+          <EditableGrandPrix
+            grandPrixId={key}
+            isNew={grandPrixes[key].isNew}
+            removeListener={removeListener}
+            toOld={toOld}
+          />
         </li>
       ))}
       <li>

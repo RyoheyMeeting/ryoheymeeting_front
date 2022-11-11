@@ -39,7 +39,8 @@ export type IResponse = {
 export const useEditableGrandPrixState = (
   GrandPrixId: string,
   isNew: boolean,
-  removeListener?: (id: string) => void
+  removeListener?: (id: string) => void,
+  toOld?: (id: string) => void
 ): IResponse => {
   const state = useEditableResourceState<GrandPrix>(
     GrandPrixId,
@@ -55,11 +56,11 @@ export const useEditableGrandPrixState = (
     },
     (state: RootState) => state.grandPrixes.grandPrixes[GrandPrixId],
     {
-      subtitle: (value) => value != "",
-      number: (value) => value >= 0,
-      eventDate: (value) => isDate(value),
-      status: (value) => value in Object.values(GrandPrixStatus),
-      description: (value) => value != "",
+      subtitle: (value) => value !== undefined && value != "",
+      number: (value) => value !== undefined && value >= 0,
+      eventDate: (value) => value !== undefined && isDate(value),
+      status: (value) => value !== undefined && value in Object.values(GrandPrixStatus),
+      description: (value) => value !== undefined && value != "",
       isDraft: () => true,
       // 但し、UI上には表示しない
       isDistributed: () => true,
@@ -67,7 +68,8 @@ export const useEditableGrandPrixState = (
     addGrandPrixWithSaving,
     updateGrandPrixWithSaving,
     removeGrandPrixWithSaving,
-    removeListener
+    removeListener,
+    toOld
   );
   const grandPrixStatusKeys = Object.keys(GrandPrixStatus) as [keyof typeof GrandPrixStatus];
   const statusList = grandPrixStatusKeys.map((key) => {

@@ -34,7 +34,7 @@ export const useEditablePresenterState = (grandPrixId: string, presenterId: stri
       state.grandPrixes.presenters[grandPrixId] && state.grandPrixes.presenters[grandPrixId][presenterId],
     {
       index: () => true,
-      earnedCollvoPoint: (value) => value >= 0,
+      earnedCollvoPoint: (value) => value !== undefined && value >= 0,
       nextDescription: () => true,
     },
     undefined,

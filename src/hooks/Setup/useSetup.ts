@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { reloadGrandPrixesAsync } from "services/GrandPrixes/GrandPrixes";
+import { reloadModerateSoundsAsync } from "services/ModerateSounds/ModerateSounds";
 import { reloadStampsAsync } from "services/Stamps/Stamps";
 import { reloadStampTypesAsync } from "services/StampTypes/StampTypes";
 import { reloadUserDataAsync } from "services/User/User";
@@ -21,6 +22,7 @@ export const useSetup = (): IResponse => {
     dispatch(reloadStampsAsync());
     dispatch(reloadStampTypesAsync());
     dispatch(reloadGrandPrixesAsync());
+    dispatch(reloadModerateSoundsAsync());
   };
 
   return {
