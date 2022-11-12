@@ -44,7 +44,7 @@ export const Top: React.FC<Props> = () => {
                       value="管理者TOP"
                       iconPlace="left"
                       Icon={Cog}
-                      color="white"
+                      color="blueBlack"
                       size="M"
                       mode="default"
                       onClick={() => navigate("/admin")}
