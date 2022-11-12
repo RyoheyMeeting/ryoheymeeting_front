@@ -29,6 +29,7 @@ export const App: React.FC<Props> = () => {
       <Routes>
         <Route path="/" element={<Top />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Login />} />
         <Route path="/usertop" element={<PrivateRoute component={UserTop} />} />
         <Route path="/usersetting" element={<PrivateRoute component={UserSetting} />} />
         <Route path="/shop" element={<PrivateRoute component={Shop} />} />
