@@ -8,7 +8,7 @@ import { GrandPrix } from "pages/GrandPrix/GrandPrix";
 import { GrandPrixList } from "pages/GrandPrixList/GrandPrixList";
 import { IdaiNaOkotoba } from "pages/IdaiNaOkotoba/IdaiNaOkotoba";
 import { Live } from "pages/Live/Live";
-import { Login } from "pages/Login/Login";
+import { Login } from "pages/Sign/Login/Login";
 import { PortfolioList } from "pages/PortfolioList/PortfolioList";
 import { Reaction } from "pages/Reaction/Reaction";
 import { Shop } from "pages/Shop/Shop";

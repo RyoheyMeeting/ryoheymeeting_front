@@ -30,6 +30,7 @@ import {
   BLUE_GRAY_80,
   LIGHTBLUE_30,
   GRAY_80,
+  WHITE,
 } from "styles/colors";
 
 export const DefaultTheme = {
@@ -206,5 +207,9 @@ export const DefaultTheme = {
   },
   top: {
     description: GRAY_50,
+  },
+  longButton: {
+    gray: GRAY_50,
+    negative: WHITE,
   },
 };
