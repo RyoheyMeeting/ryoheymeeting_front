@@ -64,5 +64,5 @@ export const TileBackStyle = styled.div<TileBackStyleProps>`
 `;
 
 TileBackStyle.defaultProps = {
-  useHeadPadding: true,
+  useHeadPadding: false,
 };
