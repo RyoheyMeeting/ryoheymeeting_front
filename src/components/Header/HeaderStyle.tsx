@@ -25,6 +25,12 @@ const defaultStyle = css`
     width: 100%;
   }
 
+  .header_logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
   .header_spacer {
     flex-grow: 1;
   }

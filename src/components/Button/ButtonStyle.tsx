@@ -28,6 +28,7 @@ const defaultStyle = css`
     border-radius: 10px;
     ${FlexGap({ gap: "10px", direction: "row" })}
     padding: 8px 24px;
+    white-space: nowrap;
   }
 
   :not(:disabled):active {

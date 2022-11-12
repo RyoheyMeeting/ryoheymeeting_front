@@ -204,4 +204,7 @@ export const DefaultTheme = {
   withHeaderFooter: {
     overlay: GRAY_80,
   },
+  top: {
+    description: GRAY_50,
+  },
 };

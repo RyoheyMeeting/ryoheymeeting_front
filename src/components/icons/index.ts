@@ -23,6 +23,7 @@ export { default as Pen } from "./Pen";
 export { default as Psycho } from "./Psycho";
 export { default as Question } from "./Question";
 export { default as ShoppingCart } from "./ShoppingCart";
+export { default as SignInAlt } from "./SignInAlt";
 export { default as SignOut } from "./SignOut";
 export { default as Stamp } from "./Stamp";
 export { default as Trash } from "./Trash";

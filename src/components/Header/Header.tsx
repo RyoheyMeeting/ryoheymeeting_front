@@ -19,7 +19,9 @@ export const Header: React.FC<Props> = ({ user, onClickMenu, onClickUserMenu, ..
         <Buttonate onClick={onClickMenu}>
           <Bars {...IconStyleProps(styleProps)} />
         </Buttonate>
-        <IconFullStyle src="/img/logo_full.svg" wrapper="svg" {...styleProps} />
+        <Link to="/" className="header_logo">
+          <IconFullStyle src="/img/logo_full.svg" wrapper="svg" {...styleProps} />
+        </Link>
         <div className="header_spacer" />
         {user ? (
           // ログイン状態
