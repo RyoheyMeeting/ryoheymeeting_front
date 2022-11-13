@@ -60,7 +60,7 @@ export const Top: React.FC<Props> = () => {
                     color="white"
                     size="M"
                     mode="default"
-                    onClick={() => navigate("/login")}
+                    onClick={() => navigate("/signin")}
                   />
                   <Button
                     value="新規登録する！"
@@ -69,7 +69,7 @@ export const Top: React.FC<Props> = () => {
                     color="orange"
                     size="M"
                     mode="default"
-                    onClick={() => navigate("/register")}
+                    onClick={() => navigate("/signup")}
                   />
                 </>
               )}

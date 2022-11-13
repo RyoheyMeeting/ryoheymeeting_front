@@ -8,7 +8,7 @@ import { GrandPrix } from "pages/GrandPrix/GrandPrix";
 import { GrandPrixList } from "pages/GrandPrixList/GrandPrixList";
 import { IdaiNaOkotoba } from "pages/IdaiNaOkotoba/IdaiNaOkotoba";
 import { Live } from "pages/Live/Live";
-import { Login } from "pages/Sign/Login/Login";
+import { Sign } from "pages/Sign/Sign";
 import { PortfolioList } from "pages/PortfolioList/PortfolioList";
 import { Reaction } from "pages/Reaction/Reaction";
 import { Shop } from "pages/Shop/Shop";
@@ -28,8 +28,8 @@ export const App: React.FC<Props> = () => {
     <HashRouter>
       <Routes>
         <Route path="/" element={<Top />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Login />} />
+        <Route path="/signin" element={<Sign isSignup={false} />} />
+        <Route path="/signup" element={<Sign isSignup={true} />} />
         <Route path="/usertop" element={<PrivateRoute component={UserTop} />} />
         <Route path="/usersetting" element={<PrivateRoute component={UserSetting} />} />
         <Route path="/shop" element={<PrivateRoute component={Shop} />} />
