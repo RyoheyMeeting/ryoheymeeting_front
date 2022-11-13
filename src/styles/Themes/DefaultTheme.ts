@@ -31,6 +31,8 @@ import {
   LIGHTBLUE_30,
   GRAY_80,
   WHITE,
+  ORANGE_20,
+  ORANGE_10,
 } from "styles/colors";
 
 export const DefaultTheme = {
@@ -210,6 +212,14 @@ export const DefaultTheme = {
   },
   longButton: {
     gray: GRAY_50,
+    negative: WHITE,
+  },
+  inputText: {
+    placeholder: ORANGE_20,
+    deactive: {
+      bg: ORANGE_10,
+      font: ORANGE_30,
+    },
     negative: WHITE,
   },
 };

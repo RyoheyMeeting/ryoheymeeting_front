@@ -32,13 +32,15 @@ type Props = {
   filename: ComponentProps<typeof ReactSVG>["src"];
   wrapper?: ComponentProps<typeof ReactSVG>["wrapper"];
   fill?: string;
+  className?: string;
 } & IconStyleProps;
 
-export const IconPrototype: React.FC<Props> = ({ filename, fill, wrapper = "span", ...props }) => {
+export const IconPrototype: React.FC<Props> = ({ filename, fill, wrapper = "span", className, ...props }) => {
   return (
     <IconStyle
       src={filename}
       wrapper={wrapper}
+      className={className}
       beforeInjection={(svg: any) => {
         svg.setAttribute(
           "style",
