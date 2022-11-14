@@ -10,7 +10,7 @@ type Props = {
   type?: HTMLInputTypeAttribute;
 };
 
-export const InputText: React.FC<Props> = ({ value, placeholder, onChange, Icon, type="text" }) => {
+export const InputText: React.FC<Props> = ({ value, placeholder, onChange, Icon, type = "text" }) => {
   return (
     <InputTextStyle isWritten={value !== undefined && value !== ""}>
       <span className="inputtext_placeholder">{placeholder}</span>

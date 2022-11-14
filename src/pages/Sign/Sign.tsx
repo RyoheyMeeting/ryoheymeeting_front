@@ -27,7 +27,11 @@ export const Sign: React.FC<Props> = ({ isSignup = false }) => {
       <div className="sign_backlink">
         <BackLink to="/" color={windowDimensions.width > 1000 ? "white" : "orange"} />
       </div>
-      <div className="sign_panel_left"></div>
+      <div className="sign_panel_left">
+        遼平会！！
+        <br />
+        バンザイ！
+      </div>
       <div className="sign_panel_right">
         <div className="sign_panel_wrapper">
           <LogoSquareStyle src="/img/logo_square.svg" wrapper="svg" />

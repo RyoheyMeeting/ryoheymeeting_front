@@ -22,6 +22,14 @@ export const SignStyle = styled.div`
     flex: 1;
     min-width: 0;
     background-color: ${({ theme }) => theme.global.main};
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 20px;
+    font-size: 100px;
+    font-weight: ${FONT_WEIGHT.BOLD};
+    line-height: 150%;
+    color: ${({ theme }) => theme.sign.negative};
 
     @media screen and (max-width: 1000px) {
       display: none;
