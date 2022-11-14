@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler } from "react";
+import React, { ChangeEventHandler, HTMLInputTypeAttribute } from "react";
 import { Icon } from "Types/Utils";
 import { InputTextStyle } from "./InputTextStyle";
 
@@ -7,14 +7,14 @@ type Props = {
   placeholder: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
   Icon: Icon;
+  type?: HTMLInputTypeAttribute;
 };
 
-export const InputText: React.FC<Props> = ({ value, placeholder, onChange, Icon }) => {
-  console.log(value);
+export const InputText: React.FC<Props> = ({ value, placeholder, onChange, Icon, type="text" }) => {
   return (
     <InputTextStyle isWritten={value !== undefined && value !== ""}>
       <span className="inputtext_placeholder">{placeholder}</span>
-      <input type="text" value={value} className="inputtext_input" onChange={onChange} />
+      <input type={type} value={value} className="inputtext_input" onChange={onChange} />
       <Icon size="24px" className="inputtext_icon" />
     </InputTextStyle>
   );

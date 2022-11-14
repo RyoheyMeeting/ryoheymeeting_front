@@ -97,6 +97,9 @@ export const DefaultTheme = {
     white: {
       font: GRAY_10,
     },
+    orange: {
+      font: ORANGE_50,
+    },
   },
   stampMessage: {
     bg: GRAY_90,
@@ -220,6 +223,11 @@ export const DefaultTheme = {
       bg: ORANGE_10,
       font: ORANGE_30,
     },
+    negative: WHITE,
+  },
+  sign: {
+    description: GRAY_50,
+    or: GRAY_40,
     negative: WHITE,
   },
 };
