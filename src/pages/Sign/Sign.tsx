@@ -13,7 +13,7 @@ export const Sign: React.FC<Props> = ({ isSignup = false }) => {
   const {
     // email,
     // password,
-    signInEmail,
+    // signInEmail,
     signInGoogle,
     signInAnonymous,
     // onChangeEmail,
@@ -66,12 +66,12 @@ export const Sign: React.FC<Props> = ({ isSignup = false }) => {
           </span>
           <InputText type="text" value={email} placeholder="Email" Icon={Email} onChange={onChangeEmail} />
           <InputText type="password" value={password} placeholder="Password" Icon={VpnKey} onChange={onChangePassword} /> */}
-          <LongButton
+          {/* <LongButton
             Icon={isSignup ? SignInAlt : UserPlus}
             value={isSignup ? "新規登録" : "ログイン"}
             priority="primary"
             onClick={signInEmail}
-          />
+          /> */}
           <LongButton
             Icon={isSignup ? UserPlus : SignInAlt}
             value={isSignup ? "ログイン" : "新規登録"}
