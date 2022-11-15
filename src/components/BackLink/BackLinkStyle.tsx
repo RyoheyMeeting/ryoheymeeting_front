@@ -6,7 +6,7 @@ import { FlexGap } from "styles/Utils/FlexGap";
 import { Link } from "react-router-dom";
 
 export type BackLinkStyleProps = {
-  color: "white";
+  color: "white" | "orange";
 };
 
 const defaultStyle = css`
@@ -20,10 +20,15 @@ const whiteStyle = css`
   color: ${({ theme }) => theme.backLink.white.font};
 `;
 
+const orangeStyle = css`
+  color: ${({ theme }) => theme.backLink.orange.font};
+`;
+
 export const BackLinkStyle = styled(Link)<BackLinkStyleProps>`
   ${defaultStyle}
 
   ${({ color }) => color == "white" && whiteStyle}
+  ${({ color }) => color == "orange" && orangeStyle}
 `;
 
 BackLinkStyle.defaultProps = {};
@@ -34,7 +39,8 @@ export const AngleLeftStyleProps: (props: BackLinkStyleProps) => React.Component
   const theme = useTheme();
 
   let fill = theme.backLink.white.font;
-  if (color == "white") fill = theme.backLink.white.font;
+  if (color === "white") fill = theme.backLink.white.font;
+  if (color === "orange") fill = theme.backLink.orange.font;
 
   return {
     fill: fill,
@@ -51,8 +57,13 @@ const iconFullWhiteStyle = css`
   fill: ${({ theme }) => theme.backLink.white.font};
 `;
 
+const iconFullOrangeStyle = css`
+  fill: ${({ theme }) => theme.backLink.orange.font};
+`;
+
 export const IconFullStyle = styled(ReactSVG)<BackLinkStyleProps>`
   ${iconFullDefaultStyle}
 
   ${({ color }) => color == "white" && iconFullWhiteStyle}
+  ${({ color }) => color == "orange" && iconFullOrangeStyle}
 `;

@@ -190,7 +190,7 @@ export const reloadUserDataAsync = (): ThunkResult<void> => {
  */
 export const signOutAsync = (): ThunkResult<void> => {
   return async (dispatch) => {
-    firebase
+    await firebase
       .auth()
       .signOut()
       .then(() => {

@@ -17,7 +17,7 @@ const defaultStyle = css`
   width: 100%;
   height: 64px;
   border-radius: 12px;
-  box-shadow: 0px 0px 40px rgba(70, 70, 70, 0.1);
+  /* box-shadow: 0px 0px 40px rgba(70, 70, 70, 0.1); */
   font-size: ${FONT_SIZE.STRONG};
   font-weight: ${FONT_WEIGHT.BOLD};
   white-space: nowrap;

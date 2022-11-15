@@ -36,11 +36,11 @@ export const Header: React.FC<Props> = ({ user, onClickMenu, onClickUserMenu, ..
         ) : (
           // 非ログイン状態
           <div className="header_login">
-            <Link to="/login" className="header_link">
+            <Link to="/signin" className="header_link">
               Login
             </Link>
             <span className="header_link_bar">/</span>
-            <Link to="/login" className="header_link">
+            <Link to="/signup" className="header_link">
               Signup
             </Link>
           </div>
