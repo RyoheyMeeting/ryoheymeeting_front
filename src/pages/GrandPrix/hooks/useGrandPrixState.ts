@@ -2,7 +2,12 @@ import { PresenterWithUser, usePresenters } from "hooks/Presenters/usePresenters
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { addPresenterWithSaving, GrandPrix, removePresenterWithSaving } from "services/GrandPrixes/GrandPrixes";
+import {
+  addPresenterWithSaving,
+  GrandPrix,
+  GrandPrixStatus,
+  removePresenterWithSaving,
+} from "services/GrandPrixes/GrandPrixes";
 import { User } from "services/User/User";
 import { RootState } from "store";
 import { Dict } from "Types/Utils";
@@ -71,11 +76,11 @@ export const useGrandPrixState = (): IResponse => {
     isParticipated: isParticipated,
     user: user,
     participateBtn: {
-      disabled: isParticipated,
+      disabled: isParticipated || (!!id && grandPrixes[id]?.status === GrandPrixStatus.done),
       handler: _participate,
     },
     unparticipateBtn: {
-      disabled: !isParticipated,
+      disabled: !isParticipated || (!!id && grandPrixes[id]?.status === GrandPrixStatus.done),
       handler: _unparticipate,
     },
   };

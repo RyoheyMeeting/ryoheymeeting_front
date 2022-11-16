@@ -4,17 +4,29 @@ import { HeaderStyle } from "components/Header/HeaderStyle";
 import { SideMenuStyle } from "components/SideMenu/SideMenuStyle";
 import { ActiveBrightness } from "styles/Utils/ActiveBrightness";
 
+export type WithHeaderFooterStyleProps = {
+  useHeadPadding?: boolean;
+};
+
 type WithOpenProps = {
   isOpen: boolean;
 };
 
-export const WithHeaderFooterStyle = styled.div`
+const useHeadPaddingStyle = css`
+  padding-top: 52px;
+`;
+
+export const WithHeaderFooterStyle = styled.div<WithHeaderFooterStyleProps>`
   position: relative;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  padding-top: 52px;
+  ${({ useHeadPadding }) => useHeadPadding && useHeadPaddingStyle}
 `;
+
+WithHeaderFooterStyle.defaultProps = {
+  useHeadPadding: true,
+};
 
 const overlayOpenStyle = css`
   display: block;
@@ -95,7 +107,13 @@ export const UserMenuWrapper = styled.div<WithOpenProps>`
   ${({ isOpen }) => isOpen && userMenuWrapperOpenStyle}
 `;
 
-export const ContentWrapper = styled.div`
+const ContentWrapperPaddingStyle = css`
+  .layout_wrapper_main {
+    margin-top: 4px;
+  }
+`;
+
+export const ContentWrapper = styled.div<WithHeaderFooterStyleProps>`
   position: relative;
   width: 100%;
   height: 100%;
@@ -105,6 +123,7 @@ export const ContentWrapper = styled.div`
 
   .layout_wrapper_main {
     min-height: calc(100vh - 56px);
-    margin-top: 4px;
   }
+
+  ${({ useHeadPadding }) => useHeadPadding && ContentWrapperPaddingStyle}
 `;

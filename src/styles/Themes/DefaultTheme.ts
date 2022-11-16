@@ -262,4 +262,7 @@ export const DefaultTheme = {
       },
     },
   },
+  grandPrixTop: {
+    presenterName: GRAY_55,
+  },
 };

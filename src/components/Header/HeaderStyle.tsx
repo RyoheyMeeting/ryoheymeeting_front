@@ -6,7 +6,7 @@ import { FlexGap } from "styles/Utils/FlexGap";
 
 export type HeaderStyleProps = {
   color?: "default" | "white";
-  fill?: "none" | "base";
+  fill?: "none" | "base" | "orange";
 };
 
 const defaultStyle = css`
@@ -66,6 +66,17 @@ const baseStyle = css`
   }
 `;
 
+const orangeStyle = css`
+  .header_main {
+    background-color: ${({ theme }) => theme.global.main};
+    box-shadow: 0px 4px 4px ${({ theme }) => theme.global.main};
+  }
+
+  .header_bar {
+    opacity: 0.2;
+  }
+`;
+
 const noneStyle = css`
   .header_bar {
     opacity: 0.2;
@@ -78,6 +89,7 @@ export const HeaderStyle = styled.div<HeaderStyleProps>`
   ${({ color }) => color === "white" && whiteStyle}
   ${({ fill }) => fill === "none" && noneStyle}
   ${({ fill }) => fill === "base" && baseStyle}
+  ${({ fill }) => fill === "orange" && orangeStyle}
 `;
 
 HeaderStyle.defaultProps = {

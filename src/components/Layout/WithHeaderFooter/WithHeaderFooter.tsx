@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ComponentProps } from "react";
 import { Footer } from "components/Footer/Footer";
 import { Header } from "components/Header/Header";
 import { Portal } from "components/Portal/Portal";
@@ -11,13 +11,15 @@ import {
   Overlay,
   UserMenuWrapper,
   WithHeaderFooterStyle,
+  WithHeaderFooterStyleProps,
 } from "./WithHeaderFooterStyle";
 
-type Props = {
+type Props = WithHeaderFooterStyleProps & {
   children: React.ReactNode;
+  headerProps?: Partial<Pick<ComponentProps<typeof Header>, "color" | "fill">>;
 };
 
-export const WithHeaderFooter: React.FC<Props> = ({ children }) => {
+export const WithHeaderFooter: React.FC<Props> = ({ children, headerProps, ...styleProps }) => {
   const {
     user,
     isLogin,
@@ -30,8 +32,8 @@ export const WithHeaderFooter: React.FC<Props> = ({ children }) => {
     closeUserMenuHandler,
   } = useHeaderState();
   return (
-    <WithHeaderFooterStyle>
-      <ContentWrapper>
+    <WithHeaderFooterStyle {...styleProps}>
+      <ContentWrapper {...styleProps}>
         <div className="layout_wrapper_main">{children}</div>
         <Footer />
       </ContentWrapper>
@@ -41,6 +43,7 @@ export const WithHeaderFooter: React.FC<Props> = ({ children }) => {
           user={isLogin ? user : undefined}
           onClickMenu={toggleSideMenuHandler}
           onClickUserMenu={toggleUserMenuHandler}
+          {...headerProps}
         />
         <Overlay isOpen={isOpenSideMenu} onClick={closeSideMenuHandler} />
         <SideMenu user={isLogin ? user : undefined} />
