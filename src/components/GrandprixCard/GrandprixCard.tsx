@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { GrandPrix } from "services/GrandPrixes/GrandPrixes";
 import { dateToFormat } from "Utils/funcs";
-import { GrandprixStatusTag } from "./components/GrandprixStatus/GrandprixStatusTag";
+import { GrandprixStatusTag } from "../GrandprixStatusTag/GrandprixStatusTag";
 import { GrandprixCardStyle, IconFullStyle } from "./GrandprixCardStyle";
 
 type Props = {
