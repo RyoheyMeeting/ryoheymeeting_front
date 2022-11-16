@@ -230,4 +230,36 @@ export const DefaultTheme = {
     or: GRAY_40,
     negative: WHITE,
   },
+  grandPrixCard: {
+    tag: {
+      yet: BLUE_70,
+      doing: BLUE_70,
+      done: GRAY_50,
+    },
+    yet: {
+      bg: ORANGE_50,
+      font: GRAY_10,
+      fontGray: ORANGE_20,
+      active: {
+        border: BLUE_70,
+      },
+    },
+    doing: {
+      bg: ORANGE_50,
+      font: GRAY_10,
+      fontGray: ORANGE_20,
+      active: {
+        border: BLUE_70,
+      },
+    },
+    done: {
+      bg: GRAY_10,
+      font: GRAY_80,
+      fontGray: GRAY_55,
+      border: GRAY_30,
+      active: {
+        border: ORANGE_50,
+      },
+    },
+  },
 };
