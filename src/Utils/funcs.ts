@@ -21,31 +21,31 @@ export const dateToTime = (date: Date): string => {
   return date.toISOString().slice(14, 19);
 };
 
-const WEEK: { [key: number]: string; } = {
-  0: '日曜日',
-  1: '月曜日',
-  2: '火曜日',
-  3: '水曜日',
-  4: '木曜日',
-  5: '金曜日',
-  6: '土曜日',
+const WEEK: { [key: number]: string } = {
+  0: "日曜日",
+  1: "月曜日",
+  2: "火曜日",
+  3: "水曜日",
+  4: "木曜日",
+  5: "金曜日",
+  6: "土曜日",
 };
 
 export const dateToFormat = (
   target: Date,
   /**
-   * Y : Year  
-   * M : Month  
-   * D : Date  
-   * W : Week  
-   * h : hour  
-   * m : minute  
-   * s : second  
-   * l : millisecond  
+   * Y : Year
+   * M : Month
+   * D : Date
+   * W : Week
+   * h : hour
+   * m : minute
+   * s : second
+   * l : millisecond
    *
    * ex.: Y/M/D h:m:s -> 2022/11/16 19:17:22
    */
-  format: string,
+  format: string
 ) => {
   const year = target.getFullYear();
   const month = target.getMonth() + 1;

@@ -242,7 +242,7 @@ export const DefaultTheme = {
       fontGray: ORANGE_20,
       active: {
         border: BLUE_70,
-      }
+      },
     },
     doing: {
       bg: ORANGE_50,
@@ -250,7 +250,7 @@ export const DefaultTheme = {
       fontGray: ORANGE_20,
       active: {
         border: BLUE_70,
-      }
+      },
     },
     done: {
       bg: GRAY_10,
@@ -259,7 +259,7 @@ export const DefaultTheme = {
       border: GRAY_30,
       active: {
         border: ORANGE_50,
-      }
-    }
-  }
+      },
+    },
+  },
 };

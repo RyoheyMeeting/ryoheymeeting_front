@@ -13,15 +13,15 @@ const Template: ComponentStory<typeof GrandprixStatusTag> = (args) => <Grandprix
 
 export const Yet = Template.bind({});
 Yet.args = {
-  status: GrandPrixStatus.yet
+  status: GrandPrixStatus.yet,
 };
 
 export const Doing = Template.bind({});
 Doing.args = {
-  status: GrandPrixStatus.doing
+  status: GrandPrixStatus.doing,
 };
 
 export const Done = Template.bind({});
 Done.args = {
-  status: GrandPrixStatus.done
+  status: GrandPrixStatus.done,
 };

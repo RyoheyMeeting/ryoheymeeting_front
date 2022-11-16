@@ -29,7 +29,7 @@ const defaultStyle = css`
     position: absolute;
     bottom: -32px;
     right: 0;
-    transition: transform .05s ease;
+    transition: transform 0.05s ease;
   }
 
   .grandprixcard_main {

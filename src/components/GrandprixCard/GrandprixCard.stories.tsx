@@ -16,7 +16,7 @@ Yet.args = {
   title: "第１回　遼平会",
   subTitle: "逃げるは恥だが遼平は恥じゃない",
   date: new Date(),
-  status: GrandPrixStatus.yet
+  status: GrandPrixStatus.yet,
 };
 
 export const Doing = Template.bind({});
@@ -24,7 +24,7 @@ Doing.args = {
   title: "第１回　遼平会",
   subTitle: "逃げるは恥だが遼平は恥じゃない",
   date: new Date(),
-  status: GrandPrixStatus.doing
+  status: GrandPrixStatus.doing,
 };
 
 export const Done = Template.bind({});
@@ -32,5 +32,5 @@ Done.args = {
   title: "第１回　遼平会",
   subTitle: "逃げるは恥だが遼平は恥じゃない",
   date: new Date(),
-  status: GrandPrixStatus.done
+  status: GrandPrixStatus.done,
 };
