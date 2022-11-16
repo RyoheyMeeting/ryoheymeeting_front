@@ -33,6 +33,8 @@ const defaultStyle = css`
   }
 
   .grandprixcard_main {
+    display: flex;
+    flex-direction: column;
     max-width: 100%;
 
     .grandprixcard_title,
@@ -41,6 +43,7 @@ const defaultStyle = css`
       line-height: 150%;
       white-space: nowrap;
       text-overflow: ellipsis;
+      overflow: hidden;
     }
 
     .grandprixcard_title {
