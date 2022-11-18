@@ -17,6 +17,7 @@ import { UserSetting } from "pages/UserSetting/UserSetting";
 import { UserTop } from "pages/UserTop/UserTop";
 import React from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
+import { Result } from "pages/Result/Result";
 
 type Props = {};
 
@@ -38,6 +39,7 @@ export const App: React.FC<Props> = () => {
         <Route path="/grandprix/:id" element={<GrandPrix />} />
         <Route path="/reaction/:id" element={<PrivateRoute component={Reaction} />} />
         <Route path="/live/:id" element={<PrivateRoute component={Live} />} />
+        <Route path="/grandprix/:id/result" element={<PrivateRoute component={Result} />} />
         <Route path="/idaina-okotoba" element={<IdaiNaOkotoba />} />
         <Route path="/admin" element={<AdminRoute component={AdminTop} />} />
         <Route path="/admin/gpcontroller/:id" element={<AdminRoute component={GrandPrixController} />} />

@@ -109,6 +109,9 @@ export const GrandPrixController: React.FC<Props> = () => {
             CPを配布する！
           </button>
         </li>
+        <li>
+          <Link to={`/grandprix/${grandPrixId}/result`}>結果発表ページ</Link>
+        </li>
       </ul>
     </WithHeaderFooter>
   );
