@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { FlexGap } from "styles/FlexGap/FlexGap";
+import { FlexGap } from "styles/Utils/FlexGap";
 import { ReactSVG } from "react-svg";
 import { UserIconStyleProps as OrgUserIconStyleProps } from "components/UserIcon/UserIconStyle";
 import { StampStyleProps as OrgStampStyleProps } from "components/Stamp/StampStyle";

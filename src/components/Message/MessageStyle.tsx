@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { Properties } from "csstype";
-import { FlexGap } from "styles/FlexGap/FlexGap";
+import { FlexGap } from "styles/Utils/FlexGap";
 
 export type MessageStyleProps = {
   maxWidth?: Properties["maxWidth"];

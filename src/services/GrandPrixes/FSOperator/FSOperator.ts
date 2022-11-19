@@ -1,4 +1,13 @@
-import { deleteDoc, doc, FirestoreDataConverter, getDocs, setDoc, Timestamp, updateDoc } from "firebase/firestore";
+import {
+  deleteDoc,
+  doc,
+  FirestoreDataConverter,
+  getDocs,
+  setDoc,
+  Timestamp,
+  Transaction,
+  updateDoc,
+} from "firebase/firestore";
 import { isDate } from "services/Utils/Types";
 import {
   GrandPrixAddedToFirestore,
@@ -27,6 +36,8 @@ const grandPrixConverter: FirestoreDataConverter<GrandPrix> = {
     const grandPrix = {
       ...data,
       eventDate: data.eventDate.toDate(),
+      // isDistributedの初期化
+      isDistributed: data["isDistributed"] || false,
     };
     if (!isGrandPrix(grandPrix)) throw Error("firebaseのグランプリ情報が不正");
     return grandPrix;
@@ -46,11 +57,16 @@ export const getGrandPrixesAsync = async () => {
           status: data.status,
           description: data.description,
           isDraft: data.isDraft,
+          isDistributed: data.isDistributed || false,
         };
       });
       return grandPrixes;
     })
     .catch(() => {});
+};
+
+export const getGrandPrixWithTransaction = async (grandPrixId: string, transaction: Transaction) => {
+  return transaction.get(doc(GrandPrixesRef(), grandPrixId).withConverter(grandPrixConverter));
 };
 
 export const setGrandPrixAsync = async (grandPrixId: string, grandPrixData: GrandPrixAddedToFirestore) => {
@@ -61,6 +77,15 @@ export const setGrandPrixAsync = async (grandPrixId: string, grandPrixData: Gran
 export const updateGrandPrixAsync = async (grandPrixId: string, grandPrixData: GrandPrixUpdatedToFirestore) => {
   if (grandPrixId == "") return;
   await updateDoc(doc(GrandPrixesRef(), grandPrixId).withConverter(grandPrixConverter), grandPrixData);
+};
+
+export const updateGrandPrixWithTransaction = (
+  grandPrixId: string,
+  grandPrixData: GrandPrixUpdatedToFirestore,
+  transaction: Transaction
+) => {
+  if (grandPrixId == "") return;
+  return transaction.update(doc(GrandPrixesRef(), grandPrixId).withConverter(grandPrixConverter), grandPrixData);
 };
 
 export const removeGrandPrixAsync = async (grandPrixId: string) => {
@@ -119,6 +144,19 @@ export const updatePresenterAsync = async (
 ) => {
   if (presenterId == "") return;
   await updateDoc(doc(PresentersRef(grandPrixId), presenterId).withConverter(presenterConverter), presenterData);
+};
+
+export const updatePresenterWithTransaction = (
+  grandPrixId: string,
+  presenterId: string,
+  presenterData: PresenterUpdatedToFirestore,
+  transaction: Transaction
+) => {
+  if (grandPrixId == "" || presenterId == "") return;
+  return transaction.update(
+    doc(PresentersRef(grandPrixId), presenterId).withConverter(presenterConverter),
+    presenterData
+  );
 };
 
 export const removePresenterAsync = async (grandPrixId: string, presenterId: string) => {

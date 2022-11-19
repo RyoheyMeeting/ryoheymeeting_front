@@ -5,12 +5,12 @@ import { useStampListState } from "./hooks/useStampListState";
 type Props = {};
 
 export const StampList: React.FC<Props> = () => {
-  const { stamps, stampSortedKeys, addStampBtnHandler, removeListener } = useStampListState();
+  const { stamps, stampSortedKeys, addStampBtnHandler, removeListener, toOld } = useStampListState();
   return (
     <ul>
       {stampSortedKeys.map((key) => (
         <li key={key}>
-          <EditableStampInfo stampId={key} isNew={stamps[key].isNew} removeListener={removeListener} />
+          <EditableStampInfo stampId={key} isNew={stamps[key].isNew} removeListener={removeListener} toOld={toOld} />
         </li>
       ))}
       <li>

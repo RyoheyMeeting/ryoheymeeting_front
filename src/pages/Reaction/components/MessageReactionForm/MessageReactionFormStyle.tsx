@@ -1,7 +1,7 @@
 import styled, { css, useTheme } from "styled-components";
 import { IconProps } from "components/icons/components/IconPrototype/IconPrototype";
 import { ReactSVG } from "react-svg";
-import { FlexGap } from "styles/FlexGap/FlexGap";
+import { FlexGap } from "styles/Utils/FlexGap";
 
 export type MessageReactionFormStyleProps = {
   disabled?: boolean;

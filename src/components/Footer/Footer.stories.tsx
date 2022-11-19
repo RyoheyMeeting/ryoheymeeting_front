@@ -2,17 +2,18 @@ import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import { Footer } from "./Footer";
+import { HashRouter } from "react-router-dom";
 
 export default {
-  title: "My Story/components/Footer",
+  title: "components/Footer",
   component: Footer,
-  parameters: {
-    // More on Story layout: https://storybook.js.org/docs/react/configure/story-layout
-    layout: "fullscreen",
-  },
 } as ComponentMeta<typeof Footer>;
 
-const Template: ComponentStory<typeof Footer> = (args) => <Footer {...args} />;
+const Template: ComponentStory<typeof Footer> = (args) => (
+  <HashRouter>
+    <Footer {...args} />
+  </HashRouter>
+);
 
-export const Plain = Template.bind({});
-Plain.args = {};
+export const Default = Template.bind({});
+Default.args = {};

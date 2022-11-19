@@ -49,7 +49,8 @@ export type IResponse = {
 export const useEditableStampInfoState = (
   stampId: string,
   isNew: boolean,
-  removeListener?: (id: string) => void
+  removeListener?: (id: string) => void,
+  toOld?: (id: string) => void
 ): IResponse => {
   const stampTypes = useSelector((state: RootState) => state.stampTypes.stampTypes);
   const [uploadStatus, setUploadStatus] = useState<UploadStatusType>(UploadStatus.standBy);
@@ -81,15 +82,16 @@ export const useEditableStampInfoState = (
     },
     (state: RootState) => state.stamps.stamps[stampId],
     {
-      name: (value: string) => value != "",
-      typeId: (value: string) => value in stampTypes,
-      imageURL: (value: string) => value != "",
-      soundURL: (value: string) => value != "",
+      name: (value) => value !== undefined && value != "",
+      typeId: (value) => value !== undefined && value in stampTypes,
+      imageURL: (value) => value !== undefined && value != "",
+      soundURL: (value) => value !== undefined && value != "",
     },
     addStampWithSaving,
     updateStampWithSaving,
     removeStampWithSaving,
-    removeListener
+    removeListener,
+    toOld
   );
 
   useEffect(() => {

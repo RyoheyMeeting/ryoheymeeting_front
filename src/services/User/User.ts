@@ -91,6 +91,7 @@ const userSlice = createSlice({
      */
     signOut: (state) => {
       Object.assign(state, initialState);
+      state.loading = false;
     },
   },
 });
@@ -189,7 +190,7 @@ export const reloadUserDataAsync = (): ThunkResult<void> => {
  */
 export const signOutAsync = (): ThunkResult<void> => {
   return async (dispatch) => {
-    firebase
+    await firebase
       .auth()
       .signOut()
       .then(() => {

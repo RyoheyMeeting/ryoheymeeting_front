@@ -54,7 +54,7 @@ export const useTimer: HookType = ({ maxTime, startTime }) => {
     if (startTime) {
       startTimer();
     }
-  }, [startTime, stopTimer, startTimer]);
+  }, [startTime]);
 
   return {
     remainTime,

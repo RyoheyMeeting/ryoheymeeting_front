@@ -11,9 +11,10 @@ type Props = {
   stampId: string;
   isNew: boolean;
   removeListener?: (id: string) => void;
+  toOld?: (id: string) => void;
 };
 
-export const EditableStampInfo: React.FC<Props> = ({ stampId, isNew, removeListener }) => {
+export const EditableStampInfo: React.FC<Props> = ({ stampId, isNew, removeListener, toOld }) => {
   const {
     editableStamp: stamp,
     stampTypeSelects,
@@ -28,7 +29,7 @@ export const EditableStampInfo: React.FC<Props> = ({ stampId, isNew, removeListe
     soundDataURL,
     onChangeImageFile,
     onChangeSoundFile,
-  } = useEditableStampInfoState(stampId, isNew, removeListener);
+  } = useEditableStampInfoState(stampId, isNew, removeListener, toOld);
 
   return (
     <ul>

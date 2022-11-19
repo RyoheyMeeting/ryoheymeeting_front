@@ -1,4 +1,4 @@
-import { doc, FirestoreDataConverter, getDoc, updateDoc } from "firebase/firestore";
+import { doc, FirestoreDataConverter, getDoc, Transaction, updateDoc } from "firebase/firestore";
 import { isOtherUser, OtherUser, UsersRef, UserUpdatedToFirestore } from "../Users";
 
 const userConverter: FirestoreDataConverter<OtherUser> = {
@@ -44,4 +44,13 @@ export const getUserAsync = async (userId: string) => {
 export const updateUserAsync = async (userId: string, userData: UserUpdatedToFirestore) => {
   if (userId == "") return;
   await updateDoc(doc(UsersRef(), userId).withConverter(userConverter), userData);
+};
+
+export const updateUserWithTransaction = (
+  userId: string,
+  userData: UserUpdatedToFirestore,
+  transaction: Transaction
+) => {
+  if (userId == "") return;
+  return transaction.update(doc(UsersRef(), userId).withConverter(userConverter), userData);
 };

@@ -1,4 +1,6 @@
 import { child, get, push, set, update } from "firebase/database";
+import { PRESENTATION_TIME } from "styles/constants/constants";
+import { Dict } from "Types/Utils";
 import {
   ActionsRef,
   BoostAction,
@@ -22,7 +24,13 @@ import {
   MessageReactionConverter,
   BoostActionConverter,
   MuteActionConverter,
+  HotItem,
+  PlainReactionOnDB,
+  MessageReactionOnDB,
+  MuteActionOnDB,
+  BoostActionOnDB,
 } from "../RealtimeGrandPrix";
+import { PresenterAction, PresenterActionsOnDB } from "../StatsGrandPrix";
 
 // ---- Realtime DBへのset・update・push・removeファンクション群 ----- //
 
@@ -46,7 +54,7 @@ export const getGrandPrixAsync = async (grandPrixId: string) => {
     enabled: data.enabled,
     currentPresenterId: data.currentPresenterId,
     nextPresenterId: data.nextPresenterId,
-    presentationTime: data.presentationTime || new Date(600000),
+    presentationTime: data.presentationTime || new Date(PRESENTATION_TIME),
     startTime: data.startTime,
   });
 
@@ -54,6 +62,62 @@ export const getGrandPrixAsync = async (grandPrixId: string) => {
   if (!isGrandPrix(grandPrix)) return;
 
   return grandPrix;
+};
+
+export const getAllActions = async (grandPrixId: string): Promise<Dict<PresenterAction> | undefined> => {
+  if (grandPrixId == "") return;
+
+  // DBから全てのアクションをGET
+  const ss = await get(child(ActionsRef(), grandPrixId));
+  const data = ss.val();
+
+  // データが存在しない場合はundefined
+  if (!data) return;
+
+  const presenterActions: Dict<PresenterActionsOnDB> = data;
+
+  // アクション情報を全てキャスト
+  return Object.keys(presenterActions).reduce<Dict<PresenterAction>>((arr, pId) => {
+    arr[pId] = _convertActions(presenterActions[pId]);
+    return arr;
+  }, {});
+};
+
+const _convertActions = (presenterAction: PresenterActionsOnDB): PresenterAction => {
+  const _convertAction = <
+    From extends PlainReactionOnDB | MessageReactionOnDB | MuteActionOnDB | BoostActionOnDB,
+    To extends PlainReaction | MessageReaction | MuteAction | BoostAction
+  >(
+    actionsOnDB: Dict<From>,
+    converter: (data: From) => To
+  ) => ({
+    sortedKey: Object.keys(actionsOnDB),
+    data: Object.keys(actionsOnDB).reduce<Dict<HotItem<To>>>((arr, actionId) => {
+      arr[actionId] = {
+        ...converter(actionsOnDB[actionId]),
+        done: false,
+      };
+      return arr;
+    }, {}),
+  });
+
+  return {
+    plainReactions: presenterAction.plainReactions
+      ? _convertAction<PlainReactionOnDB, PlainReaction>(presenterAction.plainReactions, PlainReactionConverter.fromDB)
+      : { sortedKey: [], data: {} },
+    messageReactions: presenterAction.messageReactions
+      ? _convertAction<MessageReactionOnDB, MessageReaction>(
+          presenterAction.messageReactions,
+          MessageReactionConverter.fromDB
+        )
+      : { sortedKey: [], data: {} },
+    muteActions: presenterAction.muteActions
+      ? _convertAction<MuteActionOnDB, MuteAction>(presenterAction.muteActions, MuteActionConverter.fromDB)
+      : { sortedKey: [], data: {} },
+    boostActions: presenterAction.boostActions
+      ? _convertAction<BoostActionOnDB, BoostAction>(presenterAction.boostActions, BoostActionConverter.fromDB)
+      : { sortedKey: [], data: {} },
+  };
 };
 
 /**
@@ -142,7 +206,6 @@ export const removeMessageReactionsAsync = async (grandPrixId: string, presenter
 
 export const addBoostActionAsync = async (grandPrixId: string, presenterId: string, boostAction: BoostAction) => {
   if (grandPrixId == "" || presenterId == "") return;
-  console.log(grandPrixId, presenterId, boostAction, BoostActionsRef(grandPrixId, presenterId).toString());
   await push(BoostActionsRef(grandPrixId, presenterId), BoostActionConverter.toDB(boostAction));
 };
 
