@@ -8,7 +8,7 @@ import { RootState } from "store";
 import { COLLVO_POINT } from "styles/constants/constants";
 import { Dict } from "Types/Utils";
 
-type ReactionCounts = {
+export type ReactionCounts = {
   good: {
     reaction: number;
     boost: number;
