@@ -60,4 +60,4 @@ export const Z_INDEX = {
   MAX: 9999,
 };
 
-export const PRESENTATION_TIME = 6 * 60 * 1000; // 25分
+export const PRESENTATION_TIME = 25 * 60 * 1000; // 25分
