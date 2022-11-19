@@ -265,4 +265,29 @@ export const DefaultTheme = {
   grandPrixTop: {
     presenterName: GRAY_55,
   },
+  result: {
+    font: WHITE,
+    bg: "#26282D",
+    border: "#32343A",
+    sideBand: "33363F",
+    wing: "#F7D54F",
+    psycho: "#F2DF63",
+    wait: "#63A6F2",
+    good: "#ED4779",
+    ranking: {
+      border: GRAY_50
+    },
+    first: {
+      surface: "#F7D54F",
+      shadow: "#B38114"
+    },
+    second: {
+      surface: "#DADADA",
+      shadow: "#818181"
+    },
+    third: {
+      surface: "#C88A2F",
+      shadow: "#876531"
+    },
+  }
 };
