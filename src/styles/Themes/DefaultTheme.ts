@@ -275,19 +275,19 @@ export const DefaultTheme = {
     wait: "#63A6F2",
     good: "#ED4779",
     ranking: {
-      border: GRAY_50
+      border: GRAY_50,
     },
     first: {
       surface: "#F7D54F",
-      shadow: "#B38114"
+      shadow: "#B38114",
     },
     second: {
       surface: "#DADADA",
-      shadow: "#818181"
+      shadow: "#818181",
     },
     third: {
       surface: "#C88A2F",
-      shadow: "#876531"
+      shadow: "#876531",
     },
-  }
+  },
 };

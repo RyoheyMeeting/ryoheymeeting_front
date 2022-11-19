@@ -21,26 +21,24 @@ const rankNumberDefaultStyle = css`
 
   position: relative;
 
-  .ranknumber_fns, .ranknumber_other {
+  .ranknumber_fns,
+  .ranknumber_other {
     font-size: 18px;
     font-weight: ${FONT_WEIGHT.BOLD};
   }
 
-  .ranknumber_fns::first-letter, .ranknumber_other {
+  .ranknumber_fns::first-letter,
+  .ranknumber_other {
     position: relative;
     font-size: 32px;
     letter-spacing: -4%;
     line-height: 27px;
 
-    text-shadow:
-      1px 1px 0 ${({ theme }) => theme.result.ranking.border},
+    text-shadow: 1px 1px 0 ${({ theme }) => theme.result.ranking.border},
       -1px -1px 0 ${({ theme }) => theme.result.ranking.border},
-      -1px 1px 0 ${({ theme }) => theme.result.ranking.border},
-      1px -1px 0 ${({ theme }) => theme.result.ranking.border},
-      0px 1px 0 ${({ theme }) => theme.result.ranking.border},
-      0 -1px 0 ${({ theme }) => theme.result.ranking.border},
-      -1px 0 0 ${({ theme }) => theme.result.ranking.border},
-      1px 0 0 ${({ theme }) => theme.result.ranking.border};
+      -1px 1px 0 ${({ theme }) => theme.result.ranking.border}, 1px -1px 0 ${({ theme }) => theme.result.ranking.border},
+      0px 1px 0 ${({ theme }) => theme.result.ranking.border}, 0 -1px 0 ${({ theme }) => theme.result.ranking.border},
+      -1px 0 0 ${({ theme }) => theme.result.ranking.border}, 1px 0 0 ${({ theme }) => theme.result.ranking.border};
   }
 
   .ranknumber_wing_surface {
@@ -142,7 +140,7 @@ const defaultStyle = css`
     display: flex;
     flex-direction: row;
     align-items: center;
-    ${FlexGap({ gap: "12px", direction: "row"})};
+    ${FlexGap({ gap: "12px", direction: "row" })};
     width: 256px;
     flex-shrink: 1;
 
@@ -153,14 +151,14 @@ const defaultStyle = css`
       white-space: nowrap;
     }
   }
-  
+
   .ecr_bar {
     align-self: stretch;
     width: 2px;
     background-color: ${({ theme }) => theme.result.border};
     flex-shrink: 0;
   }
-  
+
   .ecr_counts {
     display: flex;
     align-items: center;
@@ -172,7 +170,7 @@ const defaultStyle = css`
       display: inline-flex;
       flex-direction: row;
       align-items: flex-end;
-      ${FlexGap({ gap: "6px", direction: "row"})}
+      ${FlexGap({ gap: "6px", direction: "row" })}
 
       .ecr_reaction {
         font-size: 24px;
@@ -190,7 +188,8 @@ const defaultStyle = css`
     }
   }
 
-  .ecr_plus *, .ecr_equals * {
+  .ecr_plus *,
+  .ecr_equals * {
     fill: ${({ theme }) => theme.result.font};
   }
 
