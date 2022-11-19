@@ -267,6 +267,7 @@ export const DefaultTheme = {
   },
   result: {
     font: WHITE,
+    grayFont: GRAY_55,
     bg: "#26282D",
     border: "#32343A",
     sideBand: "33363F",

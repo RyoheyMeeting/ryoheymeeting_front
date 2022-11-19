@@ -1,15 +1,15 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import { EarnedCoinRow } from "./EarnedCoinRow";
+import { RankingRow } from "./RankingRow";
 import { testCommonUser } from "test_factories/User";
 
 export default {
-  title: "components/EarnedCoinRow",
-  component: EarnedCoinRow,
-} as ComponentMeta<typeof EarnedCoinRow>;
+  title: "components/Result/RankingRow",
+  component: RankingRow,
+} as ComponentMeta<typeof RankingRow>;
 
-const Template: ComponentStory<typeof EarnedCoinRow> = (args) => <EarnedCoinRow {...args} />;
+const Template: ComponentStory<typeof RankingRow> = (args) => <RankingRow {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

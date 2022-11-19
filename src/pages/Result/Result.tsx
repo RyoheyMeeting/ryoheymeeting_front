@@ -1,30 +1,44 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useResultState } from "./hooks/useResultState";
-import { ResultStyle } from "./ResultStyle";
+import { CollvoWing, ResultStyle } from "./ResultStyle";
+import { RankingRow } from "./components/RankingRow/RankingRow";
+import { RankingRowHeader } from "./components/RankingRowHeader/RankingRowHeader";
 
 type Props = {};
 
 export const Result: React.FC<Props> = () => {
   const { id } = useParams();
-  const { sortedReactionStats } = useResultState(id || "");
+  const { grandPrix, presenters, sortedReactionStats } = useResultState(id || "");
 
   return (
     <ResultStyle>
-      <ul>
-        {sortedReactionStats &&
-          sortedReactionStats.map((sortedReactionStat) => (
-            <li key={sortedReactionStat.presenterId}>
-              いいね！：{sortedReactionStat.stat?.count.good.reaction}回<br />
-              いいね！（ブースト）：{sortedReactionStat.stat?.count.good.boost}回<br />
-              サイコです！：{sortedReactionStat.stat?.count.psycho.reaction}回<br />
-              サイコです！（ブースト）：{sortedReactionStat.stat?.count.psycho.boost}回<br />
-              ちょっとまて！：{sortedReactionStat.stat?.count.wait.reaction}回<br />
-              ちょっとまて！（ブースト）：{sortedReactionStat.stat?.count.wait.boost}回<br />
-              合計：{sortedReactionStat.stat?.total}
-            </li>
-          ))}
-      </ul>
+      <div className="result_main">
+        <div className="result_wrapper_top">
+          <span className="result_title">第{grandPrix.number}回遼平会</span>
+          <span className="result_wingtitle">
+            <CollvoWing src="/img/collvo_wing.svg" wrapper="svg" className="result_wing_left" />
+            <span>順位発表</span>
+            <CollvoWing src="/img/collvo_wing.svg" wrapper="svg" className="result_wing_right" />
+          </span>
+        </div>
+        <RankingRowHeader />
+        <div className="result_ranking">
+          {sortedReactionStats &&
+            sortedReactionStats.map((reactionStat, index) => (
+              <RankingRow
+                key={reactionStat.presenterId}
+                ranking={index + 1}
+                user={{
+                  username: presenters[reactionStat.presenterId]?.user?.displayName,
+                  photoUrl: presenters[reactionStat.presenterId]?.user?.photoURL,
+                }}
+                counts={reactionStat.stat?.count}
+                total={reactionStat.stat?.total}
+              />
+            ))}
+        </div>
+      </div>
     </ResultStyle>
   );
 };

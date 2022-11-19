@@ -120,7 +120,7 @@ export const RankNumberStyle = styled.div<RankNumberProps>`
   ${({ rank }) => rank >= 4 && rankNumberOtherStyle}
 `;
 
-export type EarnedCoinRowStyleProps = {};
+export type RankingRowStyleProps = {};
 
 const defaultStyle = css`
   display: flex;
@@ -141,7 +141,7 @@ const defaultStyle = css`
     flex-direction: row;
     align-items: center;
     ${FlexGap({ gap: "12px", direction: "row" })};
-    width: 256px;
+    width: 211px;
     flex-shrink: 1;
 
     .ecr_username {
@@ -206,8 +206,8 @@ const defaultStyle = css`
   }
 `;
 
-export const EarnedCoinRowStyle = styled.div<EarnedCoinRowStyleProps>`
+export const RankingRowStyle = styled.div<RankingRowStyleProps>`
   ${defaultStyle}
 `;
 
-EarnedCoinRowStyle.defaultProps = {};
+RankingRowStyle.defaultProps = {};
