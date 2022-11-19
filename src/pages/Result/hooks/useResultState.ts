@@ -17,7 +17,7 @@ export const useResultState = (grandPrixId: string) => {
     return reactionStats?.sort((a, b) => {
       if (!a.stat) return 1;
       if (!b.stat) return -1;
-      return a.stat.total - b.stat.total;
+      return b.stat.total - a.stat.total;
     });
   }, [reactionStats]);
 
