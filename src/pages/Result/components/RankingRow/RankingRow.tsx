@@ -1,23 +1,42 @@
 import React from "react";
 import { UserIcon } from "components/UserIcon/UserIcon";
 import { ReactionCounts } from "hooks/ReactionStats/useReactionStats";
-import { CollvoWing, EarnedCoinRowStyle, EarnedCoinRowStyleProps, RankNumberStyle } from "./EarnedCoinRowStyle";
+import { CollvoWing, RankingRowStyle, RankingRowStyleProps, RankNumberStyle } from "./RankingRowStyle";
 import Plus from "components/icons/Plus";
 import { Equals } from "components/icons";
 
-type Props = EarnedCoinRowStyleProps & {
+type Props = RankingRowStyleProps & {
   ranking: number;
   user: {
-    username: string;
+    username?: string;
     photoUrl?: string;
   };
-  counts: ReactionCounts;
-  total: number;
+  counts?: ReactionCounts;
+  total?: number;
 };
 
-export const EarnedCoinRow: React.FC<Props> = ({ ranking, user, counts, total, ...styleProps }) => {
+export const RankingRow: React.FC<Props> = ({
+  ranking,
+  user,
+  counts = {
+    psycho: {
+      reaction: 0,
+      boost: 0,
+    },
+    wait: {
+      reaction: 0,
+      boost: 0,
+    },
+    good: {
+      reaction: 0,
+      boost: 0,
+    },
+  },
+  total = 0,
+  ...styleProps
+}) => {
   return (
-    <EarnedCoinRowStyle {...styleProps}>
+    <RankingRowStyle {...styleProps}>
       <RankNumberStyle rank={ranking}>
         {ranking <= 3 ? (
           <>
@@ -60,6 +79,6 @@ export const EarnedCoinRow: React.FC<Props> = ({ ranking, user, counts, total, .
       </div>
       <Equals size={25} className="ecr_equals" />
       <span className="ecr_total">{total}回</span>
-    </EarnedCoinRowStyle>
+    </RankingRowStyle>
   );
 };
