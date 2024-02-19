@@ -89,7 +89,7 @@ export const getModerateSoundURLFromStorageAsync = async (moderateSoundId: strin
 export const getModerateSoundBlobFromStorageAsync = async (moderateSoundId: string) => {
   if (moderateSoundId === "") return;
   return getBlob(ref(ModerateSoundFilesRef(), moderateSoundId));
-}
+};
 
 export const uploadModerateSoundURLFromStorageAsync = async (
   moderateSoundId: string,

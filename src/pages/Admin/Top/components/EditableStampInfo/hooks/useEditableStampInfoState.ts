@@ -54,7 +54,12 @@ export const useEditableStampInfoState = (
 ): IResponse => {
   const stampTypes = useSelector((state: RootState) => state.stampTypes.stampTypes);
   const [uploadStatus, setUploadStatus] = useState<UploadStatusType>(UploadStatus.standBy);
-  const { resources: imageResources, loadUrl: loadImageUrl, uploader: imageUploader, removeImage } = useEditableStampImage();
+  const {
+    resources: imageResources,
+    loadUrl: loadImageUrl,
+    uploader: imageUploader,
+    removeImage,
+  } = useEditableStampImage();
   const [imageFileReader] = useState({
     asUrl: new FileReader(),
     asArray: new FileReader(),
@@ -62,7 +67,12 @@ export const useEditableStampInfoState = (
   const [imageIsUploading, setImageIsUploading] = useState(false);
   const [imageDataURL, setImageDataURL] = useState("");
   const [imageDataArray, setImageDataArray] = useState<ArrayBuffer>();
-  const { resources: soundResources, loadUrl: loadSoundUrl, uploader: soundUploader, removeSound } = useEditableStampSound();
+  const {
+    resources: soundResources,
+    loadUrl: loadSoundUrl,
+    uploader: soundUploader,
+    removeSound,
+  } = useEditableStampSound();
   const [soundFileReader] = useState({
     asUrl: new FileReader(),
     asArray: new FileReader(),
@@ -95,7 +105,7 @@ export const useEditableStampInfoState = (
   );
 
   useEffect(() => {
-    if(!isNew) loadImageUrl(stampId);
+    if (!isNew) loadImageUrl(stampId);
     setImageDataArray(undefined);
   }, []);
 
@@ -108,7 +118,7 @@ export const useEditableStampInfoState = (
   }, [imageResources[stampId]]);
 
   useEffect(() => {
-    if(!isNew) loadSoundUrl(stampId);
+    if (!isNew) loadSoundUrl(stampId);
     setSoundDataArray(undefined);
   }, []);
 

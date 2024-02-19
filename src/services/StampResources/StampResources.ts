@@ -67,7 +67,7 @@ export const loadImageUrl = (stampId: string): ThunkResult<void> => {
           id: stampId,
           data: {
             isDownloading: true,
-          }
+          },
         })
       );
       await getStampImageBlobFromStorageAsync(stampId)
@@ -81,7 +81,7 @@ export const loadImageUrl = (stampId: string): ThunkResult<void> => {
                 data: {
                   isDownloading: false,
                   dataUrl,
-                  dataSize: dataBlob.size
+                  dataSize: dataBlob.size,
                 },
               })
             );
@@ -117,7 +117,7 @@ export const loadSoundUrl = (stampId: string): ThunkResult<void> => {
           id: stampId,
           data: {
             isDownloading: true,
-          }
+          },
         })
       );
       await getStampSoundBlobFromStorageAsync(stampId)
@@ -131,8 +131,8 @@ export const loadSoundUrl = (stampId: string): ThunkResult<void> => {
                 data: {
                   isDownloading: false,
                   dataUrl,
-                  dataSize: dataBlob.size
-                }
+                  dataSize: dataBlob.size,
+                },
               })
             );
           }
@@ -143,8 +143,8 @@ export const loadSoundUrl = (stampId: string): ThunkResult<void> => {
             setSoundUrl({
               id: stampId,
               data: {
-                isDownloading: false
-              }
+                isDownloading: false,
+              },
             })
           );
         });

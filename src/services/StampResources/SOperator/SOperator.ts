@@ -6,10 +6,10 @@ export const getStampImageURLFromStorageAsync = async (stampId: string) => {
   return getDownloadURL(ref(ImagesRef(), stampId));
 };
 
-export const getStampImageBlobFromStorageAsync = async(stampId: string) => {
+export const getStampImageBlobFromStorageAsync = async (stampId: string) => {
   if (stampId == "") return;
   return getBlob(ref(ImagesRef(), stampId));
-}
+};
 
 export const removeStampImageFromStorageAsync = async (stampId: string) => {
   if (stampId == "") return;
@@ -21,10 +21,10 @@ export const getStampSoundURLFromStorageAsync = async (stampId: string) => {
   return getDownloadURL(ref(SoundsRef(), stampId));
 };
 
-export const getStampSoundBlobFromStorageAsync = async(stampId: string) => {
+export const getStampSoundBlobFromStorageAsync = async (stampId: string) => {
   if (stampId == "") return;
   return getBlob(ref(SoundsRef(), stampId));
-}
+};
 
 export const removeStampSoundFromStorageAsync = async (stampId: string) => {
   if (stampId == "") return;

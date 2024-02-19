@@ -29,7 +29,7 @@ export type ModerateSoundResource = {
   isDownloading: boolean;
   dataUrl?: string;
   dataSize?: number;
-}
+};
 
 export type UploadModerateSoundFile = Blob | Uint8Array | ArrayBuffer;
 export type ModerateSoundOnDB = Omit<ModerateSound, "resource">;
@@ -221,7 +221,7 @@ export const loadModerateSoundUrl = (moderateSoundId: string): ThunkResult<void>
           data: {
             resource: {
               isDownloading: true,
-            }
+            },
           },
         })
       );
@@ -238,8 +238,8 @@ export const loadModerateSoundUrl = (moderateSoundId: string): ThunkResult<void>
                   resource: {
                     isDownloading: false,
                     dataUrl,
-                    dataSize: dataBlob.size
-                  }
+                    dataSize: dataBlob.size,
+                  },
                 },
               })
             );
@@ -255,9 +255,9 @@ export const loadModerateSoundUrl = (moderateSoundId: string): ThunkResult<void>
             data: {
               resource: {
                 isDownloading: false,
-              }
+              },
             },
-          })
+          });
         });
     }
   };

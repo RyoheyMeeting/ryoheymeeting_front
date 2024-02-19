@@ -82,7 +82,7 @@ export const useEditableModerateSoundState = (
   );
 
   useEffect(() => {
-    if(!isNew) loadUrl(moderateSoundId);
+    if (!isNew) loadUrl(moderateSoundId);
     setSoundDataArray(undefined);
   }, []);
 

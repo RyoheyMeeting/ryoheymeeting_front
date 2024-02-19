@@ -86,5 +86,5 @@ export const convertToDataUrlFromBlob = async (blob: Blob): Promise<string> => {
   return await new Promise((resolve) => {
     const dataURL = window.URL.createObjectURL(blob);
     resolve(dataURL);
-  })
-}
+  });
+};
