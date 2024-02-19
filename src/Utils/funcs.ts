@@ -76,3 +76,15 @@ export const randomChoice = <T>(array: T[]) => {
   if (array.length === 0) return undefined;
   return array[Math.floor(Math.random() * array.length)];
 };
+
+/**
+ * BlobからDataURLへ変換する
+ * @param blob Blobオブジェクト
+ * @returns BlobオブジェクトのデータURL
+ */
+export const convertToDataUrlFromBlob = async (blob: Blob): Promise<string> => {
+  return await new Promise((resolve) => {
+    const dataURL = window.URL.createObjectURL(blob);
+    resolve(dataURL);
+  })
+}

@@ -2,10 +2,10 @@ import { ref, StorageError, UploadMetadata, UploadTaskSnapshot } from "firebase/
 import { useStampSound } from "hooks/StampResources/useStampSound";
 import { useUploadToStorage } from "hooks/Storage/useUploadToStorage";
 import { removeStampSoundFromStorageAsync } from "services/StampResources/SOperator/SOperator";
-import { SoundsRef } from "services/StampResources/StampResources";
+import { SoundsRef, StampResource } from "services/StampResources/StampResources";
 
 export type IResponse = {
-  urls: { [key: string]: string };
+  resources: { [key: string]: StampResource };
   loadUrl: (stampId: string) => void;
   uploader: {
     snapShot: UploadTaskSnapshot | undefined;
@@ -19,7 +19,7 @@ export type IResponse = {
 };
 
 export const useEditableStampSound = (): IResponse => {
-  const { urls, loadUrl } = useStampSound();
+  const { resources, loadUrl } = useStampSound();
   const soundUploader = useUploadToStorage();
 
   const _upload = (stampId: string, data: Blob | Uint8Array | ArrayBuffer, metadata?: UploadMetadata) => {
@@ -33,8 +33,8 @@ export const useEditableStampSound = (): IResponse => {
   };
 
   return {
-    urls: urls,
-    loadUrl: loadUrl,
+    resources,
+    loadUrl,
     uploader: {
       ...soundUploader,
       upload: _upload,

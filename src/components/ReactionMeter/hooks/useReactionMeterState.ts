@@ -36,7 +36,7 @@ export const useReactionMeterState = (): IResponse => {
       if (!plainReactionId) return;
 
       // 準備
-      const nowWithOffset = new Date(new Date().getTime() - 60000);
+      const nowWithOffset = new Date(new Date().getTime() - 3 * 1000); // 3s前まで
       const plainReaction = plainReactions.data[plainReactionId];
 
       // 表示済み・現在時刻より前過ぎる場合は表示しない

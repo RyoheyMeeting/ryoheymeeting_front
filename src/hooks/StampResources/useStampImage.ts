@@ -1,22 +1,23 @@
+import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadImageUrl } from "services/StampResources/StampResources";
+import { StampResource, loadImageUrl } from "services/StampResources/StampResources";
 import { RootState } from "store";
 
 export type IResponse = {
-  urls: { [key: string]: string };
+  resources: { [key: string]: StampResource };
   loadUrl: (stampId: string) => void;
 };
 
 export const useStampImage = (): IResponse => {
-  const { imageUrls } = useSelector((state: RootState) => state.stampResources);
+  const { imageResources } = useSelector((state: RootState) => state.stampResources);
   const dispatch = useDispatch();
 
-  const _loadUrl = (stampId: string) => {
+  const loadUrl = useCallback((stampId: string) => {
     dispatch(loadImageUrl(stampId));
-  };
+  }, []);
 
   return {
-    urls: imageUrls,
-    loadUrl: _loadUrl,
+    resources: imageResources,
+    loadUrl,
   };
 };

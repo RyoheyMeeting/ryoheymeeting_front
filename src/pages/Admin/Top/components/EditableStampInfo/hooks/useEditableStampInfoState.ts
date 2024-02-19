@@ -54,7 +54,7 @@ export const useEditableStampInfoState = (
 ): IResponse => {
   const stampTypes = useSelector((state: RootState) => state.stampTypes.stampTypes);
   const [uploadStatus, setUploadStatus] = useState<UploadStatusType>(UploadStatus.standBy);
-  const { urls: imageUrls, loadUrl: loadImageUrl, uploader: imageUploader, removeImage } = useEditableStampImage();
+  const { resources: imageResources, loadUrl: loadImageUrl, uploader: imageUploader, removeImage } = useEditableStampImage();
   const [imageFileReader] = useState({
     asUrl: new FileReader(),
     asArray: new FileReader(),
@@ -62,7 +62,7 @@ export const useEditableStampInfoState = (
   const [imageIsUploading, setImageIsUploading] = useState(false);
   const [imageDataURL, setImageDataURL] = useState("");
   const [imageDataArray, setImageDataArray] = useState<ArrayBuffer>();
-  const { urls: soundUrls, loadUrl: loadSoundUrl, uploader: soundUploader, removeSound } = useEditableStampSound();
+  const { resources: soundResources, loadUrl: loadSoundUrl, uploader: soundUploader, removeSound } = useEditableStampSound();
   const [soundFileReader] = useState({
     asUrl: new FileReader(),
     asArray: new FileReader(),
@@ -95,26 +95,30 @@ export const useEditableStampInfoState = (
   );
 
   useEffect(() => {
-    loadImageUrl(stampId);
+    if(!isNew) loadImageUrl(stampId);
     setImageDataArray(undefined);
   }, []);
 
   useEffect(() => {
-    if (imageUrls[stampId]) {
-      setImageDataURL(imageUrls[stampId]);
+    const dataUrl = imageResources[stampId]?.dataUrl;
+
+    if (dataUrl) {
+      setImageDataURL(dataUrl);
     }
-  }, [imageUrls[stampId]]);
+  }, [imageResources[stampId]]);
 
   useEffect(() => {
-    loadSoundUrl(stampId);
+    if(!isNew) loadSoundUrl(stampId);
     setSoundDataArray(undefined);
   }, []);
 
   useEffect(() => {
-    if (soundUrls[stampId]) {
-      setSoundDataURL(soundUrls[stampId]);
+    const dataUrl = soundResources[stampId]?.dataUrl;
+
+    if (dataUrl) {
+      setSoundDataURL(dataUrl);
     }
-  }, [soundUrls[stampId]]);
+  }, [soundResources[stampId]]);
 
   useEffect(() => {
     imageFileReader.asUrl.onload = (reader) => {

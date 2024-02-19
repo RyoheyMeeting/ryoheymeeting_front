@@ -82,16 +82,17 @@ export const useEditableModerateSoundState = (
   );
 
   useEffect(() => {
-    loadUrl(moderateSoundId);
+    if(!isNew) loadUrl(moderateSoundId);
     setSoundDataArray(undefined);
   }, []);
 
   useEffect(() => {
-    const downloadURL = moderateSounds[moderateSoundId]?.downloadURL;
-    if (downloadURL) {
-      setSoundDataURL(downloadURL);
+    const dataUrl = moderateSounds[moderateSoundId]?.resource?.dataUrl;
+
+    if (dataUrl) {
+      setSoundDataURL(dataUrl);
     }
-  }, [moderateSounds[moderateSoundId]?.downloadURL]);
+  }, [moderateSounds[moderateSoundId]?.resource]);
 
   useEffect(() => {
     soundFileReader.asUrl.onload = (reader) => {

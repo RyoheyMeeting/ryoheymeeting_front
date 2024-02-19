@@ -5,14 +5,15 @@ import { getFirestore, getStorage } from "firebase_config";
 import { PartialFieldValue, PayloadWithId, ThunkResult } from "services/Utils/Types";
 import { Dict } from "Types/Utils";
 import {
+  getModerateSoundBlobFromStorageAsync,
   getModerateSoundsAsync,
-  getModerateSoundURLFromStorageAsync,
   removeModerateSoundAsync,
   removeModerateSoundFromStorageAsync,
   setModerateSoundAsync,
   updateModerateSoundAsync,
   uploadModerateSoundURLFromStorageAsync,
 } from "./SOperator/SOperator";
+import { convertToDataUrlFromBlob } from "Utils/funcs";
 
 export const ModerateSoundsRef = () => collection(getFirestore(), "ModerateSounds");
 export const ModerateSoundFilesRef = () => ref(getStorage(), "ModerateSound");
@@ -21,11 +22,17 @@ export type ModerateSound = {
   name: string;
   type: "start" | "remain5" | "finish";
   filename: string;
-  downloadURL?: string;
+  resource?: ModerateSoundResource;
 };
 
+export type ModerateSoundResource = {
+  isDownloading: boolean;
+  dataUrl?: string;
+  dataSize?: number;
+}
+
 export type UploadModerateSoundFile = Blob | Uint8Array | ArrayBuffer;
-export type ModerateSoundOnDB = Omit<ModerateSound, "downloadURL">;
+export type ModerateSoundOnDB = Omit<ModerateSound, "resource">;
 export type SavedModerateSound = ModerateSoundOnDB & {
   file: UploadModerateSoundFile;
 };
@@ -201,25 +208,56 @@ export const removeModerateSoundWithSaving = (moderateSoundId: string): ThunkRes
 export const loadModerateSoundUrl = (moderateSoundId: string): ThunkResult<void> => {
   return async (dispatch, getState) => {
     if (moderateSoundId === "") return;
+
     const preModerateSound = getState().moderateSounds.moderateSounds[moderateSoundId];
-    if (!preModerateSound || !preModerateSound.downloadURL) {
-      await getModerateSoundURLFromStorageAsync(moderateSoundId)
-        .then((url) => {
-          if (url) {
+
+    // ダウンロード中の場合は弾く
+    if (preModerateSound?.resource && preModerateSound.resource.isDownloading) return;
+
+    if (!preModerateSound || !preModerateSound.resource?.dataUrl) {
+      dispatch(
+        updateModerateSound({
+          id: moderateSoundId,
+          data: {
+            resource: {
+              isDownloading: true,
+            }
+          },
+        })
+      );
+
+      await getModerateSoundBlobFromStorageAsync(moderateSoundId)
+        .then(async (dataBlob) => {
+          if (dataBlob) {
+            const dataUrl = await convertToDataUrlFromBlob(dataBlob);
+
             dispatch(
               updateModerateSound({
                 id: moderateSoundId,
                 data: {
-                  downloadURL: url,
+                  resource: {
+                    isDownloading: false,
+                    dataUrl,
+                    dataSize: dataBlob.size
+                  }
                 },
               })
             );
           } else {
-            console.error("URLが取得できませんでした moderateSoundIs:", moderateSoundId);
+            console.error("データが取得できませんでした moderateSoundId:", moderateSoundId);
           }
         })
         .catch(() => {
-          console.error("ロードに失敗 moderateSoundId:", moderateSoundId);
+          console.error("進行音声のロードに失敗 moderateSoundId:", moderateSoundId);
+
+          updateModerateSound({
+            id: moderateSoundId,
+            data: {
+              resource: {
+                isDownloading: false,
+              }
+            },
+          })
         });
     }
   };
