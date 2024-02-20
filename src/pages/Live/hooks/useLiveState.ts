@@ -85,16 +85,16 @@ export const useLiveState = (): IResponse => {
 
   useEffect(() => {
     const startChoiced = randomChoice(groupedModerateSoundIds.start);
-    if (startChoiced && moderateSounds[startChoiced].downloadURL) {
-      sounds.start.src = moderateSounds[startChoiced].downloadURL || "";
+    if (startChoiced && moderateSounds[startChoiced].resource?.dataUrl) {
+      sounds.start.src = moderateSounds[startChoiced].resource?.dataUrl || "";
     }
     const remain5Choiced = randomChoice(groupedModerateSoundIds.remain5);
-    if (remain5Choiced && moderateSounds[remain5Choiced].downloadURL) {
-      sounds.remain5.src = moderateSounds[remain5Choiced].downloadURL || "";
+    if (remain5Choiced && moderateSounds[remain5Choiced].resource?.dataUrl) {
+      sounds.remain5.src = moderateSounds[remain5Choiced].resource?.dataUrl || "";
     }
     const finishChoiced = randomChoice(groupedModerateSoundIds.finish);
-    if (finishChoiced && moderateSounds[finishChoiced].downloadURL) {
-      sounds.finish.src = moderateSounds[finishChoiced].downloadURL || "";
+    if (finishChoiced && moderateSounds[finishChoiced].resource?.dataUrl) {
+      sounds.finish.src = moderateSounds[finishChoiced].resource?.dataUrl || "";
     }
   }, [moderateSounds, realtimeGrandPrix.grandPrix?.startTime]);
 
@@ -158,7 +158,7 @@ export const useLiveState = (): IResponse => {
       if (!plainReactionId) return;
 
       // 準備
-      const nowWithOffset = new Date(new Date().getTime() - 5000);
+      const nowWithOffset = new Date(new Date().getTime() - 3 * 1000);
       const plainReaction = plainReactions.data[plainReactionId];
 
       // 表示済み・現在時刻より前過ぎる場合は表示しない

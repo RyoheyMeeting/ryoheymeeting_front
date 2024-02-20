@@ -31,9 +31,9 @@ export const useModerateSound = (): IResponse => {
     [moderateSounds]
   );
 
-  const loadUrl = async (moderateSoundId: string) => {
+  const loadUrl = useCallback(async (moderateSoundId: string) => {
     await dispatch(loadModerateSoundUrl(moderateSoundId));
-  };
+  }, []);
 
   return {
     moderateSounds,

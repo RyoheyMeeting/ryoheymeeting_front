@@ -1,5 +1,5 @@
 import { deleteDoc, doc, FirestoreDataConverter, getDoc, getDocs, setDoc, updateDoc } from "firebase/firestore";
-import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { deleteObject, getBlob, getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { Dict } from "Types/Utils";
 import {
   isModerateSound,
@@ -84,6 +84,11 @@ export const removeModerateSoundAsync = async (moderateSoundId: string) => {
 export const getModerateSoundURLFromStorageAsync = async (moderateSoundId: string) => {
   if (moderateSoundId === "") return;
   return getDownloadURL(ref(ModerateSoundFilesRef(), moderateSoundId));
+};
+
+export const getModerateSoundBlobFromStorageAsync = async (moderateSoundId: string) => {
+  if (moderateSoundId === "") return;
+  return getBlob(ref(ModerateSoundFilesRef(), moderateSoundId));
 };
 
 export const uploadModerateSoundURLFromStorageAsync = async (

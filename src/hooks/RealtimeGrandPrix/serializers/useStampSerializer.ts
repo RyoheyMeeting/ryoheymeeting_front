@@ -8,6 +8,7 @@ import { SerializedStampType, useStampTypeSerializer } from "./useStampTypeSeria
 
 export type SerializedStamp = Stamp & {
   type?: SerializedStampType;
+  loadingResource: boolean;
   imageDataUrl?: string;
   soundDataUrl?: string;
 };
@@ -33,37 +34,48 @@ export const useStampSerializer = (stampId?: string): IResponse => {
   const { serializedStampType } = useStampTypeSerializer(stamp?.typeId);
 
   // スタンプ画像を取得
-  const { urls: imageUrls, loadUrl: loadImageUrl } = useStampImage();
+  const { resources: imageResources, loadUrl: loadImageUrl } = useStampImage();
 
   useEffect(() => {
-    if (stampId && !imageUrls[stampId]) {
+    if (stampId && !imageResources[stampId]) {
       loadImageUrl(stampId);
     }
   }, [stampId, loadImageUrl]);
 
   const imageDataUrl = useMemo(() => {
-    if (stampId && imageUrls[stampId]) return imageUrls[stampId];
+    if (stampId && imageResources[stampId]?.dataUrl) return imageResources[stampId].dataUrl;
     else return undefined;
-  }, [stampId, imageUrls]);
+  }, [stampId, imageResources]);
 
   // スタンプ音声を取得
-  const { urls: soundUrls, loadUrl: loadSoundUrl } = useStampSound();
+  const { resources: soundResources, loadUrl: loadSoundUrl } = useStampSound();
 
   useEffect(() => {
-    if (stampId && !soundUrls[stampId]) {
+    if (stampId && !soundResources[stampId]) {
       loadSoundUrl(stampId);
     }
   }, [stampId, loadSoundUrl]);
 
   const soundDataUrl = useMemo(() => {
-    if (stampId && soundUrls[stampId]) return soundUrls[stampId];
+    if (stampId && soundResources[stampId]?.dataUrl) return soundResources[stampId].dataUrl;
     else return undefined;
-  }, [stampId, soundUrls]);
+  }, [stampId, soundResources]);
+
+  // リソースのロード状況を取得する
+  const loadingResource = useMemo(() => {
+    // stampIdがundefinedの場合はロード中として処理
+    if (!stampId) return true;
+
+    const loadingImage = !imageResources[stampId] || imageResources[stampId].isDownloading;
+    const loadingSound = !soundResources[stampId] || soundResources[stampId].isDownloading;
+    return loadingImage || loadingSound;
+  }, [imageResources, soundResources]);
 
   return {
     serializedStamp: stamp && {
       ...stamp,
       type: serializedStampType,
+      loadingResource,
       imageDataUrl,
       soundDataUrl,
     },

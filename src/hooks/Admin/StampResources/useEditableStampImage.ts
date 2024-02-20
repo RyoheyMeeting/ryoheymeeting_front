@@ -2,10 +2,10 @@ import { ref, StorageError, UploadMetadata, UploadTaskSnapshot } from "firebase/
 import { useStampImage } from "hooks/StampResources/useStampImage";
 import { useUploadToStorage } from "hooks/Storage/useUploadToStorage";
 import { removeStampImageFromStorageAsync } from "services/StampResources/SOperator/SOperator";
-import { ImagesRef } from "services/StampResources/StampResources";
+import { ImagesRef, StampResource } from "services/StampResources/StampResources";
 
 export type IResponse = {
-  urls: { [key: string]: string };
+  resources: { [key: string]: StampResource };
   loadUrl: (stampId: string) => void;
   uploader: {
     snapShot: UploadTaskSnapshot | undefined;
@@ -19,7 +19,7 @@ export type IResponse = {
 };
 
 export const useEditableStampImage = (): IResponse => {
-  const { urls, loadUrl } = useStampImage();
+  const { resources, loadUrl } = useStampImage();
   const imageUploader = useUploadToStorage();
 
   const _upload = (stampId: string, data: Blob | Uint8Array | ArrayBuffer, metadata?: UploadMetadata) => {
@@ -33,8 +33,8 @@ export const useEditableStampImage = (): IResponse => {
   };
 
   return {
-    urls: urls,
-    loadUrl: loadUrl,
+    resources,
+    loadUrl,
     uploader: {
       ...imageUploader,
       upload: _upload,
